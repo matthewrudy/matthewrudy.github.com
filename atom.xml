@@ -4,7 +4,7 @@
   <title><![CDATA[RudyGems]]></title>
   <link href="http://matthewrudy.github.com/atom.xml" rel="self"/>
   <link href="http://matthewrudy.github.com/"/>
-  <updated>2013-02-04T23:37:25+00:00</updated>
+  <updated>2013-02-04T23:38:24+00:00</updated>
   <id>http://matthewrudy.github.com/</id>
   <author>
     <name><![CDATA[Matthew Rudy]]></name>
@@ -12,5 +12,455 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Configuring Foreman For Production And Development]]></title>
+    <link href="http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development/"/>
+    <updated>2013-01-13T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Configuring foreman for Production and Development]]></title>
+    <link href="http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development/"/>
+    <updated>2013-01-13T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development</id>
+    <content type="html"><![CDATA[<p>I follow the convention;</p>
+<ul><li><code>Procfile</code> defines <em>all</em> processes</li>
+<li><code>.foreman</code> set specific foreman variables</li>
+</ul><p>Development:</p>
+<ul><li><code>.env</code> sets environment variables for each developer</li>
+<li><code>.env.example</code> sets defaults for development</li>
+<li><code>foreman start</code> starts all processes</li>
+</ul><p>Production:</p>
+<ul><li><code>heroku config</code> sets environment variables</li>
+<li><code>heroku ps:scale</code> turns on or off whichever processes are needed for production</li>
+</ul><p>Here&#8217;s an example from a project.</p>
+<p>Procfile:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">web</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> unicorn_rails </span><span class="pun">-</span><span class="pln">p $PORT </span><span class="pun">-</span><span class="pln">c </span><span class="pun">./</span><span class="pln">config</span><span class="pun">/</span><span class="pln">unicorn</span><span class="pun">.</span><span class="pln">rb</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">worker</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake jobs</span><span class="pun">:</span><span class="pln">work</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">search</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake sunspot</span><span class="pun">:</span><span class="pln">solr</span><span class="pun">:</span><span class="pln">run</span></code></pre>
+<p>.env.example:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># default S3 bucket</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">keykeykeykeykeykey</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">secretsecretsecret</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
+<p>.env</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># developer's private S3 bucket</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">mememememememememe</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">mysecretmysecret</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
+<p>.foreman:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># development port is 3000</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">port</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3000</span></code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Daily Bundle Update]]></title>
+    <link href="http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update/"/>
+    <updated>2013-01-09T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The daily `bundle update`]]></title>
+    <link href="http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update/"/>
+    <updated>2013-01-09T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update</id>
+    <content type="html"><![CDATA[<p>A typical process for me is like this.</p>
+<p>I start off with</p>
+<ul><li>a dependency on Rails 3.1.10</li>
+<li>a dependency on <em>any version</em> of koala</li>
+</ul><p>So my Gemfile says exactly this</p>
+<pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"koala"</span></code></pre>
+<p>Every day I do a <code>bundle update</code>. Sometimes there are new versions of gems, sometimes there aren&#8217;t.</p>
+<p>One day there is a new version of <code>koala</code> released <code>koala (1.6.0)</code></p>
+<p>When I do my daily <code>bundle update</code> everything breaks. It turns out that <code>koala (1.6.0)</code> relies upon<code>faraday (0.8)</code>.</p>
+<p>For some reason this breaks my app.</p>
+<p>So I realise I have a new dependency, and I add it to my Gemfile.</p>
+<pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"faraday"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"0.7"</span><span class="pln"> </span><span class="com"># 0.8 breaks for some reason</span></code></pre>
+<p>Dealing with these problems in small doses, on a daily basis, makes it easier to deal with.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cd  Tmp]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/06/28/cd--tmp-/"/>
+    <updated>2011-06-28T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/06/28/cd&#8211;tmp-</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[cd -Tmp-]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/06/28/cd--tmp-/"/>
+    <updated>2011-06-28T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/06/28/cd&#8211;tmp-</id>
+    <content type="html"><![CDATA[<p>How do I cd to a directory starting with a hypen (-)?</p>
+<p><span>
+<pre># /var/folders/*whatever*/ has a folder named '-Tmp-'
+$ ls
+-Caches-/ -Tmp-/ 
+
+# lets try and CD there
+$ cd -Tmp-
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# or maybe make sure its a directory
+$ cd -Tmp-/
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# try and escape the first -
+$ cd \-Tmp-
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# quote it
+$ cd '-Tmp-'
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# double quote it
+$ cd "-Tmp-"
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# escape it in the quotes
+$ cd '\-Tmp-'
+-bash: cd: \-Tmp-: No such file or directory
+
+# escape it in the double quotes
+$ cd "\-Tmp-"
+-bash: cd: \-Tmp-: No such file or directory
+
+# try a "./" hack
+$ cd ./-Tmp-/
+
+$ echo "WHOOP"
+WHOOP</pre>
+</span></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fed Up Of Bundle Exec Rake Control Your Rage]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/"/>
+    <updated>2011-06-02T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fed up of `bundle exec rake`? Control your `rage`!]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/"/>
+    <updated>2011-06-02T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage</id>
+    <content type="html"><![CDATA[<p>For the past year we&#8217;ve all been happy.</p>
+<p>rake was stable at 0.8.7</p>
+<p>You could run</p>
+<pre>rake</pre>
+<p>In any project and it&#8217;d just work.</p>
+<p>But now, with the release of rake 0.9.0, sometimes we get this</p>
+<pre>RudiMac:3rdhome matthew$ rake
+rake aborted!
+You have already activated rake 0.9.0,
+but your Gemfile requires rake 0.8.7.
+Consider using bundle exec.
+
+(See full trace by running task with --trace)
+</pre>
+<p>And there&#8217;s a simple solution.</p>
+<h2><a href="https://gist.github.com/1003927">RAGE!</a></h2>
+<pre>#!/usr/bin/env bash
+if [ -f Gemfile ]; then
+  bundle exec rake $@
+else
+  rake $@
+fi</pre>
+<p>Either copy and paste <a href="https://gist.github.com/1003927">the gist</a> into an executable (~/bin/rage maybe)</p>
+<p>Or follow these instructions;</p>
+<pre>git clone git://gist.github.com/1003927.git ~/rage-gist
+mkdir ~/bin
+cp ~/rage-gist/rage ~/bin/
+chmod a+x ~/bin/rage</pre>
+<p>As long as ~/bin is in your path you should be set.</p>
+<pre>rage db:migrate test --trace</pre>
+<p>BOOM!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I Forgot To Commit To A Feature Branch]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/"/>
+    <updated>2011-05-18T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I forgot to commit to a feature branch!]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/"/>
+    <updated>2011-05-18T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch</id>
+    <content type="html"><![CDATA[<p>So I just committed to master</p>
+<pre>commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a
+Author: Jeffrey Giraffe &lt;Jeffrey.T.Giraffe@gmail.com&gt;
+Date:   Wed May 18 18:22:22 2011 +0800
+  Started work on an exciting new feature.
+</pre>
+<p>But I shouldn&#8217;t have.</p>
+<p>All features should be in a &#8220;feature branch&#8221;</p>
+<p>How do I move my commit onto a different branch?</p>
+<p>Luckily I haven&#8217;t pushed yet.</p>
+<p>So just start my &#8220;feature branch&#8221; right now.</p>
+<pre>git checkout -b exciting-new-feature
+git push origin exciting-new-feature</pre>
+<p>Then go back to master, and undo the commit</p>
+<pre>git checkout master
+git reset --hard HEAD~1</pre>
+<p>Or if there are 3 commits</p>
+<pre>git reset --hard HEAD~3</pre>
+<p>Of course, if I&#8217;ve already pushed this would be a little more tricky.</p>
+<p>I suggest (for verbosity) you shouldn&#8217;t try to do anything fancy.</p>
+<p>Just revert it</p>
+<pre>git revert HEAD</pre>
+<p>and humbly explain why</p>
+<pre>Revert "Started work on an exciting new feature."
+
+This commit is not ready to be on master yet,
+and has been moved onto the branch "exciting-new-feature"
+
+This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
+</pre>
+<p>Boom!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Running A Test Case Only When We Have Internet]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/"/>
+    <updated>2011-05-17T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Running a Test Case only when we have internet]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/"/>
+    <updated>2011-05-17T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet</id>
+    <content type="html"><![CDATA[<p>So I have some tests for geocoding, that I want to be run live.</p>
+<pre>test "geocoding" do
+  record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+  assert_equal 51.59011, record.latitude
+  assert_equal -2.995398, record.longitude
+end
+</pre>
+<p>Of course, these will fail when there&#8217;s no internet.</p>
+<p>My choices;</p>
+<ul><li>mock the geocoding API</li>
+<li>let them fail</li>
+<li>only run this test when there&#8217;s internet</li>
+</ul><p>I chose the latter.</p>
+<p>How do I know I have internet connection?</p>
+<p>Can I ping google?</p>
+<pre>system "ping -q -c 1 -t 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+<p>Complication!</p>
+<blockquote>
+<p>the above works on OSX (where -t1 sets a timeout of 1 second)</p>
+<p>but on Linux -t has a different meaning, and -w1 sets the timeout</p>
+<p>Compromise: ignore timeouts for the moment</p>
+</blockquote>
+<pre>system "ping -q -c 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+
+<p>Stick this in a method</p>
+<pre>def requires_internet!
+  if can_ping_google?
+    yield
+  else
+    flunk "this test needs to be run when there is internet"
+  end
+end
+</pre>
+<p>Now incorporate this into our test.</p>
+<pre>test "geocoding" do
+  requires_internet! do
+    record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+    assert_equal 50.0, record.latitude
+    assert_equal -0.3, record.longitude
+  end
+end
+</pre>
+<p>Done.</p>
+<p>Here&#8217;s <a title="get the gist?" href="https://gist.github.com/976285">the gist</a>. Fork it and make it better!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I Broke Rubygemsorg]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg/"/>
+    <updated>2011-04-01T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I broke RubyGems.org]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg/"/>
+    <updated>2011-04-01T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg</id>
+    <content type="html"><![CDATA[<p>Yes that&#8217;s right.</p>
+<p>I broke RubyGems.org.</p>
+<p>No April Fools Joke! (although this did happen after midnight HKT)</p>
+<p>&#8230; I&#8217;ve hidden the cause so they have a chance to fix it&#8230;</p>
+<p>&#8230; but its a unicode thing &#8230;</p>
+<blockquote></blockquote>
+<p>I packaged it with <a title="gem-this makes you a simple `gem this` away from releasing a gem!" href="https://github.com/lazyatom/gem-this">gem-this</a>,  and did a `gem push` it turned out <a href="http://rubygems.org">http://rubygems.org</a> was down!</p>
+<p>I went to bed hoping it would go away, and woke up on April 1st morning to find an email;</p>
+<blockquote>
+<p><span>Hi Matthew! Looks like you just found a bug that made our homepage unhappy.<br/><br/>=&gt; #&lt;Rubygem id: 39928, name: &#8230;,<br/><br/>I straight up deleted that gem. Can you send or paste the gem/gemspec<br/>with that so we can make sure this doesn&#8217;t happen again?<br/><br/>-Nick</span></p>
+</blockquote>
+<p><span>So, there you go!</span></p>
+<p><span>Rubygems.org currently can&#8217;t support unicode gem names!</span></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Upgrading Postgres 84 To 90 With Homebrew]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/"/>
+    <updated>2011-02-23T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Upgrading Postgres 8.4 to 9.0 with Homebrew]]></title>
+    <link href="http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/"/>
+    <updated>2011-02-23T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew</id>
+    <content type="html"><![CDATA[<p>I hoped it&#8217;d be as simple as a `brew install postgresql`</p>
+<p>And it almost was.</p>
+<p>But&#8230;</p>
+<pre>RudiMac:merlot matthew$ tail -f /usr/local/var/postgres/server.log
+FATAL:  database files are incompatible with server
+DETAIL:  The data directory was initialized by PostgreSQL version 8.4, which is not compatible with this version 9.0.3.</pre>
+<p>How do I fix the data files?</p>
+<p>Turns out there is a `pg_update` method to do this for you.</p>
+<p>But it requires a bit of manual work.</p>
+<pre># First of all stop the server
+launchctl unload -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
+
+# backup the old data directory
+mv /usr/local/var/postgres /usr/local/var/postgres.old
+
+# now create a fresh postgres 9 data directory
+initdb /usr/local/var/postgres</pre>
+<p>Now we&#8217;re ready to do the upgrade.</p>
+<pre>pg_upgrade -d /usr/local/var/postgres.844/ -D /usr/local/var/postgres -b /usr/local/Cellar/postgresql/8.4.4/bin -B /usr/local/Cellar/postgresql/9.0.3/bin
+...
+Upgrade complete
+----------------</pre>
+<p>Boom Ting</p>
+<p>Now just add the launch control back in and we&#8217;re off.</p>
+<pre>cp /usr/local/Cellar/postgresql/9.0.3/org.postgresql.postgres.plist ~/Library/LaunchAgents
+launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hong Kong Ruby Group Christmas Photo]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/"/>
+    <updated>2010-12-17T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hong Kong Ruby Group Christmas Photo]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/"/>
+    <updated>2010-12-17T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo</id>
+    <content type="html"><![CDATA[<img src="http://www.tumblr.com/photo/1280/rudygems/2342419598/1/tumblr_ldjsb9GeTr1qzqhg9"/>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Parseint May Not Do What You Expect]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/"/>
+    <updated>2010-12-03T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript parseInt() may not do what you expect!]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/"/>
+    <updated>2010-12-03T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect</id>
+    <content type="html"><![CDATA[<p>I was shocked today to find I&#8217;d introduced a bug.</p>
+<p>It manifested itself like this;</p>
+<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
+<p>This might seem ok.</p>
+<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
+<blockquote>
+<p>the number of days interest</p>
+<p>less the number of days before repayment begins</p>
+</blockquote>
+<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
+<p>But the difference is -6.</p>
+<p>Something is wrong.</p>
+<p>And the answer is here;</p>
+<blockquote>
+<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
+</blockquote>
+<p>I take a date field</p>
+<blockquote>
+<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
+</blockquote>
+<p>I grab the value</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;</p>
+</blockquote>
+<p>I split it into year, month, and day</p>
+<blockquote>
+<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
+</blockquote>
+<p>I turn them into integers</p>
+<blockquote>
+<p>[2010, 12, 0]</p>
+</blockquote>
+<p>Then I make them into a date</p>
+<blockquote>
+<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>No problem!</p>
+<p>Except&#8230;</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>The problem is</p>
+<blockquote>
+<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
+<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
+</blockquote>
+<p>&#8220;08&#8221; is 0 in octal</p>
+<p><strong>Always use parseInt(something, 10)<br/></strong></p>
+]]></content>
+  </entry>
   
 </feed>

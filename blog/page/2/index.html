@@ -9,8 +9,8 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="Bundler is still a work in progress, so you can expect things to change.
+One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/">Running a Test Case Only When We Have Internet</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/11/24/bundler-as-a-gemfile-dependency/">Bundler as a Gemfile Dependency</a></h1>
     
     
       <p class="meta">
@@ -87,14 +87,33 @@
   
 
 
-<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+<time datetime="2010-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>Bundler is still a work in progress, so you can expect things to change.</p>
+<p>One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 is that the &#8220;METADATA&#8221; field has been removed.</p>
+<p>So I&#8217;m running Bundler 1.0.7 (with no METADATA) and my colleagues are running 1.0.6 (with METADATA)</p>
+<p>I keep getting this diff.</p>
+<blockquote>$ git diff Gemfile.lock<br/>diff &#8212;git a/Gemfile.lock b/Gemfile.lock<br/>index ec585b3..ee6ba65&#160;100644<br/>&#8212;- a/Gemfile.lock<br/>+++ b/Gemfile.lock<br/>@@ -221,3 +221,7 @@ DEPENDENCIES<br/>   whitelist_mail_proxy<br/>   will_paginate!<br/>   zipruby<br/>-<br/>-<br/>-METADATA<br/>-  version: 1.0.6<br/></blockquote>
+<p>I want bundler to manage itself</p>
+<blockquote>
+<p># self-referential<br/>gem &#8220;bundler&#8221;, &#8220;&gt;=1.0.7&#8221;</p>
+</blockquote>
+<p>And it works</p>
+<p>but the message is a bit unpretty</p>
+<blockquote>
+<p>RudiMac:merlot matthew$ bundle install<br/><br/>Fetching source index for <a href="http://rubygems.org/">http://rubygems.org/</a><br/>Bundler could not find compatible versions for gem &#8220;bundler&#8221;:<br/>  In Gemfile:<br/>    bundler (&gt;= 1.0.7)<br/><br/>  Current Bundler version:<br/>    bundler (1.0.6)<br/><br/>Your version of Bundler is older than the one requested by the Gemfile.<br/>Perhaps you need to update Bundler by running `gem install bundler`.</p>
+</blockquote>
+<p>I need to use &#8220;gem install&#8221;?</p>
+<p>I wonder if we can patch bundler to install itself.</p>
+<p><em>I recommend you always have a &#8220;&gt;= x.x.x&#8221;&#8230; just for jokes try setting</em></p>
+<blockquote>
+<p>gem &#8220;bundler&#8221;, &#8220;1.0.6&#8221;</p>
+</blockquote>
 </div>
   
   
@@ -107,7 +126,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/">Running a Test Case Only When We Have Internet</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/11/23/even-more-ruby-in-chinese/">Even More Ruby in Chinese</a></h1>
     
     
       <p class="meta">
@@ -123,57 +142,71 @@
   
 
 
-<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+<time datetime="2010-11-23T00:00:00+00:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>So I have some tests for geocoding, that I want to be run live.</p>
-<pre>test "geocoding" do
-  record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
-  assert_equal 51.59011, record.latitude
-  assert_equal -2.995398, record.longitude
-end
-</pre>
-<p>Of course, these will fail when there&#8217;s no internet.</p>
-<p>My choices;</p>
-<ul><li>mock the geocoding API</li>
-<li>let them fail</li>
-<li>only run this test when there&#8217;s internet</li>
-</ul><p>I chose the latter.</p>
-<p>How do I know I have internet connection?</p>
-<p>Can I ping google?</p>
-<pre>system "ping -q -c 1 -t 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
-<p>Complication!</p>
-<blockquote>
-<p>the above works on OSX (where -t1 sets a timeout of 1 second)</p>
-<p>but on Linux -t has a different meaning, and -w1 sets the timeout</p>
-<p>Compromise: ignore timeouts for the moment</p>
-</blockquote>
-<pre>system "ping -q -c 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+  <div class="entry-content"><p>I realised I can write even more Ruby in Chinese.</p>
+<p>The only gotchas are;</p>
+<ul><li>don&#8217;t attempt to use Chinese punctuation （”‘＝＋－，。）</li>
+<li>it doesn&#8217;t recognise Chinese as uppercase, so you can&#8217;t start a class or Constant name with a chinese character</li>
+</ul><p>So here is my code.</p>
+<pre><code class="ruby"># encoding: utf-8
 
-<p>Stick this in a method</p>
-<pre>def requires_internet!
-  if can_ping_google?
-    yield
-  else
-    flunk "this test needs to be run when there is internet"
+class C动物
+
+  def initialize(名字)
+    @名字 = 名字
   end
-end
-</pre>
-<p>Now incorporate this into our test.</p>
-<pre>test "geocoding" do
-  requires_internet! do
-    record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
-    assert_equal 50.0, record.latitude
-    assert_equal -0.3, record.longitude
+  attr_reader :名字
+
+  def 朋友?(别的)
+    true
   end
+
+  def 吃了?
+    false
+  end
+
 end
-</pre>
-<p>Done.</p>
-<p>Here&#8217;s <a title="get the gist?" href="https://gist.github.com/976285">the gist</a>. Fork it and make it better!</p>
+
+class C狗 &lt; C动物
+  
+  def 朋友?(别的)
+    !别的.is_a?(C马泰)
+  end
+
+end
+
+class C人 &lt; C动物
+end
+
+class C马泰 &lt; C人
+  
+  def 吃了?(别的)
+    别的.is_a?(C狗)
+  end
+
+end
+
+我=C马泰.new("马泰")
+puts "我的名字是#{我.名字}"
+她=C人.new("张学敏")
+puts "她的名字是#{她.名字}"
+
+狗=C狗.new("阿财")
+puts "狗的名字是#{狗.名字}"
+
+puts "狗是我的朋友吗？#{我.朋友?(狗)}"
+puts "我是狗的朋友吗？#{狗.朋友?(我)}"
+
+puts "狗吃了我吗？#{狗.吃了?(我)}"
+puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
+<p>See the full gist at <a href="https://gist.github.com/711563"><a href="https://gist.github.com/711563">https://gist.github.com/711563</a></a></p>
+<p>Maybe I should write a plugin for rails.</p>
 </div>
   
   
@@ -186,7 +219,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/04/01/i-broke-rubygemsorg/">I Broke Rubygemsorg</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/10/11/ruby-in-chinese/">Ruby in Chinese</a></h1>
     
     
       <p class="meta">
@@ -202,14 +235,31 @@ end
   
 
 
-<time datetime="2011-04-01T00:00:00+01:00" pubdate data-updated="true">Apr 1<span>st</span>, 2011</time>
+<time datetime="2010-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>in Ruby 1.8, if you try and assign a variable</p>
+<blockquote>
+<p>你=&#8221;ni3&#8221;</p>
+</blockquote>
+<p>you&#8217;ll get an error</p>
+<blockquote>
+<p>Invalid char `\344&#8217; in expression<br/>Invalid char `\275&#8217; in expression<br/>Invalid char `\240&#8217; in expression<br/>syntax error, unexpected &#8216;=&#8217;<br/>你= &#8220;ni3&#8221;</p>
+</blockquote>
+<p>But in Ruby 1.9 it actually works.</p>
+<p>You just need to add a magic &#8220;coding: uft-8&#8221; header to your ruby file.</p>
+<blockquote>
+<p># coding: utf-8<br/>你= &#8220;ni3&#8221;<br/>好= &#8220;hao3&#8221;<br/>puts(你+好)</p>
+</blockquote>
+<p>Wham!</p>
+<blockquote>
+<p>matthew@RuPro:~$ ruby chinese.rb <br/>ni3hao3</p>
+</blockquote>
+<p>(if you can&#8217;t write chinese, steal my gist <a href="http://gist.github.com/613670">http://gist.github.com/613670</a>)</p>
 </div>
   
   
@@ -222,7 +272,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/04/01/i-broke-rubygemsorg/">I Broke RubyGems.org</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/09/15/how-to-delete-a-file-from-git-history/">How to Delete a File From Git History</a></h1>
     
     
       <p class="meta">
@@ -238,26 +288,53 @@ end
   
 
 
-<time datetime="2011-04-01T00:00:00+01:00" pubdate data-updated="true">Apr 1<span>st</span>, 2011</time>
+<time datetime="2010-09-15T00:00:00+01:00" pubdate data-updated="true">Sep 15<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Yes that&#8217;s right.</p>
-<p>I broke RubyGems.org.</p>
-<p>No April Fools Joke! (although this did happen after midnight HKT)</p>
-<p>&#8230; I&#8217;ve hidden the cause so they have a chance to fix it&#8230;</p>
-<p>&#8230; but its a unicode thing &#8230;</p>
-<blockquote></blockquote>
-<p>I packaged it with <a title="gem-this makes you a simple `gem this` away from releasing a gem!" href="https://github.com/lazyatom/gem-this">gem-this</a>,  and did a `gem push` it turned out <a href="http://rubygems.org">http://rubygems.org</a> was down!</p>
-<p>I went to bed hoping it would go away, and woke up on April 1st morning to find an email;</p>
+  <div class="entry-content"><p>I always think about this problem;</p>
 <blockquote>
-<p><span>Hi Matthew! Looks like you just found a bug that made our homepage unhappy.<br/><br/>=&gt; #&lt;Rubygem id: 39928, name: &#8230;,<br/><br/>I straight up deleted that gem. Can you send or paste the gem/gemspec<br/>with that so we can make sure this doesn&#8217;t happen again?<br/><br/>-Nick</span></p>
+<p>What happens if I accidentally commit my password into a git repository?</p>
+<p>Surely it&#8217;ll be there forever?</p>
 </blockquote>
-<p><span>So, there you go!</span></p>
-<p><span>Rubygems.org currently can&#8217;t support unicode gem names!</span></p>
+<p>Or</p>
+<blockquote>
+<p>Oh man&#8230; I just committed a 700mb video file into the repository</p>
+<p>It&#8217;s going to take forever to deploy&#8230;</p>
+</blockquote>
+<p>I&#8217;ve always known &#8220;get rebase&#8221; will probably be the answer</p>
+<p>Luckily <a title='The "Pro Git" book' href="http://progit.org/book/ch6-4.html">ProGit</a> knows exactly what to do. </p>
+<blockquote>
+<p>git filter-branch &#8212;tree-filter &#8216;some-bash-command&#8217; HEAD</p>
+</blockquote>
+<p>So here&#8217;s my example of how to use it.</p>
+<p>I’ve accidentally added a picture of my bum to this rep.</p>
+<blockquote>
+<p>$ git show 84c344<br/>commit 84c344c1874736a6d063ed45abe21e20815525b9<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800<br/><br/>  add my bum<br/><br/>diff &#8212;git a/mybum.jpg b/mybum.jpg<br/>new file mode 100644<br/>index 0000000..018be38<br/>&#8212;- /dev/null<br/>+++ b/mybum.jpg<br/>@@ -0,0 +1 @@<br/>+a picture of my bum</p>
+</blockquote>
+<p>so let&#8217;s try and wipe it from history.</p>
+<blockquote>
+<p>$ git filter-branch &#8212;tree-filter &#8216;rm -f mybum.jpg&#8217; HEAD<br/>Rewrite 76a50a3b1b3263d84517c8e6241ec0bf2bf36fdc (4/4)<br/>Ref &#8216;refs/heads/master&#8217; was rewritten</p>
+</blockquote>
+<p>now commit 84c344 is still there, but it is not in our branch.<br/>Looking at git log, I can see it&#8217;s been rewritten to f59366</p>
+<blockquote>
+<p>$ git show f59366<br/>commit f59366420a8b753de5a0d2812e0abbfb95fccfdf<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800</p>
+<p>    add my bum</p>
+</blockquote>
+<p>so my bum is no longer there. In the working tree, or in history.</p>
+<p>Right now <strong>DON&#8217;T git pull</strong> it will merge your commits with the original commits.</p>
+<p>You&#8217;ll have achieved nothing (except doubling the number of commits)</p>
+<p>I don&#8217;t have an elegant solution&#8230; but this seems the only way.</p>
+<blockquote>
+<p>delete all remote repositories</p>
+<p>and push to them again</p>
+</blockquote>
+<p>I&#8217;m sure there&#8217;s a better way&#8230; but I haven&#8217;t found it.</p>
+<p>Here&#8217;s my example repo <a href="http://github.com/matthewrudy/git-rebase-test"><a href="http://github.com/matthewrudy/git-rebase-test">http://github.com/matthewrudy/git-rebase-test</a></a></p>
+<p>go play!</p>
 </div>
   
   
@@ -270,7 +347,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/">Upgrading Postgres 84 to 90 With Homebrew</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/09/08/git-pp-git-push--git-pull/">Git Pp (Git Push && Git Pull)</a></h1>
     
     
       <p class="meta">
@@ -286,14 +363,33 @@ end
   
 
 
-<time datetime="2011-02-23T00:00:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2011</time>
+<time datetime="2010-09-08T00:00:00+01:00" pubdate data-updated="true">Sep 8<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>I am addicted to committing (not commitment).</p>
+<p>I make small, distinct commits all the time.</p>
+<p>But the consequence of this is</p>
+<blockquote>
+<p>$ git push origin master</p>
+<p>To git@myServer:myRepo.git<br/> &#160;! [rejected]        master -&gt; master (non-fast-forward)<br/>  error: failed to push some refs to &#8216;git@myServer:myRepo.git&#8217;</p>
+<p>To prevent you from losing history, non-fast-forward updates were rejected</p>
+<p>Merge the remote changes (e.g. &#8216;git pull&#8217;) before pushing again.  See the<br/>&#8216;Note about fast-forwards&#8217; section of &#8216;git push &#8212;help&#8217; for details.</p>
+</blockquote>
+<p>I hate getting push failures.</p>
+<p>But I don&#8217;t trust myself to do a pull beforehand.</p>
+<p>Enter a git alias!</p>
+<blockquote>
+<p>$ cat ~/.gitconfig <br/>[alias]<br/>    pp =&#160;!sh -c &#8216;git pull $0 $1 &amp;&amp; git push $0 $1&#8217;</p>
+</blockquote>
+<p>Now I am free to &#8220;git pp origin master&#8221; as much as I want.</p>
+<blockquote>
+<p>$ git pp origin master</p>
+From myServer:myRepo<br/> * branch            master     -&gt; FETCH_HEAD<br/>Already up-to-date.<br/>Everything up-to-date<br/></blockquote>
+<p>SAFE!</p>
 </div>
   
   
@@ -306,7 +402,7 @@ end
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/">Upgrading Postgres 8.4 to 9.0 With Homebrew</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/08/27/or-logic-in-gmail-filters/">Or Logic in Gmail Filters</a></h1>
     
     
       <p class="meta">
@@ -322,39 +418,26 @@ end
   
 
 
-<time datetime="2011-02-23T00:00:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2011</time>
+<time datetime="2010-08-27T00:00:00+01:00" pubdate data-updated="true">Aug 27<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I hoped it&#8217;d be as simple as a `brew install postgresql`</p>
-<p>And it almost was.</p>
-<p>But&#8230;</p>
-<pre>RudiMac:merlot matthew$ tail -f /usr/local/var/postgres/server.log
-FATAL:  database files are incompatible with server
-DETAIL:  The data directory was initialized by PostgreSQL version 8.4, which is not compatible with this version 9.0.3.</pre>
-<p>How do I fix the data files?</p>
-<p>Turns out there is a `pg_update` method to do this for you.</p>
-<p>But it requires a bit of manual work.</p>
-<pre># First of all stop the server
-launchctl unload -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
-
-# backup the old data directory
-mv /usr/local/var/postgres /usr/local/var/postgres.old
-
-# now create a fresh postgres 9 data directory
-initdb /usr/local/var/postgres</pre>
-<p>Now we&#8217;re ready to do the upgrade.</p>
-<pre>pg_upgrade -d /usr/local/var/postgres.844/ -D /usr/local/var/postgres -b /usr/local/Cellar/postgresql/8.4.4/bin -B /usr/local/Cellar/postgresql/9.0.3/bin
-...
-Upgrade complete
-----------------</pre>
-<p>Boom Ting</p>
-<p>Now just add the launch control back in and we&#8217;re off.</p>
-<pre>cp /usr/local/Cellar/postgresql/9.0.3/org.postgresql.postgres.plist ~/Library/LaunchAgents
-launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
+  <div class="entry-content"><p>I don&#8217;t want to have to read all the emails from my old job,</p>
+<p>but I do want to read some of them.</p>
+<p>So the obvious answer is using gmail filters, to tag, and archive the ones I don&#8217;t want.</p>
+<p>It turns out the emails I don&#8217;t care about are sent to</p>
+<blockquote>
+<p><strong>notifications@somedomain.com</strong> and <strong>something-notify@otherdomain.com</strong></p>
+</blockquote>
+<p>I guess it makes sense, but in the filter box we can use the &#8220;<strong>OR</strong>&#8221; keyword</p>
+<blockquote>
+<p>notifications@somedomain.com<strong> OR</strong> notify@otherdomain.com <strong><br/></strong></p>
+</blockquote>
+<p><img src="http://media.tumblr.com/tumblr_l7togsaiBI1qzqesv.jpg"/></p>
+<p><strong>Boom ting!</strong></p>
 </div>
   
   
@@ -367,7 +450,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/">Hong Kong Ruby Group Christmas Photo</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty/">Stop Adding Methods to Symbol Just to Make Your DSL Look Pretty!</a></h1>
     
     
       <p class="meta">
@@ -383,14 +466,19 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   
 
 
-<time datetime="2010-12-17T00:00:00+00:00" pubdate data-updated="true">Dec 17<span>th</span>, 2010</time>
+<time datetime="2010-06-18T00:00:00+01:00" pubdate data-updated="true">Jun 18<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>I remember the first time I saw <a href="http://datamapper.org/">Datamapper</a>.</p>
+<p>I liked saying &#8220;:something.gt something_else&#8221;.</p>
+<p>It was pretty.</p>
+<p>But after a while I realised it wasn&#8217;t necessary.</p>
+<p>So why are we still building APIs that involve extending Symbol?</p>
+<script src="http://gist.github.com/443165.js?file=symbol-extensions-in-finder-apis.rb"></script><p><em>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+railstips+%28Rails+Tips%29">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a></em></p>
 </div>
   
   
@@ -403,7 +491,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/">Hong Kong Ruby Group Christmas Photo</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/06/02/ruby-enterprise-edition-still-faster-than-ruby-192/">Ruby Enterprise Edition Still Faster Than Ruby 1.9.2?</a></h1>
     
     
       <p class="meta">
@@ -419,14 +507,44 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   
 
 
-<time datetime="2010-12-17T00:00:00+00:00" pubdate data-updated="true">Dec 17<span>th</span>, 2010</time>
+<time datetime="2010-06-02T00:00:00+01:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><img src="http://www.tumblr.com/photo/1280/rudygems/2342419598/1/tumblr_ldjsb9GeTr1qzqhg9"/>
+  <div class="entry-content"><p>With Ruby 1.9.2 due to ship on July 31st, I thought I&#8217;d take Ruby 1.9.2 preview 3 for a spin.</p>
+<p>A quick&#8230;</p>
+<blockquote>
+<p>rvm install ruby-1.9.2-preview3</p>
+<p>gem install rails prawn erubis</p>
+</blockquote>
+<p>&#8230; and we&#8217;re done.</p>
+<p>But is it any faster than REE?</p>
+<p><strong>What does it mean to be faster?</strong></p>
+<p>Perhaps all I care about is how fast my tests run</p>
+<blockquote>
+<p>rvm use ruby-1.9.2-preview3</p>
+<p>time rake</p>
+<p>rvm use ree</p>
+<p>time rake</p>
+<p># repeat..</p>
+</blockquote>
+<p><strong>My app:</strong></p>
+<ul><li> Rails 2.3.6</li>
+<li>rails_xss</li>
+<li>postgres</li>
+<li>~25 models</li>
+<li>~25 controllers</li>
+</ul><p><strong>My test suite:</strong></p>
+<ul><li>~1700 assertions</li>
+<li>~95% <a title="rcov_rails for rails coverage" href="http://github.com/matthewrudy/rcov_rails">code coverage</a></li>
+</ul><p><strong>Results;</strong></p>
+<script src="http://gist.github.com/421949.js?file=ruby-1.9.2-vs-ree-test-suite"></script><p>So REE is consistently 10% faster at running my test suite than Ruby 1.9.2-preview3</p>
+<p><strong>Does this matter?</strong></p>
+<p>Probably not&#8230; but maybe I can use those extra 5 seconds.</p>
+<p><em>(can&#8217;t wait to see if the <a href="http://www.youtube.com/watch?v=ghLCtCwAKqQ">Phusion.nl</a> guys can make Ruby 1.9.2 faster&#8230; )</em></p>
 </div>
   
   
@@ -439,7 +557,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/">Javascript Parseint May Not Do What You Expect</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/05/04/ssh--d-is-your-friend/">Ssh -D Is Your Friend!</a></h1>
     
     
       <p class="meta">
@@ -455,14 +573,32 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   
 
 
-<time datetime="2010-12-03T00:00:00+00:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2010</time>
+<time datetime="2010-05-04T00:00:00+01:00" pubdate data-updated="true">May 4<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><blockquote>
+<p>Are you stuck behind a firewall?</p>
+<p>Does your work block access to facebook?</p>
+<p>Do you want to watch English Telly from abroad?</p>
+</blockquote>
+<p><strong>SSH -D is your friend.</strong></p>
+<p><br/>All you need to bypass the firewall;</p>
+<ul><li>ssh access to a VPS</li>
+<li>ssh -D8080 me@myserver.com // keep this open</li>
+<li>go to your browser</li>
+<li>set &#8220;connect via SOCKS proxy&#8221; on port 8080</li>
+<li>keep the ssh connection open</li>
+<li>voila!</li>
+</ul><p>Your internet access is now piped via your VPS.</p>
+<p>This means;</p>
+<ul><li>if it is in the UK you can access iPlayer</li>
+<li>if it is in the US you can access Hulu</li>
+<li>if you were in China you can access&#8230; everything</li>
+</ul><p>Boom ting!</p>
 </div>
   
   
@@ -475,7 +611,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/">Javascript parseInt() May Not Do What You Expect!</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/">Rails 3 Doesn&#8217;t Allow &#8220;Open&#8221; as a Named Scope</a></h1>
     
     
       <p class="meta">
@@ -491,61 +627,34 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   
 
 
-<time datetime="2010-12-03T00:00:00+00:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2010</time>
+<time datetime="2010-03-01T00:00:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I was shocked today to find I&#8217;d introduced a bug.</p>
-<p>It manifested itself like this;</p>
-<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
-<p>This might seem ok.</p>
-<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
-<blockquote>
-<p>the number of days interest</p>
-<p>less the number of days before repayment begins</p>
-</blockquote>
-<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
-<p>But the difference is -6.</p>
-<p>Something is wrong.</p>
-<p>And the answer is here;</p>
-<blockquote>
-<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
-</blockquote>
-<p>I take a date field</p>
-<blockquote>
-<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
-</blockquote>
-<p>I grab the value</p>
-<blockquote>
-<p>&#8220;2010-12-08&#8221;</p>
-</blockquote>
-<p>I split it into year, month, and day</p>
-<blockquote>
-<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
-</blockquote>
-<p>I turn them into integers</p>
-<blockquote>
-<p>[2010, 12, 0]</p>
-</blockquote>
-<p>Then I make them into a date</p>
-<blockquote>
-<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
-</blockquote>
-<p>No problem!</p>
-<p>Except&#8230;</p>
-<blockquote>
-<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
-</blockquote>
-<p>The problem is</p>
-<blockquote>
-<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
-<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
-</blockquote>
-<p>&#8220;08&#8221; is 0 in octal</p>
-<p><strong>Always use parseInt(something, 10)<br/></strong></p>
+  <div class="entry-content"><p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
+<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
+<p>But this one kind of annoys me.</p>
+<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
+<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
+<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
+<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
+<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
+<p>So here&#8217;s a quick hack I put in an initializer</p>
+<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
+require 'active_record'
+class ActiveRecord::Base
+  class &lt;&lt; self
+    alias :_open :open
+    undef_method :open
+  end
+end</code></pre>
+<p>And we&#8217;re done&#8230;</p>
+<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
+<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
+<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
 </div>
   
   
@@ -570,15 +679,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring Foreman For Production And Development</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/09/the-daily-bundle-update/">The Daily Bundle Update</a>
       </li>
     
       <li class="post">
@@ -586,7 +687,15 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/06/28/cd--tmp-/">Cd  Tmp</a>
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

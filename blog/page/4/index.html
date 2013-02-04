@@ -9,8 +9,9 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="We just moved to new Ubuntu servers.
+We use file-column (with some modifications) to deal with our file uploads.
+deploy@jgp-web01:/var/www/oursite$ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +72,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/08/27/or-logic-in-gmail-filters/">Or Logic in Gmail Filters</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/15/uid-problems-across-a-shared-mount/">UID Problems Across a Shared Mount?</a></h1>
     
     
       <p class="meta">
@@ -87,14 +88,25 @@
   
 
 
-<time datetime="2010-08-27T00:00:00+01:00" pubdate data-updated="true">Aug 27<span>th</span>, 2010</time>
+<time datetime="2008-11-15T00:00:00+00:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>We just moved to new Ubuntu servers.</p>
+<p>We use file-column (with some modifications) to deal with our file uploads.</p>
+<pre><code>deploy@jgp-web01:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 gerhard www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/><br/></code><code>deploy@jgp-web02:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 deploy www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/></code><br/></pre>
+<p>If you look carefully, you&#8217;ll see one is owned by &#8220;deploy&#8221; and the other by &#8220;gerhard&#8221;.</p>
+<p>These are mounted by NFS, shared across the two computers.</p>
+<p>So these are actually the same file, but with different permissions on each.</p>
+<p>A quick use of the &#8220;id&#8221; command confirmed this;</p>
+<pre><code>deploy@jgp-web01:~$ id deploy<br/>uid=1004(deploy) gid=33(www-data) groups=33(www-data),1005(aspire)<br/><br/>deploy@jgp-web02:~$ id deploy<br/>uid=1002(deploy) gid=33(www-data) groups=33(www-data),1003(aspire)</code></pre>
+<p>The answer is;</p>
+<pre><code>root@jgp-web01:~# usermod -u 10000 deploy<br/><br/>root@jgp-web02:~# usermod -u 10000 deploy</code></pre>
+<p>boom!</p>
+<p>Now this is resolved, but you&#8217;ll have to chown all the existing files, back to `deploy`, else they&#8217;ll still be attached to the old uid.</p>
 </div>
   
   
@@ -107,7 +119,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/08/27/or-logic-in-gmail-filters/">Or Logic in Gmail Filters</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/12/svn-switch-relocate-svnoldserver-svnsshnewserver/">Svn Switch —relocate Svn://oldserver Svn+ssh://newserver</a></h1>
     
     
       <p class="meta">
@@ -123,26 +135,14 @@
   
 
 
-<time datetime="2010-08-27T00:00:00+01:00" pubdate data-updated="true">Aug 27<span>th</span>, 2010</time>
+<time datetime="2008-11-12T00:00:00+00:00" pubdate data-updated="true">Nov 12<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I don&#8217;t want to have to read all the emails from my old job,</p>
-<p>but I do want to read some of them.</p>
-<p>So the obvious answer is using gmail filters, to tag, and archive the ones I don&#8217;t want.</p>
-<p>It turns out the emails I don&#8217;t care about are sent to</p>
-<blockquote>
-<p><strong>notifications@somedomain.com</strong> and <strong>something-notify@otherdomain.com</strong></p>
-</blockquote>
-<p>I guess it makes sense, but in the filter box we can use the &#8220;<strong>OR</strong>&#8221; keyword</p>
-<blockquote>
-<p>notifications@somedomain.com<strong> OR</strong> notify@otherdomain.com <strong><br/></strong></p>
-</blockquote>
-<p><img src="http://media.tumblr.com/tumblr_l7togsaiBI1qzqesv.jpg"/></p>
-<p><strong>Boom ting!</strong></p>
+  <div class="entry-content"><blockquote>svn switch &#8212;relocate svn://oldserver svn+ssh://newserver</blockquote>&#8212;need to move your svn repository?
 </div>
   
   
@@ -155,7 +155,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty/">Stop Adding Methods to Symbol Just to Make Your Dsl Look Pretty</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/01/welcome-home-dhhafter-a-long-time-it-seems-dhh-is-back-actively-commiting-to-railsgetting-ready-for-22-to-be-released-hes-committed-20-times-in-the-past-weekits-nice-to-see/">Welcome Home DHH! After a Long Time, It Seems DHH Is Back, Actively Commiting to Rails. Getting Ready for 2.2 to Be Released, He’s Committed 20 Times in the Past Week. It’s Nice to See.</a></h1>
     
     
       <p class="meta">
@@ -171,14 +171,14 @@
   
 
 
-<time datetime="2010-06-18T00:00:00+01:00" pubdate data-updated="true">Jun 18<span>th</span>, 2010</time>
+<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><img src="http://www.tumblr.com/photo/1280/rudygems/57452448/1/QHTuMQiIgfrzksinPCEzcWtO"/>
 </div>
   
   
@@ -191,7 +191,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty/">Stop Adding Methods to Symbol Just to Make Your DSL Look Pretty!</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/10/24/google-app-engine-to-support-ruby/">Google App Engine to Support Ruby?</a></h1>
     
     
       <p class="meta">
@@ -207,19 +207,21 @@
   
 
 
-<time datetime="2010-06-18T00:00:00+01:00" pubdate data-updated="true">Jun 18<span>th</span>, 2010</time>
+<time datetime="2008-10-24T00:00:00+01:00" pubdate data-updated="true">Oct 24<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I remember the first time I saw <a href="http://datamapper.org/">Datamapper</a>.</p>
-<p>I liked saying &#8220;:something.gt something_else&#8221;.</p>
-<p>It was pretty.</p>
-<p>But after a while I realised it wasn&#8217;t necessary.</p>
-<p>So why are we still building APIs that involve extending Symbol?</p>
-<script src="http://gist.github.com/443165.js?file=symbol-extensions-in-finder-apis.rb"></script><p><em>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+railstips+%28Rails+Tips%29">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a></em></p>
+  <div class="entry-content"><p>A <a href="http://googleappengine.blogspot.com/2008/10/google-app-engine-roadmap-now-published.html">recent post</a> on the Google App Engine blog refers to;</p>
+<blockquote>&#8220;Support for a new runtime language&#8221;</blockquote>
+<p>That&#8217;s got to be ruby&#8230;</p>
+<p>Imagine a bespoke <a href="http://deadprogrammersociety.blogspot.com/2007/10/sinatra-ruby-web-framework-and-why-it.html">Sinatra</a>-style minimal framework, with <a href="http://datamapper.org/doku.php">DataMapper</a> bindings to the <a href="http://sites.google.com/site/io/under-the-covers-of-the-google-app-engine-datastore">Google DataStore</a>.</p>
+<p>No doubt it&#8217;ll be pretty quick to make it work with Merb as well.</p>
+<p>AWESOME.</p>
+<p>Why did google never reply to my job application asking to work on it?</p>
+<p><i>(if you haven&#8217;t seen the videos from last years Google IO, then they&#8217;re well worth watching - <a href="http://sites.google.com/site/io/">here</a>)</i></p>
 </div>
   
   
@@ -232,7 +234,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/06/02/ruby-enterprise-edition-still-faster-than-ruby-192/">Ruby Enterprise Edition Still Faster Than Ruby 192</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/10/19/its-hard-enough-to-push-out-a-great-ideaeven-if-you-thought-of-itand-have-spent-years-thinking-about-itif-a-potential-investor-is-going-to-take-the-time-money-and-bother-to-steal-your-ideathen-someone-/">It’s Hard Enough to Push Out a Great Idea, Even if You Thought of It, and Have Spent Years Thinking About It. If a Potential Investor Is Going to Take the Time, Money, and Bother to Steal Your Idea, Then Someone Else Is Going to Buy It From You Before They Have a Chance.</a></h1>
     
     
       <p class="meta">
@@ -248,14 +250,20 @@
   
 
 
-<time datetime="2010-06-02T00:00:00+01:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2010</time>
+<time datetime="2008-10-19T00:00:00+01:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><blockquote><p>it&#8217;s hard enough to push out a great idea,<br/>
+even if you thought of it,<br/>
+and have spent years thinking about it.</p>
+
+<p>If a potential investor is going to take the time, money, and bother to steal your idea,<br/>
+then someone else is going to buy it from you<br/>
+before they have a chance.</p></blockquote>&#8212;me, talking to <a href="http://clanbase.ggl.com/personinfo.php?pid=2872454">Stephen Strudwick</a> about startups, already in Beta, being too scared to pitch to investors!
 </div>
   
   
@@ -268,7 +276,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/06/02/ruby-enterprise-edition-still-faster-than-ruby-192/">Ruby Enterprise Edition Still Faster Than Ruby 1.9.2?</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/10/15/rendering-layouts-that-live-in-public/">Rendering Layouts That Live in /public?</a></h1>
     
     
       <p class="meta">
@@ -284,226 +292,211 @@
   
 
 
-<time datetime="2010-06-02T00:00:00+01:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2010</time>
+<time datetime="2008-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>With Ruby 1.9.2 due to ship on July 31st, I thought I&#8217;d take Ruby 1.9.2 preview 3 for a spin.</p>
-<p>A quick&#8230;</p>
-<blockquote>
-<p>rvm install ruby-1.9.2-preview3</p>
-<p>gem install rails prawn erubis</p>
-</blockquote>
-<p>&#8230; and we&#8217;re done.</p>
-<p>But is it any faster than REE?</p>
-<p><strong>What does it mean to be faster?</strong></p>
-<p>Perhaps all I care about is how fast my tests run</p>
-<blockquote>
-<p>rvm use ruby-1.9.2-preview3</p>
-<p>time rake</p>
-<p>rvm use ree</p>
-<p>time rake</p>
-<p># repeat..</p>
-</blockquote>
-<p><strong>My app:</strong></p>
-<ul><li> Rails 2.3.6</li>
-<li>rails_xss</li>
-<li>postgres</li>
-<li>~25 models</li>
-<li>~25 controllers</li>
-</ul><p><strong>My test suite:</strong></p>
-<ul><li>~1700 assertions</li>
-<li>~95% <a title="rcov_rails for rails coverage" href="http://github.com/matthewrudy/rcov_rails">code coverage</a></li>
-</ul><p><strong>Results;</strong></p>
-<script src="http://gist.github.com/421949.js?file=ruby-1.9.2-vs-ree-test-suite"></script><p>So REE is consistently 10% faster at running my test suite than Ruby 1.9.2-preview3</p>
-<p><strong>Does this matter?</strong></p>
-<p>Probably not&#8230; but maybe I can use those extra 5 seconds.</p>
-<p><em>(can&#8217;t wait to see if the <a href="http://www.youtube.com/watch?v=ghLCtCwAKqQ">Phusion.nl</a> guys can make Ruby 1.9.2 faster&#8230; )</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/05/04/ssh--d-is-your-friend/">Ssh D Is Your Friend</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-04T00:00:00+01:00" pubdate data-updated="true">May 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/05/04/ssh--d-is-your-friend/">Ssh -D Is Your Friend!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-04T00:00:00+01:00" pubdate data-updated="true">May 4<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote>
-<p>Are you stuck behind a firewall?</p>
-<p>Does your work block access to facebook?</p>
-<p>Do you want to watch English Telly from abroad?</p>
-</blockquote>
-<p><strong>SSH -D is your friend.</strong></p>
-<p><br/>All you need to bypass the firewall;</p>
-<ul><li>ssh access to a VPS</li>
-<li>ssh -D8080 me@myserver.com // keep this open</li>
-<li>go to your browser</li>
-<li>set &#8220;connect via SOCKS proxy&#8221; on port 8080</li>
-<li>keep the ssh connection open</li>
-<li>voila!</li>
-</ul><p>Your internet access is now piped via your VPS.</p>
-<p>This means;</p>
-<ul><li>if it is in the UK you can access iPlayer</li>
-<li>if it is in the US you can access Hulu</li>
-<li>if you were in China you can access&#8230; everything</li>
-</ul><p>Boom ting!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/">Rails 3 Doesnt Allow Open as a Named Scope</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-01T00:00:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/">Rails 3 Doesn&#8217;t Allow &#8220;Open&#8221; as a Named Scope</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-01T00:00:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
-<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
-<p>But this one kind of annoys me.</p>
-<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
-<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
-<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
-<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
-<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
-<p>So here&#8217;s a quick hack I put in an initializer</p>
-<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
-require 'active_record'
-class ActiveRecord::Base
-  class &lt;&lt; self
-    alias :_open :open
-    undef_method :open
+  <div class="entry-content"><p>At work we have the following concept.</p>
+<ol><li>a &#8220;site&#8221; has a subset of our content</li>
+<li>a &#8220;site&#8221; has a url - eg. &#8220;oursite.com/stickers&#8221; or &#8220;stickersNOTvicars.com&#8221;</li>
+<li>a &#8220;site&#8221; can have its own customised layout, or fall back to the default one</li>
+</ol><p>How does this work in code?</p>
+<ol><li>site.articles (pretty simple)</li>
+<li>a whole load of &#8220;route filters&#8221; that match the incoming host</li>
+<li>the code I&#8217;m writing about</li>
+</ol><p>So, historically we did</p>
+<pre><code class="ruby">class ApplicationController
+  layout :determine_layout
+  def determine_layout
+    if File.exists?("#{Rails.root}/public/sites/#{@site.id}/application.rhtml")
+      "../../public/sites/#{@site.id}/application"
+    else
+      "site_default"
+    end
   end
 end</code></pre>
-<p>And we&#8217;re done&#8230;</p>
-<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
-<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
-<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
+<p>This was a hack, and it breaks with Rails 2.1.1, so after a day or so playing with the internals of ActionView I discovered this;</p>
+<pre><code class="ruby">append_view_path("#{Rails.root}/public/sites")</code></pre>
+<p>And it works!</p>
+<p>We just need to set;</p>
+<pre><code class="ruby">"#{@site.id}/application"</code></pre>
+<p>as our layout, and we&#8217;re away.</p>
+<p>Site-specific layouts that live in /public!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/15/i-didnt-get-drunk-enough-to-try-the-goggles-next-time/">I Didn’t Get Drunk Enough to Try the Goggles. Next Time!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote>I didn&#8217;t get drunk enough to try the Goggles. Next time!</blockquote>&#8212;
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/12/google-goggles-are-good-enough-for-meon-monday-its-the-lrug-quizcan-googles-entry-into-drunken-embarassment-prevention-really-hold-out-against-my-mathematical-skillsam-i-just-too-eliteat-level-5-the-ha/">Google Goggles Are Good Enough for Me? On Monday Its the LRUG Quiz. Can Google’s Entry Into Drunken Embarassment Prevention Really Hold Out Against My Mathematical Skills? Am I Just Too Elite? At Level 5 (the Hardest) We Still Get Sums Like “6x9”! Does My Mathematical Ability Really Drop That Much? We’ll See Tomorrow!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-12T00:00:00+01:00" pubdate data-updated="true">Oct 12<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><a href="http://gmailblog.blogspot.com/2008/10/new-in-labs-stop-sending-mail-you-later.html"><img src="http://25.media.tumblr.com/QHTuMQiIgezb1yu3JSsxPrrjo1_500.jpg"/></a>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/11/what-would-happen-if-you-ripped-out-your-db-server/">What Would Happen if You Ripped Out Your Db Server?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Does your application and architecture really have failover?</p>
+<p>If I broke into your datacentre, ripped out, and hid one of your servers, what would happen?</p>
+<p>Is your architecture the biggest hurdle to scaling your web app?</p>
+<p><a href="http://events.carsonified.com/fowa/2008/london/highlights/blaine-cook-joe-stump/">Blain Cook and Joe Stump not talking about Twitter&#8217;s scaling issues.</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/09/need-to-install-mysql-gem-for-osx/">Need to Install MySQL Gem for OSX?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-09T00:00:00+01:00" pubdate data-updated="true">Oct 9<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&#8230; but getting errors?</p>
+<pre>matthew@iRudy:~/code/rails211again $ sudo gem install mysql
+Password:
+Building native extensions.  This could take a while...
+ERROR:  Error installing mysql:
+ERROR: Failed to build gem native extension.
+
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby extconf.rb install mysql
+checking for mysql_query() in -lmysqlclient... no
+checking for main() in -lm... yes
+checking for mysql_query() in -lmysqlclient... no
+checking for main() in -lz... yes
+checking for mysql_query() in -lmysqlclient... no
+checking for main() in -lsocket... no
+checking for mysql_query() in -lmysqlclient... no
+checking for main() in -lnsl... no
+checking for mysql_query() in -lmysqlclient... no
+
+*** extconf.rb failed ***
+...
+Gem files will remain installed in /Library/Ruby/Gems/1.8/gems/mysql-2.7 for inspection.
+
+Results logged to /Library/Ruby/Gems/1.8/gems/mysql-2.7/gem_make.out
+</pre>
+<p>Found the <a href="http://sos.blog-city.com/sudo_gem_install_mysql_on_os_x_with_proper_parameters.htm">fix</a></p>
+<pre><code class="ruby">sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</code></pre>
 </div>
   
   
@@ -528,15 +521,7 @@ end</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring Foreman For Production And Development</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/09/the-daily-bundle-update/">The Daily Bundle Update</a>
       </li>
     
       <li class="post">
@@ -544,7 +529,15 @@ end</code></pre>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/06/28/cd--tmp-/">Cd  Tmp</a>
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

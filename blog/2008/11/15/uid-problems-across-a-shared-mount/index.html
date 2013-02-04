@@ -1,1 +1,271 @@
 
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>UID problems across a shared mount? - RudyGems</title>
+  <meta name="author" content="Matthew Rudy">
+
+  
+  <meta name="description" content="We just moved to new Ubuntu servers.
+We use file-column (with some modifications) to deal with our file uploads.
+deploy@jgp-web01:/var/www/oursite$ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://matthewrudy.github.com/blog/2008/11/15/uid-problems-across-a-shared-mount/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RudyGems" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">RudyGems</a></h1>
+  
+    <h2>Ruby, Mobile, and stuff like that</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:matthewrudy.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">UID Problems Across a Shared Mount?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-15T00:00:00+00:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>We just moved to new Ubuntu servers.</p>
+<p>We use file-column (with some modifications) to deal with our file uploads.</p>
+<pre><code>deploy@jgp-web01:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 gerhard www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/><br/></code><code>deploy@jgp-web02:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 deploy www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/></code><br/></pre>
+<p>If you look carefully, you&#8217;ll see one is owned by &#8220;deploy&#8221; and the other by &#8220;gerhard&#8221;.</p>
+<p>These are mounted by NFS, shared across the two computers.</p>
+<p>So these are actually the same file, but with different permissions on each.</p>
+<p>A quick use of the &#8220;id&#8221; command confirmed this;</p>
+<pre><code>deploy@jgp-web01:~$ id deploy<br/>uid=1004(deploy) gid=33(www-data) groups=33(www-data),1005(aspire)<br/><br/>deploy@jgp-web02:~$ id deploy<br/>uid=1002(deploy) gid=33(www-data) groups=33(www-data),1003(aspire)</code></pre>
+<p>The answer is;</p>
+<pre><code>root@jgp-web01:~# usermod -u 10000 deploy<br/><br/>root@jgp-web02:~# usermod -u 10000 deploy</code></pre>
+<p>boom!</p>
+<p>Now this is resolved, but you&#8217;ll have to chown all the existing files, back to `deploy`, else they&#8217;ll still be attached to the old uid.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Matthew Rudy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-15T00:00:00+00:00" pubdate data-updated="true">Nov 15<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://matthewrudy.github.com/blog/2008/11/15/uid-problems-across-a-shared-mount/" data-via="matthewrudy" data-counturl="http://matthewrudy.github.com/blog/2008/11/15/uid-problems-across-a-shared-mount/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/11/12/svn-switch-relocate-svnoldserver-svnsshnewserver/" title="Previous Post: svn switch —relocate svn://oldserver svn+ssh://newserver">&laquo; svn switch —relocate svn://oldserver svn+ssh://newserver</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/11/17/solrquery---build-your-solr-queries-dynamically-in-ruby/" title="Next Post: SolrQuery - build your solr queries dynamically in Ruby">SolrQuery - build your solr queries dynamically in Ruby &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/09/the-daily-bundle-update/">The daily `bundle update`</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/matthewrudy">@matthewrudy</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'matthewrudy',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("matthewrudy", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/matthewrudy" class="twitter-follow-button" data-show-count="false">Follow @matthewrudy</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Matthew Rudy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

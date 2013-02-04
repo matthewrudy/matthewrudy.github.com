@@ -1,1 +1,297 @@
 
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rendering layouts that live in /public? - RudyGems</title>
+  <meta name="author" content="Matthew Rudy">
+
+  
+  <meta name="description" content="At work we have the following concept.
+a &#8220;site&#8221; has a subset of our content
+a &#8220;site&#8221; has a url - eg. &#8220;oursite.com/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://matthewrudy.github.com/blog/2008/10/15/rendering-layouts-that-live-in-public/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RudyGems" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">RudyGems</a></h1>
+  
+    <h2>Ruby, Mobile, and stuff like that</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:matthewrudy.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rendering Layouts That Live in /public?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>At work we have the following concept.</p>
+<ol><li>a &#8220;site&#8221; has a subset of our content</li>
+<li>a &#8220;site&#8221; has a url - eg. &#8220;oursite.com/stickers&#8221; or &#8220;stickersNOTvicars.com&#8221;</li>
+<li>a &#8220;site&#8221; can have its own customised layout, or fall back to the default one</li>
+</ol><p>How does this work in code?</p>
+<ol><li>site.articles (pretty simple)</li>
+<li>a whole load of &#8220;route filters&#8221; that match the incoming host</li>
+<li>the code I&#8217;m writing about</li>
+</ol><p>So, historically we did</p>
+<pre><code class="ruby">class ApplicationController
+  layout :determine_layout
+  def determine_layout
+    if File.exists?("#{Rails.root}/public/sites/#{@site.id}/application.rhtml")
+      "../../public/sites/#{@site.id}/application"
+    else
+      "site_default"
+    end
+  end
+end</code></pre>
+<p>This was a hack, and it breaks with Rails 2.1.1, so after a day or so playing with the internals of ActionView I discovered this;</p>
+<pre><code class="ruby">append_view_path("#{Rails.root}/public/sites")</code></pre>
+<p>And it works!</p>
+<p>We just need to set;</p>
+<pre><code class="ruby">"#{@site.id}/application"</code></pre>
+<p>as our layout, and we&#8217;re away.</p>
+<p>Site-specific layouts that live in /public!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Matthew Rudy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-15T00:00:00+01:00" pubdate data-updated="true">Oct 15<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://matthewrudy.github.com/blog/2008/10/15/rendering-layouts-that-live-in-public/" data-via="matthewrudy" data-counturl="http://matthewrudy.github.com/blog/2008/10/15/rendering-layouts-that-live-in-public/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/10/15/i-didnt-get-drunk-enough-to-try-the-goggles-next-time/" title="Previous Post: I didn’t get drunk enough to try the Goggles. Next time!">&laquo; I didn’t get drunk enough to try the Goggles. Next time!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/10/19/its-hard-enough-to-push-out-a-great-ideaeven-if-you-thought-of-itand-have-spent-years-thinking-about-itif-a-potential-investor-is-going-to-take-the-time-money-and-bother-to-steal-your-ideathen-someone-/" title="Next Post: it’s hard enough to push out a great idea,
+even if you thought of it,
+and have spent years thinking about it.
+
+If a potential investor is going to take the time, money, and bother to steal your idea,
+then someone else is going to buy it from you
+before they have a chance.">it’s hard enough to push out a great idea,
+even if you thought of it,
+and have spent years thinking about it.
+
+If a potential investor is going to take the time, money, and bother to steal your idea,
+then someone else is going to buy it from you
+before they have a chance. &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/09/the-daily-bundle-update/">The daily `bundle update`</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/matthewrudy">@matthewrudy</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'matthewrudy',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("matthewrudy", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/matthewrudy" class="twitter-follow-button" data-show-count="false">Follow @matthewrudy</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Matthew Rudy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

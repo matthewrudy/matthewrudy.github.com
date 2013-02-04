@@ -9,8 +9,10 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="CruiseControl is great
+Quick and easy to setup
+But takes a few minutes to work out how to secure it. we start cruise;
+cruise@MerlotBuild:~/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +73,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/24/bundler-as-a-gemfile-dependency/">Bundler as a Gemfile Dependency</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/02/09/securing-cruisecontrolrb-on-nginx/">Securing CruiseControl.rb on Nginx</a></h1>
     
     
       <p class="meta">
@@ -87,14 +89,44 @@
   
 
 
-<time datetime="2010-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2010</time>
+<time datetime="2010-02-09T00:00:00+00:00" pubdate data-updated="true">Feb 9<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>CruiseControl is great</p>
+<p>Quick and easy to setup</p>
+<p>But takes a few minutes to work out how to secure it.</p>
+
+<p>we start cruise;</p>
+<pre><code class="bash">cruise@MerlotBuild:~/cruisecontrol.rb$ ./cruise start -d
+=&gt; Booting Mongrel
+=&gt; Rails 2.3.2 application starting on <a href="http://0.0.0.0:3333">http://0.0.0.0:3333</a>
+</code></pre>
+<p>Going directly by IP <a href="http://94.102.144.37:3333">http://94.102.144.37:3333</a> we get our cruise install.</p>
+<p>But that&#8217;s not good enough, we need to secure it from the outside world</p>
+<p>In Nginx we do this;</p>
+<pre><code class="bash">server {
+  listen 80;
+  server_name cruise.matthewrudy.com;
+  
+  auth_basic "Access";
+  auth_basic_user_file /opt/nginx/conf/htpasswd;
+
+  location / {
+    proxy_pass http://localhost:3333;
+  }
+}
+</code></pre>
+<p>And we&#8217;re almost done</p>
+<p>Except <a href="http://94.102.144.37:3333">http://94.102.144.37:3333</a> still works, as mongrel allows requests from any host name</p>
+<pre><code class="bash">cruise@MerlotBuild:~/cruisecontrol.rb$ ./cruise start -d -b 127.0.0.1
+=&gt; Booting Mongrel
+=&gt; Rails 2.3.2 application starting on <a href="http://127.0.0.1:3333">http://127.0.0.1:3333</a>
+</code></pre>
+<p>Does the job&#8230; home&#8230; secure&#8230; safe?</p>
 </div>
   
   
@@ -107,7 +139,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/24/bundler-as-a-gemfile-dependency/">Bundler as a Gemfile Dependency</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/10/07/how-big-is-my-mysql-database/">How Big Is My MySQL Database?</a></h1>
     
     
       <p class="meta">
@@ -123,33 +155,19 @@
   
 
 
-<time datetime="2010-11-24T00:00:00+00:00" pubdate data-updated="true">Nov 24<span>th</span>, 2010</time>
+<time datetime="2009-10-07T00:00:00+01:00" pubdate data-updated="true">Oct 7<span>th</span>, 2009</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Bundler is still a work in progress, so you can expect things to change.</p>
-<p>One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 is that the &#8220;METADATA&#8221; field has been removed.</p>
-<p>So I&#8217;m running Bundler 1.0.7 (with no METADATA) and my colleagues are running 1.0.6 (with METADATA)</p>
-<p>I keep getting this diff.</p>
-<blockquote>$ git diff Gemfile.lock<br/>diff &#8212;git a/Gemfile.lock b/Gemfile.lock<br/>index ec585b3..ee6ba65&#160;100644<br/>&#8212;- a/Gemfile.lock<br/>+++ b/Gemfile.lock<br/>@@ -221,3 +221,7 @@ DEPENDENCIES<br/>   whitelist_mail_proxy<br/>   will_paginate!<br/>   zipruby<br/>-<br/>-<br/>-METADATA<br/>-  version: 1.0.6<br/></blockquote>
-<p>I want bundler to manage itself</p>
-<blockquote>
-<p># self-referential<br/>gem &#8220;bundler&#8221;, &#8220;&gt;=1.0.7&#8221;</p>
-</blockquote>
-<p>And it works</p>
-<p>but the message is a bit unpretty</p>
-<blockquote>
-<p>RudiMac:merlot matthew$ bundle install<br/><br/>Fetching source index for <a href="http://rubygems.org/">http://rubygems.org/</a><br/>Bundler could not find compatible versions for gem &#8220;bundler&#8221;:<br/>  In Gemfile:<br/>    bundler (&gt;= 1.0.7)<br/><br/>  Current Bundler version:<br/>    bundler (1.0.6)<br/><br/>Your version of Bundler is older than the one requested by the Gemfile.<br/>Perhaps you need to update Bundler by running `gem install bundler`.</p>
-</blockquote>
-<p>I need to use &#8220;gem install&#8221;?</p>
-<p>I wonder if we can patch bundler to install itself.</p>
-<p><em>I recommend you always have a &#8220;&gt;= x.x.x&#8221;&#8230; just for jokes try setting</em></p>
-<blockquote>
-<p>gem &#8220;bundler&#8221;, &#8220;1.0.6&#8221;</p>
-</blockquote>
+  <div class="entry-content"><pre><code class="mysql">mysql&gt; SELECT table_schema,<br/>  sum(data_length) / 1024 / 1024 "data",<br/>  sum(index_length) / 1024 / 1024 "index",<br/>  sum( data_length + index_length ) / 1024 / 1024 "total"<br/>FROM information_schema.TABLES<br/>GROUP BY table_schema \G;<br/><br/>*************************** 1. row ***************************<br/>table_schema: aardvarks_development<br/>        data: 5297.32812500<br/>       index: 4407.93750000<br/>       total: 9705.26562500<br/>*************************** 2. row ***************************<br/>table_schema: aardvarks_test<br/>        data: 0.09375000<br/>       index: 0.25000000<br/>       total: 0.34375000<br/>*************************** 3. row ***************************<br/>table_schema: badgers_development<br/>        data: 13.59375000<br/>       index: 16.60937500<br/>       total: 30.2031250</code></pre>
+<p>as you can see, aardvarks_developpment is almost taking up 10gig</p>
+<p>if we only care about &#8220;test&#8221; databases, we can add a condition on &#8220;table_schema&#8221;</p>
+<pre><code class="mysql">mysql&gt; SELECT table_schema,<br/>  sum(data_length) / 1024 / 1024 "data",<br/>  sum(index_length) / 1024 / 1024 "index",<br/>  sum( data_length + index_length ) / 1024 / 1024 "total"<br/>FROM information_schema.TABLES<br/>WHERE table_schema like "%_test"<br/>GROUP BY table_schema \G;<br/><br/>*************************** 1. row ***************************<br/>table_schema: aardvarks_test<br/>        data: 0.09375000<br/>       index: 0.25000000<br/>       total: 0.3437500</code></pre>
+<p>Boom!</p>
+<p>(credit to <a title="Paul Butcher" href="http://www.paulbutcher.com">Paul Butcher</a> for the query)</p>
 </div>
   
   
@@ -162,7 +180,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/23/even-more-ruby-in-chinese/">Even More Ruby in Chinese</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/08/16/updating-rubygems-on-ubuntu-904/">Updating RubyGems on Ubuntu 9.04</a></h1>
     
     
       <p class="meta">
@@ -178,14 +196,20 @@
   
 
 
-<time datetime="2010-11-23T00:00:00+00:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2010</time>
+<time datetime="2009-08-16T00:00:00+01:00" pubdate data-updated="true">Aug 16<span>th</span>, 2009</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>I don&#8217;t know how many times I&#8217;ve had to do this.</p>
+<p>But every time I install Ubuntu again, I get this;</p>
+<pre><code class="bash">matthew@Rudyness:~$ sudo gem update --system<br/>ERROR: While executing gem ... (RuntimeError)<br/>gem update --system is disabled on Debian. RubyGems can be updated using the official Debian repositories by aptitude or apt-get.<br/></code></pre>
+<p>The simple fix;</p>
+<pre><code class="bash">matthew@Rudyness:~$ sudo gem install rubygems-update<br/>Successfully installed rubygems-update-1.3.5<br/>1 gem installed<br/>Installing ri documentation for rubygems-update-1.3.5...<br/>Installing RDoc documentation for rubygems-update-1.3.5...<br/>matthew@Rudyness:~$ sudo /var/lib/gems/1.8/bin/update_rubygems <br/>Installing RubyGems 1.3.5<br/>RubyGems 1.3.5 installed<br/><br/>RubyGems installed the following executables:<br/>	/usr/bin/gem1.8<br/><br/>matthew@Rudyness:~$ gem --version<br/>1.3.5<br/></code></pre>
+<p>From now on you can &#8220;sudo gem update &#8212;system&#8221; as much as you want.</p>
+<p>Sweetness.</p>
 </div>
   
   
@@ -198,7 +222,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/23/even-more-ruby-in-chinese/">Even More Ruby in Chinese</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/04/23/installing-ruby-191-on-ubuntu-904/">Installing Ruby 1.9.1 on Ubuntu 9.04</a></h1>
     
     
       <p class="meta">
@@ -214,71 +238,345 @@
   
 
 
-<time datetime="2010-11-23T00:00:00+00:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2010</time>
+<time datetime="2009-04-23T00:00:00+01:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2009</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I realised I can write even more Ruby in Chinese.</p>
-<p>The only gotchas are;</p>
-<ul><li>don&#8217;t attempt to use Chinese punctuation （”‘＝＋－，。）</li>
-<li>it doesn&#8217;t recognise Chinese as uppercase, so you can&#8217;t start a class or Constant name with a chinese character</li>
-</ul><p>So here is my code.</p>
-<pre><code class="ruby"># encoding: utf-8
+  <div class="entry-content"><p>Now, I&#8217;m upset that Jaunty Jackalope doesn&#8217;t ship with ruby 1.9.1 as default,<br/> and the packaged version is only 1.9.0.</p>
+<p>So we&#8217;re going to have to build it from source.</p>
+<p>And because we&#8217;re all progressive people, we&#8217;re not even going to worry about suffixing the executables with `1.9` <i>I can&#8217;t be bothered to type `<code>gem1.9`</code></i></p>
+<p>The dependencies are simple;</p>
+<pre><code class="bash">sudo apt-get install build-essential libssl-dev libreadline5 libreadline5-dev zlib1g zlib1g-dev</code></pre>
+<p>Then the usual process&#8230;</p>
+<pre><code class="bash">mkdir ~/src &amp;&amp; cd ~/src
+wget <a href="ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.gz">ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.gz</a>
+tar -xvf ruby-1.9.1-p0.tar.gz
+cd ruby-1.9.1-p0
+./configure
+make
+make test
+sudo make install</code></pre>
+<p>And to get rails working properly</p>
+<pre><code class="bash">sudo gem update --system
+sudo gem install rails
 
-class C动物
+# and to get sqlite3 working properly
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo gem install sqlite3-ruby</code></pre>
+<p>Done.</p>
+<p><i>I&#8217;ll add to this if I notice any problems</i></p>
+</div>
+  
+  
 
-  def initialize(名字)
-    @名字 = 名字
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/03/27/ruby-19-becoming-the-standard/">Ruby 1.9 Becoming the Standard?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-27T00:00:00+00:00" pubdate data-updated="true">Mar 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There&#8217;s a lot of talk recently about pushing the Ruby Community onto Ruby 1.9.</p>
+<p>Now that&#8217;s cool, the more people using 1.9 the quicker the issues will get ironed out</p>
+<p>(people need to be spurred into fixing their libraries)</p>
+<p>But there is one thing standing in the way of 1.9 being adopted by the whole community, <b>Default Packages</b></p>
+<p><b>Mac OSX comes with 1.8.6</b> as standard, <b>Ubuntu 8.10 comes with 1.8.7</b>.</p>
+<p>Whitney Houston said &#8220;the children are our future&#8221;, and that&#8217;s exactly who we need to start using 1.9 right from the word go.</p>
+<p>With <b>Ubuntu 9.04 (Jaunty Jackalope) and OSX Snow Leopard on their way out</b> soon, surely if they adopted 1.9 as the default, we&#8217;d be on the road to success.</p>
+<p>However, maybe that&#8217;s not going to happen.</p>
+<p>A quick look at <a href="http://packages.ubuntu.com/jaunty/interpreters/ruby">the packages of Jaunty Jackalope</a> and you&#8217;ll see</p>
+<blockquote>This package is a dependency package, which depends on Debian&#8217;s default Ruby version (currently 1.8.x).</blockquote>
+<p>So I guess this thing&#8217;s not going to get fixed soon.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/01/19/expire-etags-when-you-redeploy/">Expire eTAGs When You Redeploy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-19T00:00:00+00:00" pubdate data-updated="true">Jan 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rails 2.2&#8217;s eTAG functionality is great.</p>
+<pre><code class="ruby">def show<br/>  @article = Article.find(params[:id])<br/>  if stale_record(@article)<br/>    # do something expensive<br/>  end<br/>end<br/><br/>protected<br/><br/>  def stale_record?(record)<br/>    fresh_when(:etag =&gt; [current_user, record], :last_modified =&gt; record.updated_at.utc)<br/>    !request.fresh?(response)<br/>  end</code></pre>
+<p>&#8220;304 NOT MODIFIED&#8221; all around!</p>
+<p>But this determines freshness based on just the record.<br/> If I deploy a new version of the &#8220;show&#8221; template eTAG-compliant browsers won&#8217;t refresh.</p>
+<p>I could build my own way of handling this inside &#8220;stale_record?&#8221;<br/> But Rails already has a method for dealing with this.</p>
+<p>All cache keys are generated through the following code.</p>
+<pre><code class="ruby">if ENV["RAILS_CACHE_ID"] || ENV["RAILS_APP_VERSION"]<br/>  expanded_cache_key &lt;&lt; "#{ENV["RAILS_CACHE_ID"] || ENV["RAILS_APP_VERSION"]}/"<br/>end</code></pre>
+<p>So what does it mean to be the RAILS_APP_VERSION?<br/> Well, I&#8217;m going to mis-use it, and say &#8220;it&#8217;s the current version of our app&#8221;</p>
+<p>And Capistrano already gives this to us&#8230; it gives us /current/REVISION!!!</p>
+<p>Perfect!</p>
+<p>A quick &#8220;/config/initializers/capified_etags.rb&#8221; later</p>
+<pre><code class="ruby">app_version_path = File.join(Rails.root, "REVISION")<br/>if File.exist?(app_version_path)<br/>  ENV["RAILS_APP_VERSION"] = File.open(app_version_path).read.strip<br/>end</code></pre>
+<p>Nice.</p>
+<p><i>Let me know if there are any other approaches out there.</i></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/12/20/setting-up-a-simple-git-server/">Setting Up a Simple Git Server</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-20T00:00:00+00:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On the internet you&#8217;ll see people talking about <a title="Gitosis is a heavyweight git server, apparently." href="http://twitter.com/craigwebster/statuses/1032437697">Gitosis</a>, or just giving over all of their git requirements to <a title="Yeah, I love my github." href="http://github.com/matthewrudy">github</a>.</p>
+<p>Github is great, but if you just want to do a small personal project, with an off-site repository, go set up your <a title="I use Tagadab for my virtual server. Just a 256meg, but it does very little work." href="http://tagadab.com/virtual-private-servers">VPS</a> as your main git server.</p>
+<p>Here&#8217;s how you do it.</p>
+<ol><li>
+<h3>create a &#8220;git&#8221; user</h3>
+<pre><code class="bash">sudo adduser git</code></pre>
+</li>
+<li>
+<h3>add your ssh keys to that user</h3>
+<pre><code class="bash">ssh-copy-id git@my.com</code></pre>
+</li>
+<li>
+<h3>create a &#8220;bare&#8221; repository on your server</h3>
+<pre><code class="bash">mkdir myRepo.git
+git --bare init</code></pre>
+</li>
+<li>
+<h3>add this as a remote source</h3>
+<pre><code class="bash">git remote add origin git@my.com:myRepo.git
+git push origin master</code></pre>
+</li>
+</ol><p>BOOM! that is literally all it takes!</p>
+<p><i>Thanks to <a title="commonthread.com is where I learnt this all." href="http://blog.commonthread.com/2008/4/14/setting-up-a-git-server">CommonThread</a> for his tutorial on doing this.</i></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/12/17/rails--rack-middleware/">Rails + Rack Middleware</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-17T00:00:00+00:00" pubdate data-updated="true">Dec 17<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rails just released <a title="Josh Peek's commit on Github" href="http://github.com/rails/rails/commit/8c3a54366435eebc2c8aa63b63e1349ce74a7b38">Metal</a>!</p>
+<p>Giving us a great framework to build custom Rack processors alongside our application.</p>
+<p>Check out <a title="Metal as a Rails micro framework" href="http://soylentfoo.jnewland.com/articles/2008/12/16/rails-metal-a-micro-framework-with-the-power-of-rails-m">this great article</a> over at Soylent Foo.</p>
+<p>Recently we had a problem where Microsoft Office was somehow issuing OPTIONS request to our site.</p>
+<p>This was blowing up our RESTful controllers that weren&#8217;t invited to the OPTIONS party.</p>
+<p>We played with Apache rewrites based on REQUEST_METHOD,</p>
+<p>but ultimately, we wasted a lot of time fighting against Rails and routing exceptions, blahblahblah.</p>
+<p>But now Rails is running off Rack we can deal with it the correct way.</p>
+<pre><code class="ruby">class OptionsCatcher &lt; Rails::Rack::Metal
+  def call(env)
+    if env["REQUEST_METHOD"] =~ /OPTIONS/i
+      [403, {"Content-Type" =&gt; "text/html"}, "OPTIONS requests are forbidden"]
+    else
+      super
+    end
   end
-  attr_reader :名字
-
-  def 朋友?(别的)
-    true
+end</code></pre>
+<p>B00M!</p>
+<p>Now this is technically just middleware, and should be declared with a</p>
+<pre><code class="ruby">config.middleware.use OptionsCatcher</code></pre>
+<p>and in lib/options_catcher.rb</p>
+<pre><code class="ruby">class OptionsMiddleware
+  def initialize(app)
+    @app = app
   end
-
-  def 吃了?
-    false
+  
+  def call(env)
+    if env["REQUEST_METHOD"] =~ /OPTIONS/i
+      [403, {"Content-Type" =&gt; "text/html"}, "OPTIONS requests are forbidden"]
+    else
+      @app.call(env)
+    end
   end
+end</code></pre>
+<p>but doing it as a Metal makes sense, and is easier than remembering the structure of middleware each time</p>
+<p>But there seems to be a problem at the moment with this.</p>
+<p>Will try and get a proper Metal working shortly.</p>
+</div>
+  
+  
 
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/30/has_one_accessor/">Has_one_accessor</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-30T00:00:00+00:00" pubdate data-updated="true">Nov 30<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://github.com/matthewrudy/has_one_accessor">HasOneAccessor</a> is a plugin for ActiveRecord that solves the problem of having associations that act like a attribute.</p>
+<p>Perhaps only a few users have an openid, so it doesn&#8217;t make sense to add an :open_id_url column to your :users table.</p>
+<p>Instead you create a new model OpenId</p>
+<pre><code class="ruby">class OpenId &lt; ActiveRecord::Base
+  belong_to :user
 end
 
-class C狗 &lt; C动物
-  
-  def 朋友?(别的)
-    !别的.is_a?(C马泰)
+class User &lt; ActiveRecord::Base
+  has_one :open_id
+
+  def open_id_url
+    self.open_id &amp;&amp; self.open_id.url
   end
 
-end
-
-class C人 &lt; C动物
-end
-
-class C马泰 &lt; C人
-  
-  def 吃了?(别的)
-    别的.is_a?(C狗)
+  def open_id_url=(value)
+    if value.blank?
+      self.open_id &amp;&amp; self.open_id = nil
+    else
+      self.open_id || self.build_open_id
+      self.open_id.url = value
+    end
   end
-
+end</code></pre>
+<p>Now, that&#8217;s not too bad. But maybe you didn&#8217;t have time to clean it up.</p>
+<p>Maybe you deal with it in your controller.</p>
+<pre><code class="ruby">def update
+  if params[:open_id_url] &amp;&amp; params[:open_id_url].present?
+    @user.open_id || @user.build_open_id
+    @user.open_id.url = params[:open_id_url]
+  end
+  ...
+end</code></pre>
+<p>Now, that&#8217;s all fine.</p>
+<p>But we all want to make these things easier.</p>
+<p>We all want to cast as much code aside.</p>
+<p>ConventionOverConfiguration and all that.</p>
+<p>Enter <a href="http://github.com/matthewrudy/has_one_accessor">has_one_accessor</a></p>
+<pre><code class="ruby">class OpenId &lt; ActiveRecord::Base
+  belong_to :user
 end
 
-我=C马泰.new("马泰")
-puts "我的名字是#{我.名字}"
-她=C人.new("张学敏")
-puts "她的名字是#{她.名字}"
-
-狗=C狗.new("阿财")
-puts "狗的名字是#{狗.名字}"
-
-puts "狗是我的朋友吗？#{我.朋友?(狗)}"
-puts "我是狗的朋友吗？#{狗.朋友?(我)}"
-
-puts "狗吃了我吗？#{狗.吃了?(我)}"
-puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
-<p>See the full gist at <a href="https://gist.github.com/711563"><a href="https://gist.github.com/711563">https://gist.github.com/711563</a></a></p>
-<p>Maybe I should write a plugin for rails.</p>
+class User &lt; ActiveRecord::Base
+  has_one :open_id
+  has_one_accessor :open_id, :url, :allow_blank =&gt; false
+end</code></pre>
+<p>This takes away all the code,</p>
+<p>This takes care of building a record if there wasn&#8217;t one, of only saving it when you save the User.</p>
+<p>It even kills the association if the value is :blank? (if you pass in :allow_blank =&gt; false).</p>
+<p>B00m, h34dsh0t?</p>
 </div>
   
   
@@ -291,7 +589,7 @@ puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/10/11/ruby-in-chinese/">Ruby in Chinese</a></h1>
+      <h1 class="entry-title"><a href="/blog/2008/11/17/solrquery---build-your-solr-queries-dynamically-in-ruby/">SolrQuery - Build Your Solr Queries Dynamically in Ruby</a></h1>
     
     
       <p class="meta">
@@ -307,269 +605,22 @@ puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
   
 
 
-<time datetime="2010-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2010</time>
+<time datetime="2008-11-17T00:00:00+00:00" pubdate data-updated="true">Nov 17<span>th</span>, 2008</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/11/ruby-in-chinese/">Ruby in Chinese</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-11T00:00:00+01:00" pubdate data-updated="true">Oct 11<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>in Ruby 1.8, if you try and assign a variable</p>
-<blockquote>
-<p>你=&#8221;ni3&#8221;</p>
-</blockquote>
-<p>you&#8217;ll get an error</p>
-<blockquote>
-<p>Invalid char `\344&#8217; in expression<br/>Invalid char `\275&#8217; in expression<br/>Invalid char `\240&#8217; in expression<br/>syntax error, unexpected &#8216;=&#8217;<br/>你= &#8220;ni3&#8221;</p>
-</blockquote>
-<p>But in Ruby 1.9 it actually works.</p>
-<p>You just need to add a magic &#8220;coding: uft-8&#8221; header to your ruby file.</p>
-<blockquote>
-<p># coding: utf-8<br/>你= &#8220;ni3&#8221;<br/>好= &#8220;hao3&#8221;<br/>puts(你+好)</p>
-</blockquote>
-<p>Wham!</p>
-<blockquote>
-<p>matthew@RuPro:~$ ruby chinese.rb <br/>ni3hao3</p>
-</blockquote>
-<p>(if you can&#8217;t write chinese, steal my gist <a href="http://gist.github.com/613670">http://gist.github.com/613670</a>)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/09/15/how-to-delete-a-file-from-git-history/">How to Delete a File From Git History</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-15T00:00:00+01:00" pubdate data-updated="true">Sep 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/09/15/how-to-delete-a-file-from-git-history/">How to Delete a File From Git History</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-15T00:00:00+01:00" pubdate data-updated="true">Sep 15<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I always think about this problem;</p>
-<blockquote>
-<p>What happens if I accidentally commit my password into a git repository?</p>
-<p>Surely it&#8217;ll be there forever?</p>
-</blockquote>
-<p>Or</p>
-<blockquote>
-<p>Oh man&#8230; I just committed a 700mb video file into the repository</p>
-<p>It&#8217;s going to take forever to deploy&#8230;</p>
-</blockquote>
-<p>I&#8217;ve always known &#8220;get rebase&#8221; will probably be the answer</p>
-<p>Luckily <a title='The "Pro Git" book' href="http://progit.org/book/ch6-4.html">ProGit</a> knows exactly what to do. </p>
-<blockquote>
-<p>git filter-branch &#8212;tree-filter &#8216;some-bash-command&#8217; HEAD</p>
-</blockquote>
-<p>So here&#8217;s my example of how to use it.</p>
-<p>I’ve accidentally added a picture of my bum to this rep.</p>
-<blockquote>
-<p>$ git show 84c344<br/>commit 84c344c1874736a6d063ed45abe21e20815525b9<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800<br/><br/>  add my bum<br/><br/>diff &#8212;git a/mybum.jpg b/mybum.jpg<br/>new file mode 100644<br/>index 0000000..018be38<br/>&#8212;- /dev/null<br/>+++ b/mybum.jpg<br/>@@ -0,0 +1 @@<br/>+a picture of my bum</p>
-</blockquote>
-<p>so let&#8217;s try and wipe it from history.</p>
-<blockquote>
-<p>$ git filter-branch &#8212;tree-filter &#8216;rm -f mybum.jpg&#8217; HEAD<br/>Rewrite 76a50a3b1b3263d84517c8e6241ec0bf2bf36fdc (4/4)<br/>Ref &#8216;refs/heads/master&#8217; was rewritten</p>
-</blockquote>
-<p>now commit 84c344 is still there, but it is not in our branch.<br/>Looking at git log, I can see it&#8217;s been rewritten to f59366</p>
-<blockquote>
-<p>$ git show f59366<br/>commit f59366420a8b753de5a0d2812e0abbfb95fccfdf<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800</p>
-<p>    add my bum</p>
-</blockquote>
-<p>so my bum is no longer there. In the working tree, or in history.</p>
-<p>Right now <strong>DON&#8217;T git pull</strong> it will merge your commits with the original commits.</p>
-<p>You&#8217;ll have achieved nothing (except doubling the number of commits)</p>
-<p>I don&#8217;t have an elegant solution&#8230; but this seems the only way.</p>
-<blockquote>
-<p>delete all remote repositories</p>
-<p>and push to them again</p>
-</blockquote>
-<p>I&#8217;m sure there&#8217;s a better way&#8230; but I haven&#8217;t found it.</p>
-<p>Here&#8217;s my example repo <a href="http://github.com/matthewrudy/git-rebase-test"><a href="http://github.com/matthewrudy/git-rebase-test">http://github.com/matthewrudy/git-rebase-test</a></a></p>
-<p>go play!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/09/08/git-pp-git-push--git-pull/">Git Pp Git Push Git Pull</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-08T00:00:00+01:00" pubdate data-updated="true">Sep 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/09/08/git-pp-git-push--git-pull/">Git Pp (Git Push && Git Pull)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-08T00:00:00+01:00" pubdate data-updated="true">Sep 8<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am addicted to committing (not commitment).</p>
-<p>I make small, distinct commits all the time.</p>
-<p>But the consequence of this is</p>
-<blockquote>
-<p>$ git push origin master</p>
-<p>To git@myServer:myRepo.git<br/> &#160;! [rejected]        master -&gt; master (non-fast-forward)<br/>  error: failed to push some refs to &#8216;git@myServer:myRepo.git&#8217;</p>
-<p>To prevent you from losing history, non-fast-forward updates were rejected</p>
-<p>Merge the remote changes (e.g. &#8216;git pull&#8217;) before pushing again.  See the<br/>&#8216;Note about fast-forwards&#8217; section of &#8216;git push &#8212;help&#8217; for details.</p>
-</blockquote>
-<p>I hate getting push failures.</p>
-<p>But I don&#8217;t trust myself to do a pull beforehand.</p>
-<p>Enter a git alias!</p>
-<blockquote>
-<p>$ cat ~/.gitconfig <br/>[alias]<br/>    pp =&#160;!sh -c &#8216;git pull $0 $1 &amp;&amp; git push $0 $1&#8217;</p>
-</blockquote>
-<p>Now I am free to &#8220;git pp origin master&#8221; as much as I want.</p>
-<blockquote>
-<p>$ git pp origin master</p>
-From myServer:myRepo<br/> * branch            master     -&gt; FETCH_HEAD<br/>Already up-to-date.<br/>Everything up-to-date<br/></blockquote>
-<p>SAFE!</p>
+  <div class="entry-content"><p>I&#8217;ve been using ActsAsSolr for about 6 months.</p>
+<p>And at work I developed some code to make SOLR queries work a bit like the conditions in ActiveRecord.</p>
+<p>Check out my library at Github. <a href="http://github.com/matthewrudy/solr_query">http://github.com/matthewrudy/solr_query</a></p>
+<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "Feather duster"
+=&gt; "feather duster"</code></pre>
+<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "clean",
+                :organisation =&gt; [organisation1, organisation2])<br/>=&gt; "clean AND organisation:(275 OR 6534)"</code></pre>
+<p>Wicked!</p>
+<p>Check out the readme for more examples.</p>
 </div>
   
   
@@ -594,15 +645,7 @@ From myServer:myRepo<br/> * branch            master     -&gt; F
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring Foreman For Production And Development</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/09/the-daily-bundle-update/">The Daily Bundle Update</a>
       </li>
     
       <li class="post">
@@ -610,7 +653,15 @@ From myServer:myRepo<br/> * branch            master     -&gt; F
       </li>
     
       <li class="post">
-        <a href="/blog/2011/06/28/cd--tmp-/">Cd  Tmp</a>
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

@@ -1,1 +1,291 @@
 
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>I forgot to commit to a feature branch! - RudyGems</title>
+  <meta name="author" content="Matthew Rudy">
+
+  
+  <meta name="description" content="So I just committed to master
+commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a
+Author: Jeffrey Giraffe &lt;Jeffrey.T.Giraffe@gmail.com&gt;
+Date: Wed &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RudyGems" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">RudyGems</a></h1>
+  
+    <h2>Ruby, Mobile, and stuff like that</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:matthewrudy.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">I Forgot to Commit to a Feature Branch!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So I just committed to master</p>
+<pre>commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a
+Author: Jeffrey Giraffe &lt;Jeffrey.T.Giraffe@gmail.com&gt;
+Date:   Wed May 18 18:22:22 2011 +0800
+  Started work on an exciting new feature.
+</pre>
+<p>But I shouldn&#8217;t have.</p>
+<p>All features should be in a &#8220;feature branch&#8221;</p>
+<p>How do I move my commit onto a different branch?</p>
+<p>Luckily I haven&#8217;t pushed yet.</p>
+<p>So just start my &#8220;feature branch&#8221; right now.</p>
+<pre>git checkout -b exciting-new-feature
+git push origin exciting-new-feature</pre>
+<p>Then go back to master, and undo the commit</p>
+<pre>git checkout master
+git reset --hard HEAD~1</pre>
+<p>Or if there are 3 commits</p>
+<pre>git reset --hard HEAD~3</pre>
+<p>Of course, if I&#8217;ve already pushed this would be a little more tricky.</p>
+<p>I suggest (for verbosity) you shouldn&#8217;t try to do anything fancy.</p>
+<p>Just revert it</p>
+<pre>git revert HEAD</pre>
+<p>and humbly explain why</p>
+<pre>Revert "Started work on an exciting new feature."
+
+This commit is not ready to be on master yet,
+and has been moved onto the branch "exciting-new-feature"
+
+This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
+</pre>
+<p>Boom!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Matthew Rudy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/" data-via="matthewrudy" data-counturl="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/" title="Previous Post: Running a Test Case only when we have internet">&laquo; Running a Test Case only when we have internet</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/" title="Next Post: Fed up of `bundle exec rake`? Control your `rage`!">Fed up of `bundle exec rake`? Control your `rage`! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/09/the-daily-bundle-update/">The daily `bundle update`</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/matthewrudy">@matthewrudy</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'matthewrudy',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("matthewrudy", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/matthewrudy" class="twitter-follow-button" data-show-count="false">Follow @matthewrudy</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Matthew Rudy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

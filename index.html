@@ -9,8 +9,11 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="I follow the convention;
+Procfile defines all processes
+.foreman set specific foreman variables
+Development:
+.env sets environment variables for each &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,42 +97,6 @@
   </header>
 
 
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring Foreman for Production and Development</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-13T00:00:00+00:00" pubdate data-updated="true">Jan 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
   <div class="entry-content"><p>I follow the convention;</p>
 <ul><li><code>Procfile</code> defines <em>all</em> processes</li>
 <li><code>.foreman</code> set specific foreman variables</li>
@@ -158,42 +125,6 @@
 <p>.foreman:</p>
 <pre class="default prettyprint prettyprinted"><code><span class="com"># development port is 3000</span></code></pre>
 <pre class="default prettyprint prettyprinted"><code><span class="pln">port</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3000</span></code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/09/the-daily-bundle-update/">The Daily Bundle Update</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-09T00:00:00+00:00" pubdate data-updated="true">Jan 9<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
 </div>
   
   
@@ -242,42 +173,6 @@
 <p>So I realise I have a new dependency, and I add it to my Gemfile.</p>
 <pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"faraday"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"0.7"</span><span class="pln"> </span><span class="com"># 0.8 breaks for some reason</span></code></pre>
 <p>Dealing with these problems in small doses, on a daily basis, makes it easier to deal with.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/28/cd--tmp-/">Cd Tmp</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-28T00:00:00+01:00" pubdate data-updated="true">Jun 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
 </div>
   
   
@@ -370,42 +265,6 @@ WHOOP</pre>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed Up of Bundle Exec Rake Control Your Rage</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-02T00:00:00+01:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
       <h1 class="entry-title"><a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed Up of `bundle Exec Rake`? Control Your `rage`!</a></h1>
     
     
@@ -460,42 +319,6 @@ chmod a+x ~/bin/rage</pre>
 <p>As long as ~/bin is in your path you should be set.</p>
 <pre>rage db:migrate test --trace</pre>
 <p>BOOM!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I Forgot to Commit to a Feature Branch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-18T00:00:00+01:00" pubdate data-updated="true">May 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
 </div>
   
   
@@ -569,6 +392,313 @@ This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/">Running a Test Case Only When We Have Internet</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-17T00:00:00+01:00" pubdate data-updated="true">May 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So I have some tests for geocoding, that I want to be run live.</p>
+<pre>test "geocoding" do
+  record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+  assert_equal 51.59011, record.latitude
+  assert_equal -2.995398, record.longitude
+end
+</pre>
+<p>Of course, these will fail when there&#8217;s no internet.</p>
+<p>My choices;</p>
+<ul><li>mock the geocoding API</li>
+<li>let them fail</li>
+<li>only run this test when there&#8217;s internet</li>
+</ul><p>I chose the latter.</p>
+<p>How do I know I have internet connection?</p>
+<p>Can I ping google?</p>
+<pre>system "ping -q -c 1 -t 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+<p>Complication!</p>
+<blockquote>
+<p>the above works on OSX (where -t1 sets a timeout of 1 second)</p>
+<p>but on Linux -t has a different meaning, and -w1 sets the timeout</p>
+<p>Compromise: ignore timeouts for the moment</p>
+</blockquote>
+<pre>system "ping -q -c 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+
+<p>Stick this in a method</p>
+<pre>def requires_internet!
+  if can_ping_google?
+    yield
+  else
+    flunk "this test needs to be run when there is internet"
+  end
+end
+</pre>
+<p>Now incorporate this into our test.</p>
+<pre>test "geocoding" do
+  requires_internet! do
+    record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+    assert_equal 50.0, record.latitude
+    assert_equal -0.3, record.longitude
+  end
+end
+</pre>
+<p>Done.</p>
+<p>Here&#8217;s <a title="get the gist?" href="https://gist.github.com/976285">the gist</a>. Fork it and make it better!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/01/i-broke-rubygemsorg/">I Broke RubyGems.org</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-01T00:00:00+01:00" pubdate data-updated="true">Apr 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yes that&#8217;s right.</p>
+<p>I broke RubyGems.org.</p>
+<p>No April Fools Joke! (although this did happen after midnight HKT)</p>
+<p>&#8230; I&#8217;ve hidden the cause so they have a chance to fix it&#8230;</p>
+<p>&#8230; but its a unicode thing &#8230;</p>
+<blockquote></blockquote>
+<p>I packaged it with <a title="gem-this makes you a simple `gem this` away from releasing a gem!" href="https://github.com/lazyatom/gem-this">gem-this</a>,  and did a `gem push` it turned out <a href="http://rubygems.org">http://rubygems.org</a> was down!</p>
+<p>I went to bed hoping it would go away, and woke up on April 1st morning to find an email;</p>
+<blockquote>
+<p><span>Hi Matthew! Looks like you just found a bug that made our homepage unhappy.<br/><br/>=&gt; #&lt;Rubygem id: 39928, name: &#8230;,<br/><br/>I straight up deleted that gem. Can you send or paste the gem/gemspec<br/>with that so we can make sure this doesn&#8217;t happen again?<br/><br/>-Nick</span></p>
+</blockquote>
+<p><span>So, there you go!</span></p>
+<p><span>Rubygems.org currently can&#8217;t support unicode gem names!</span></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/">Upgrading Postgres 8.4 to 9.0 With Homebrew</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-23T00:00:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I hoped it&#8217;d be as simple as a `brew install postgresql`</p>
+<p>And it almost was.</p>
+<p>But&#8230;</p>
+<pre>RudiMac:merlot matthew$ tail -f /usr/local/var/postgres/server.log
+FATAL:  database files are incompatible with server
+DETAIL:  The data directory was initialized by PostgreSQL version 8.4, which is not compatible with this version 9.0.3.</pre>
+<p>How do I fix the data files?</p>
+<p>Turns out there is a `pg_update` method to do this for you.</p>
+<p>But it requires a bit of manual work.</p>
+<pre># First of all stop the server
+launchctl unload -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
+
+# backup the old data directory
+mv /usr/local/var/postgres /usr/local/var/postgres.old
+
+# now create a fresh postgres 9 data directory
+initdb /usr/local/var/postgres</pre>
+<p>Now we&#8217;re ready to do the upgrade.</p>
+<pre>pg_upgrade -d /usr/local/var/postgres.844/ -D /usr/local/var/postgres -b /usr/local/Cellar/postgresql/8.4.4/bin -B /usr/local/Cellar/postgresql/9.0.3/bin
+...
+Upgrade complete
+----------------</pre>
+<p>Boom Ting</p>
+<p>Now just add the launch control back in and we&#8217;re off.</p>
+<pre>cp /usr/local/Cellar/postgresql/9.0.3/org.postgresql.postgres.plist ~/Library/LaunchAgents
+launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/">Hong Kong Ruby Group Christmas Photo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-17T00:00:00+00:00" pubdate data-updated="true">Dec 17<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><img src="http://www.tumblr.com/photo/1280/rudygems/2342419598/1/tumblr_ldjsb9GeTr1qzqhg9"/>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/">Javascript parseInt() May Not Do What You Expect!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-03T00:00:00+00:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was shocked today to find I&#8217;d introduced a bug.</p>
+<p>It manifested itself like this;</p>
+<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
+<p>This might seem ok.</p>
+<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
+<blockquote>
+<p>the number of days interest</p>
+<p>less the number of days before repayment begins</p>
+</blockquote>
+<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
+<p>But the difference is -6.</p>
+<p>Something is wrong.</p>
+<p>And the answer is here;</p>
+<blockquote>
+<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
+</blockquote>
+<p>I take a date field</p>
+<blockquote>
+<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
+</blockquote>
+<p>I grab the value</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;</p>
+</blockquote>
+<p>I split it into year, month, and day</p>
+<blockquote>
+<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
+</blockquote>
+<p>I turn them into integers</p>
+<blockquote>
+<p>[2010, 12, 0]</p>
+</blockquote>
+<p>Then I make them into a date</p>
+<blockquote>
+<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>No problem!</p>
+<p>Except&#8230;</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>The problem is</p>
+<blockquote>
+<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
+<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
+</blockquote>
+<p>&#8220;08&#8221; is 0 in octal</p>
+<p><strong>Always use parseInt(something, 10)<br/></strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -584,15 +714,7 @@ This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring Foreman For Production And Development</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/09/the-daily-bundle-update/">The Daily Bundle Update</a>
       </li>
     
       <li class="post">
@@ -600,7 +722,15 @@ This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
       </li>
     
       <li class="post">
-        <a href="/blog/2011/06/28/cd--tmp-/">Cd  Tmp</a>
+        <a href="/blog/2011/06/28/cd--tmp-/">cd -Tmp-</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

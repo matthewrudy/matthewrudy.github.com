@@ -4,7 +4,7 @@
   <title><![CDATA[RudyGems]]></title>
   <link href="http://matthewrudy.github.com/atom.xml" rel="self"/>
   <link href="http://matthewrudy.github.com/"/>
-  <updated>2013-02-04T23:38:24+00:00</updated>
+  <updated>2013-02-04T23:40:15+00:00</updated>
   <id>http://matthewrudy.github.com/</id>
   <author>
     <name><![CDATA[Matthew Rudy]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Configuring Foreman For Production And Development]]></title>
-    <link href="http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development/"/>
-    <updated>2013-01-13T00:00:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2013/01/13/configuring-foreman-for-production-and-development</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Configuring foreman for Production and Development]]></title>
@@ -59,15 +50,6 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[The Daily Bundle Update]]></title>
-    <link href="http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update/"/>
-    <updated>2013-01-09T00:00:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[The daily `bundle update`]]></title>
     <link href="http://matthewrudy.github.com/blog/2013/01/09/the-daily-bundle-update/"/>
     <updated>2013-01-09T00:00:00+00:00</updated>
@@ -85,15 +67,6 @@
 <p>So I realise I have a new dependency, and I add it to my Gemfile.</p>
 <pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"faraday"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"0.7"</span><span class="pln"> </span><span class="com"># 0.8 breaks for some reason</span></code></pre>
 <p>Dealing with these problems in small doses, on a daily basis, makes it easier to deal with.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cd  Tmp]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/06/28/cd--tmp-/"/>
-    <updated>2011-06-28T00:00:00+01:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/06/28/cd&#8211;tmp-</id>
-    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
@@ -151,15 +124,6 @@ WHOOP</pre>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Fed Up Of Bundle Exec Rake Control Your Rage]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/"/>
-    <updated>2011-06-02T00:00:00+01:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Fed up of `bundle exec rake`? Control your `rage`!]]></title>
     <link href="http://matthewrudy.github.com/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/"/>
     <updated>2011-06-02T00:00:00+01:00</updated>
@@ -199,15 +163,6 @@ chmod a+x ~/bin/rage</pre>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[I Forgot To Commit To A Feature Branch]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/"/>
-    <updated>2011-05-18T00:00:00+01:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[I forgot to commit to a feature branch!]]></title>
     <link href="http://matthewrudy.github.com/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/"/>
     <updated>2011-05-18T00:00:00+01:00</updated>
@@ -243,15 +198,6 @@ and has been moved onto the branch "exciting-new-feature"
 This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
 </pre>
 <p>Boom!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Running A Test Case Only When We Have Internet]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet/"/>
-    <updated>2011-05-17T00:00:00+01:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/05/17/running-a-test-case-only-when-we-have-internet</id>
-    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
@@ -308,15 +254,6 @@ end
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[I Broke Rubygemsorg]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg/"/>
-    <updated>2011-04-01T00:00:00+01:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[I broke RubyGems.org]]></title>
     <link href="http://matthewrudy.github.com/blog/2011/04/01/i-broke-rubygemsorg/"/>
     <updated>2011-04-01T00:00:00+01:00</updated>
@@ -334,15 +271,6 @@ end
 </blockquote>
 <p><span>So, there you go!</span></p>
 <p><span>Rubygems.org currently can&#8217;t support unicode gem names!</span></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Upgrading Postgres 84 To 90 With Homebrew]]></title>
-    <link href="http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew/"/>
-    <updated>2011-02-23T00:00:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2011/02/23/upgrading-postgres-84-to-90-with-homebrew</id>
-    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
@@ -385,25 +313,7 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
     <link href="http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/"/>
     <updated>2010-12-17T00:00:00+00:00</updated>
     <id>http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hong Kong Ruby Group Christmas Photo]]></title>
-    <link href="http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo/"/>
-    <updated>2010-12-17T00:00:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2010/12/17/hong-kong-ruby-group-christmas-photo</id>
     <content type="html"><![CDATA[<img src="http://www.tumblr.com/photo/1280/rudygems/2342419598/1/tumblr_ldjsb9GeTr1qzqhg9"/>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Javascript Parseint May Not Do What You Expect]]></title>
-    <link href="http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/"/>
-    <updated>2010-12-03T00:00:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect</id>
-    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
@@ -460,6 +370,332 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
 </blockquote>
 <p>&#8220;08&#8221; is 0 in octal</p>
 <p><strong>Always use parseInt(something, 10)<br/></strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bundler as a Gemfile dependency]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/11/24/bundler-as-a-gemfile-dependency/"/>
+    <updated>2010-11-24T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/11/24/bundler-as-a-gemfile-dependency</id>
+    <content type="html"><![CDATA[<p>Bundler is still a work in progress, so you can expect things to change.</p>
+<p>One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 is that the &#8220;METADATA&#8221; field has been removed.</p>
+<p>So I&#8217;m running Bundler 1.0.7 (with no METADATA) and my colleagues are running 1.0.6 (with METADATA)</p>
+<p>I keep getting this diff.</p>
+<blockquote>$ git diff Gemfile.lock<br/>diff &#8212;git a/Gemfile.lock b/Gemfile.lock<br/>index ec585b3..ee6ba65&#160;100644<br/>&#8212;- a/Gemfile.lock<br/>+++ b/Gemfile.lock<br/>@@ -221,3 +221,7 @@ DEPENDENCIES<br/>   whitelist_mail_proxy<br/>   will_paginate!<br/>   zipruby<br/>-<br/>-<br/>-METADATA<br/>-  version: 1.0.6<br/></blockquote>
+<p>I want bundler to manage itself</p>
+<blockquote>
+<p># self-referential<br/>gem &#8220;bundler&#8221;, &#8220;&gt;=1.0.7&#8221;</p>
+</blockquote>
+<p>And it works</p>
+<p>but the message is a bit unpretty</p>
+<blockquote>
+<p>RudiMac:merlot matthew$ bundle install<br/><br/>Fetching source index for <a href="http://rubygems.org/">http://rubygems.org/</a><br/>Bundler could not find compatible versions for gem &#8220;bundler&#8221;:<br/>  In Gemfile:<br/>    bundler (&gt;= 1.0.7)<br/><br/>  Current Bundler version:<br/>    bundler (1.0.6)<br/><br/>Your version of Bundler is older than the one requested by the Gemfile.<br/>Perhaps you need to update Bundler by running `gem install bundler`.</p>
+</blockquote>
+<p>I need to use &#8220;gem install&#8221;?</p>
+<p>I wonder if we can patch bundler to install itself.</p>
+<p><em>I recommend you always have a &#8220;&gt;= x.x.x&#8221;&#8230; just for jokes try setting</em></p>
+<blockquote>
+<p>gem &#8220;bundler&#8221;, &#8220;1.0.6&#8221;</p>
+</blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Even more Ruby in Chinese]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/11/23/even-more-ruby-in-chinese/"/>
+    <updated>2010-11-23T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/11/23/even-more-ruby-in-chinese</id>
+    <content type="html"><![CDATA[<p>I realised I can write even more Ruby in Chinese.</p>
+<p>The only gotchas are;</p>
+<ul><li>don&#8217;t attempt to use Chinese punctuation （”‘＝＋－，。）</li>
+<li>it doesn&#8217;t recognise Chinese as uppercase, so you can&#8217;t start a class or Constant name with a chinese character</li>
+</ul><p>So here is my code.</p>
+<pre><code class="ruby"># encoding: utf-8
+
+class C动物
+
+  def initialize(名字)
+    @名字 = 名字
+  end
+  attr_reader :名字
+
+  def 朋友?(别的)
+    true
+  end
+
+  def 吃了?
+    false
+  end
+
+end
+
+class C狗 &lt; C动物
+  
+  def 朋友?(别的)
+    !别的.is_a?(C马泰)
+  end
+
+end
+
+class C人 &lt; C动物
+end
+
+class C马泰 &lt; C人
+  
+  def 吃了?(别的)
+    别的.is_a?(C狗)
+  end
+
+end
+
+我=C马泰.new("马泰")
+puts "我的名字是#{我.名字}"
+她=C人.new("张学敏")
+puts "她的名字是#{她.名字}"
+
+狗=C狗.new("阿财")
+puts "狗的名字是#{狗.名字}"
+
+puts "狗是我的朋友吗？#{我.朋友?(狗)}"
+puts "我是狗的朋友吗？#{狗.朋友?(我)}"
+
+puts "狗吃了我吗？#{狗.吃了?(我)}"
+puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
+<p>See the full gist at <a href="https://gist.github.com/711563"><a href="https://gist.github.com/711563">https://gist.github.com/711563</a></a></p>
+<p>Maybe I should write a plugin for rails.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby in Chinese]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/10/11/ruby-in-chinese/"/>
+    <updated>2010-10-11T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/10/11/ruby-in-chinese</id>
+    <content type="html"><![CDATA[<p>in Ruby 1.8, if you try and assign a variable</p>
+<blockquote>
+<p>你=&#8221;ni3&#8221;</p>
+</blockquote>
+<p>you&#8217;ll get an error</p>
+<blockquote>
+<p>Invalid char `\344&#8217; in expression<br/>Invalid char `\275&#8217; in expression<br/>Invalid char `\240&#8217; in expression<br/>syntax error, unexpected &#8216;=&#8217;<br/>你= &#8220;ni3&#8221;</p>
+</blockquote>
+<p>But in Ruby 1.9 it actually works.</p>
+<p>You just need to add a magic &#8220;coding: uft-8&#8221; header to your ruby file.</p>
+<blockquote>
+<p># coding: utf-8<br/>你= &#8220;ni3&#8221;<br/>好= &#8220;hao3&#8221;<br/>puts(你+好)</p>
+</blockquote>
+<p>Wham!</p>
+<blockquote>
+<p>matthew@RuPro:~$ ruby chinese.rb <br/>ni3hao3</p>
+</blockquote>
+<p>(if you can&#8217;t write chinese, steal my gist <a href="http://gist.github.com/613670">http://gist.github.com/613670</a>)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to delete a file from Git History]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/09/15/how-to-delete-a-file-from-git-history/"/>
+    <updated>2010-09-15T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/09/15/how-to-delete-a-file-from-git-history</id>
+    <content type="html"><![CDATA[<p>I always think about this problem;</p>
+<blockquote>
+<p>What happens if I accidentally commit my password into a git repository?</p>
+<p>Surely it&#8217;ll be there forever?</p>
+</blockquote>
+<p>Or</p>
+<blockquote>
+<p>Oh man&#8230; I just committed a 700mb video file into the repository</p>
+<p>It&#8217;s going to take forever to deploy&#8230;</p>
+</blockquote>
+<p>I&#8217;ve always known &#8220;get rebase&#8221; will probably be the answer</p>
+<p>Luckily <a title='The "Pro Git" book' href="http://progit.org/book/ch6-4.html">ProGit</a> knows exactly what to do. </p>
+<blockquote>
+<p>git filter-branch &#8212;tree-filter &#8216;some-bash-command&#8217; HEAD</p>
+</blockquote>
+<p>So here&#8217;s my example of how to use it.</p>
+<p>I’ve accidentally added a picture of my bum to this rep.</p>
+<blockquote>
+<p>$ git show 84c344<br/>commit 84c344c1874736a6d063ed45abe21e20815525b9<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800<br/><br/>  add my bum<br/><br/>diff &#8212;git a/mybum.jpg b/mybum.jpg<br/>new file mode 100644<br/>index 0000000..018be38<br/>&#8212;- /dev/null<br/>+++ b/mybum.jpg<br/>@@ -0,0 +1 @@<br/>+a picture of my bum</p>
+</blockquote>
+<p>so let&#8217;s try and wipe it from history.</p>
+<blockquote>
+<p>$ git filter-branch &#8212;tree-filter &#8216;rm -f mybum.jpg&#8217; HEAD<br/>Rewrite 76a50a3b1b3263d84517c8e6241ec0bf2bf36fdc (4/4)<br/>Ref &#8216;refs/heads/master&#8217; was rewritten</p>
+</blockquote>
+<p>now commit 84c344 is still there, but it is not in our branch.<br/>Looking at git log, I can see it&#8217;s been rewritten to f59366</p>
+<blockquote>
+<p>$ git show f59366<br/>commit f59366420a8b753de5a0d2812e0abbfb95fccfdf<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800</p>
+<p>    add my bum</p>
+</blockquote>
+<p>so my bum is no longer there. In the working tree, or in history.</p>
+<p>Right now <strong>DON&#8217;T git pull</strong> it will merge your commits with the original commits.</p>
+<p>You&#8217;ll have achieved nothing (except doubling the number of commits)</p>
+<p>I don&#8217;t have an elegant solution&#8230; but this seems the only way.</p>
+<blockquote>
+<p>delete all remote repositories</p>
+<p>and push to them again</p>
+</blockquote>
+<p>I&#8217;m sure there&#8217;s a better way&#8230; but I haven&#8217;t found it.</p>
+<p>Here&#8217;s my example repo <a href="http://github.com/matthewrudy/git-rebase-test"><a href="http://github.com/matthewrudy/git-rebase-test">http://github.com/matthewrudy/git-rebase-test</a></a></p>
+<p>go play!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git pp (git push && git pull)]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/09/08/git-pp-git-push--git-pull/"/>
+    <updated>2010-09-08T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/09/08/git-pp-git-push&#8211;git-pull</id>
+    <content type="html"><![CDATA[<p>I am addicted to committing (not commitment).</p>
+<p>I make small, distinct commits all the time.</p>
+<p>But the consequence of this is</p>
+<blockquote>
+<p>$ git push origin master</p>
+<p>To git@myServer:myRepo.git<br/> &#160;! [rejected]        master -&gt; master (non-fast-forward)<br/>  error: failed to push some refs to &#8216;git@myServer:myRepo.git&#8217;</p>
+<p>To prevent you from losing history, non-fast-forward updates were rejected</p>
+<p>Merge the remote changes (e.g. &#8216;git pull&#8217;) before pushing again.  See the<br/>&#8216;Note about fast-forwards&#8217; section of &#8216;git push &#8212;help&#8217; for details.</p>
+</blockquote>
+<p>I hate getting push failures.</p>
+<p>But I don&#8217;t trust myself to do a pull beforehand.</p>
+<p>Enter a git alias!</p>
+<blockquote>
+<p>$ cat ~/.gitconfig <br/>[alias]<br/>    pp =&#160;!sh -c &#8216;git pull $0 $1 &amp;&amp; git push $0 $1&#8217;</p>
+</blockquote>
+<p>Now I am free to &#8220;git pp origin master&#8221; as much as I want.</p>
+<blockquote>
+<p>$ git pp origin master</p>
+From myServer:myRepo<br/> * branch            master     -&gt; FETCH_HEAD<br/>Already up-to-date.<br/>Everything up-to-date<br/></blockquote>
+<p>SAFE!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OR logic in gmail filters]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/08/27/or-logic-in-gmail-filters/"/>
+    <updated>2010-08-27T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/08/27/or-logic-in-gmail-filters</id>
+    <content type="html"><![CDATA[<p>I don&#8217;t want to have to read all the emails from my old job,</p>
+<p>but I do want to read some of them.</p>
+<p>So the obvious answer is using gmail filters, to tag, and archive the ones I don&#8217;t want.</p>
+<p>It turns out the emails I don&#8217;t care about are sent to</p>
+<blockquote>
+<p><strong>notifications@somedomain.com</strong> and <strong>something-notify@otherdomain.com</strong></p>
+</blockquote>
+<p>I guess it makes sense, but in the filter box we can use the &#8220;<strong>OR</strong>&#8221; keyword</p>
+<blockquote>
+<p>notifications@somedomain.com<strong> OR</strong> notify@otherdomain.com <strong><br/></strong></p>
+</blockquote>
+<p><img src="http://media.tumblr.com/tumblr_l7togsaiBI1qzqesv.jpg"/></p>
+<p><strong>Boom ting!</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Stop adding methods to Symbol just to make your DSL look pretty!]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty/"/>
+    <updated>2010-06-18T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty</id>
+    <content type="html"><![CDATA[<p>I remember the first time I saw <a href="http://datamapper.org/">Datamapper</a>.</p>
+<p>I liked saying &#8220;:something.gt something_else&#8221;.</p>
+<p>It was pretty.</p>
+<p>But after a while I realised it wasn&#8217;t necessary.</p>
+<p>So why are we still building APIs that involve extending Symbol?</p>
+<script src="http://gist.github.com/443165.js?file=symbol-extensions-in-finder-apis.rb"></script><p><em>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+railstips+%28Rails+Tips%29">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a></em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby Enterprise Edition still faster than Ruby 1.9.2?]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/06/02/ruby-enterprise-edition-still-faster-than-ruby-192/"/>
+    <updated>2010-06-02T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/06/02/ruby-enterprise-edition-still-faster-than-ruby-192</id>
+    <content type="html"><![CDATA[<p>With Ruby 1.9.2 due to ship on July 31st, I thought I&#8217;d take Ruby 1.9.2 preview 3 for a spin.</p>
+<p>A quick&#8230;</p>
+<blockquote>
+<p>rvm install ruby-1.9.2-preview3</p>
+<p>gem install rails prawn erubis</p>
+</blockquote>
+<p>&#8230; and we&#8217;re done.</p>
+<p>But is it any faster than REE?</p>
+<p><strong>What does it mean to be faster?</strong></p>
+<p>Perhaps all I care about is how fast my tests run</p>
+<blockquote>
+<p>rvm use ruby-1.9.2-preview3</p>
+<p>time rake</p>
+<p>rvm use ree</p>
+<p>time rake</p>
+<p># repeat..</p>
+</blockquote>
+<p><strong>My app:</strong></p>
+<ul><li> Rails 2.3.6</li>
+<li>rails_xss</li>
+<li>postgres</li>
+<li>~25 models</li>
+<li>~25 controllers</li>
+</ul><p><strong>My test suite:</strong></p>
+<ul><li>~1700 assertions</li>
+<li>~95% <a title="rcov_rails for rails coverage" href="http://github.com/matthewrudy/rcov_rails">code coverage</a></li>
+</ul><p><strong>Results;</strong></p>
+<script src="http://gist.github.com/421949.js?file=ruby-1.9.2-vs-ree-test-suite"></script><p>So REE is consistently 10% faster at running my test suite than Ruby 1.9.2-preview3</p>
+<p><strong>Does this matter?</strong></p>
+<p>Probably not&#8230; but maybe I can use those extra 5 seconds.</p>
+<p><em>(can&#8217;t wait to see if the <a href="http://www.youtube.com/watch?v=ghLCtCwAKqQ">Phusion.nl</a> guys can make Ruby 1.9.2 faster&#8230; )</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ssh -D is your friend!]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/05/04/ssh--d-is-your-friend/"/>
+    <updated>2010-05-04T00:00:00+01:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/05/04/ssh&#8211;d-is-your-friend</id>
+    <content type="html"><![CDATA[<blockquote>
+<p>Are you stuck behind a firewall?</p>
+<p>Does your work block access to facebook?</p>
+<p>Do you want to watch English Telly from abroad?</p>
+</blockquote>
+<p><strong>SSH -D is your friend.</strong></p>
+<p><br/>All you need to bypass the firewall;</p>
+<ul><li>ssh access to a VPS</li>
+<li>ssh -D8080 me@myserver.com // keep this open</li>
+<li>go to your browser</li>
+<li>set &#8220;connect via SOCKS proxy&#8221; on port 8080</li>
+<li>keep the ssh connection open</li>
+<li>voila!</li>
+</ul><p>Your internet access is now piped via your VPS.</p>
+<p>This means;</p>
+<ul><li>if it is in the UK you can access iPlayer</li>
+<li>if it is in the US you can access Hulu</li>
+<li>if you were in China you can access&#8230; everything</li>
+</ul><p>Boom ting!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 doesn't allow "open" as a Named Scope]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/"/>
+    <updated>2010-03-01T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope</id>
+    <content type="html"><![CDATA[<p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
+<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
+<p>But this one kind of annoys me.</p>
+<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
+<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
+<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
+<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
+<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
+<p>So here&#8217;s a quick hack I put in an initializer</p>
+<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
+require 'active_record'
+class ActiveRecord::Base
+  class &lt;&lt; self
+    alias :_open :open
+    undef_method :open
+  end
+end</code></pre>
+<p>And we&#8217;re done&#8230;</p>
+<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
+<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
+<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
 ]]></content>
   </entry>
   

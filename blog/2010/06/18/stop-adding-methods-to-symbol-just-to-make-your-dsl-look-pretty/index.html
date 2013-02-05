@@ -9,10 +9,7 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="I remember the first time I saw Datamapper.
-I liked saying &#8220;:something.gt something_else&#8221;.
-It was pretty.
-But after a while I realised it &hellip;">
+  <meta name="description" content="I remember the first time I saw Datamapper. I liked saying :something.gt something_else. It was pretty. But after a while I realised it wasn&#8217;t &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,12 +89,70 @@ But after a while I realised it &hellip;">
   </header>
 
 
-<div class="entry-content"><p>I remember the first time I saw <a href="http://datamapper.org/">Datamapper</a>.</p>
-<p>I liked saying &#8220;:something.gt something_else&#8221;.</p>
+<div class="entry-content"><p>I remember the first time I saw <a href="http://datamapper.org">Datamapper</a>.</p>
+
+<p>I liked saying <code>:something.gt something_else</code>.</p>
+
 <p>It was pretty.</p>
+
 <p>But after a while I realised it wasn&#8217;t necessary.</p>
+
 <p>So why are we still building APIs that involve extending Symbol?</p>
-<script src="http://gist.github.com/443165.js?file=symbol-extensions-in-finder-apis.rb"></script><p><em>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+railstips+%28Rails+Tips%29">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a></em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># is this really more ugly than</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:age</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:gt</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">})</span>
+</span><span class='line'><span class="c1"># this?</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:age</span><span class="o">.</span><span class="n">gt</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># is this really more ugly than</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[</span><span class="ss">:age</span><span class="p">,</span> <span class="ss">:desc</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># this?</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="ss">:age</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Do I really want Symbol to have all of these methods?</span>
+</span><span class='line'><span class="no">Symbol</span><span class="o">.</span><span class="n">unnecessary_instance_methods</span> <span class="o">==</span> <span class="o">[</span>
+</span><span class='line'>  <span class="ss">:gt</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:lt</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:gte</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:lte</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:ne</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:in</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:nin</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:mod</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:all</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:exists</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:asc</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:desc</span>
+</span><span class='line'><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a>.</p>
 </div>
 
 

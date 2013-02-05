@@ -4,7 +4,7 @@
   <title><![CDATA[RudyGems]]></title>
   <link href="http://matthewrudy.github.com/atom.xml" rel="self"/>
   <link href="http://matthewrudy.github.com/"/>
-  <updated>2013-02-05T00:55:06+00:00</updated>
+  <updated>2013-02-05T01:01:25+00:00</updated>
   <id>http://matthewrudy.github.com/</id>
   <author>
     <name><![CDATA[Matthew Rudy]]></name>
@@ -667,11 +667,11 @@ puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
     <link href="http://matthewrudy.github.com/blog/2010/09/08/git-pp-git-push--git-pull/"/>
     <updated>2010-09-08T00:00:00+01:00</updated>
     <id>http://matthewrudy.github.com/blog/2010/09/08/git-pp-git-push&#8211;git-pull</id>
-    <content type="html"><![CDATA[I am addicted to committing (not commitment).
+    <content type="html"><![CDATA[<p>I am addicted to committing (not commitment).</p>
 
-I make small, distinct commits all the time.
+<p>I make small, distinct commits all the time.</p>
 
-But the consequence of this is
+<p>But the consequence of this is</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -695,11 +695,12 @@ But the consequence of this is
 </span><span class='line'>‘Note about fast-forwards’ section of ‘git push —help’ <span class="k">for </span>details.
 </span></code></pre></td></tr></table></div></figure>
 
-I hate getting push failures.
 
-But I don’t trust myself to do a pull beforehand.
+<p>I hate getting push failures.</p>
 
-Enter a git alias!
+<p>But I don’t trust myself to do a pull beforehand.</p>
+
+<p>Enter a git alias!</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -709,7 +710,8 @@ Enter a git alias!
 </span><span class='line'>    <span class="nv">pp</span> <span class="o">=</span> !sh -c ‘git pull <span class="nv">$0</span> <span class="nv">$1</span> <span class="o">&amp;&amp;</span> git push <span class="nv">$0</span> <span class="nv">$1</span>’
 </span></code></pre></td></tr></table></div></figure>
 
-Now I am free to “git pp origin master” as much as I want.
+
+<p>Now I am free to “git pp origin master” as much as I want.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -725,7 +727,9 @@ Now I am free to “git pp origin master” as much as I want.
 </span><span class='line'>Everything up-to-date
 </span></code></pre></td></tr></table></div></figure>
 
-SAFE!]]></content>
+
+<p>SAFE!</p>
+]]></content>
   </entry>
   
   <entry>
@@ -754,12 +758,70 @@ SAFE!]]></content>
     <link href="http://matthewrudy.github.com/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty/"/>
     <updated>2010-06-18T00:00:00+01:00</updated>
     <id>http://matthewrudy.github.com/blog/2010/06/18/stop-adding-methods-to-symbol-just-to-make-your-dsl-look-pretty</id>
-    <content type="html"><![CDATA[<p>I remember the first time I saw <a href="http://datamapper.org/">Datamapper</a>.</p>
-<p>I liked saying &#8220;:something.gt something_else&#8221;.</p>
+    <content type="html"><![CDATA[<p>I remember the first time I saw <a href="http://datamapper.org">Datamapper</a>.</p>
+
+<p>I liked saying <code>:something.gt something_else</code>.</p>
+
 <p>It was pretty.</p>
+
 <p>But after a while I realised it wasn&#8217;t necessary.</p>
+
 <p>So why are we still building APIs that involve extending Symbol?</p>
-<script src="http://gist.github.com/443165.js?file=symbol-extensions-in-finder-apis.rb"></script><p><em>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+railstips+%28Rails+Tips%29">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a></em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># is this really more ugly than</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:age</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:gt</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">})</span>
+</span><span class='line'><span class="c1"># this?</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:age</span><span class="o">.</span><span class="n">gt</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># is this really more ugly than</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="o">[</span><span class="ss">:age</span><span class="p">,</span> <span class="ss">:desc</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># this?</span>
+</span><span class='line'><span class="no">User</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="ss">:age</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Do I really want Symbol to have all of these methods?</span>
+</span><span class='line'><span class="no">Symbol</span><span class="o">.</span><span class="n">unnecessary_instance_methods</span> <span class="o">==</span> <span class="o">[</span>
+</span><span class='line'>  <span class="ss">:gt</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:lt</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:gte</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:lte</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:ne</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:in</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:nin</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:mod</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:all</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:exists</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:asc</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:desc</span>
+</span><span class='line'><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I saw <a href="http://railstips.org/blog/archives/2010/06/16/mongomapper-08-goodies-galore">this</a> on an extension called <a href="http://github.com/jnunemaker/plucky">Plucky</a> for <a href="http://github.com/jnunemaker/mongomapper">MongoMapper</a>.</p>
 ]]></content>
   </entry>
   

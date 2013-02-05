@@ -4,7 +4,7 @@
   <title><![CDATA[RudyGems]]></title>
   <link href="http://matthewrudy.github.com/atom.xml" rel="self"/>
   <link href="http://matthewrudy.github.com/"/>
-  <updated>2013-02-05T00:37:09+00:00</updated>
+  <updated>2013-02-05T00:41:29+00:00</updated>
   <id>http://matthewrudy.github.com/</id>
   <author>
     <name><![CDATA[Matthew Rudy]]></name>
@@ -154,50 +154,93 @@ Sometimes there are new versions of gems, sometimes there aren&#8217;t.</p>
     <updated>2011-06-28T00:00:00+01:00</updated>
     <id>http://matthewrudy.github.com/blog/2011/06/28/cd&#8211;tmp-</id>
     <content type="html"><![CDATA[<p>How do I cd to a directory starting with a hypen (-)?</p>
-<p><span>
-<pre># /var/folders/*whatever*/ has a folder named '-Tmp-'
-$ ls
--Caches-/ -Tmp-/ 
 
-# lets try and CD there
-$ cd -Tmp-
--bash: cd: -T: invalid option
-cd: usage: cd [-L|-P] [dir]
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># /var/folders/*whatever*/ has a folder named &#39;-Tmp-&#39;</span>
+</span><span class='line'><span class="nv">$ </span>ls
+</span><span class='line'>-Caches-/ -Tmp-/
+</span><span class='line'>
+</span><span class='line'><span class="c"># lets try and CD there</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> -Tmp-
+</span><span class='line'>-bash: <span class="nb">cd</span>: -T: invalid option
+</span><span class='line'><span class="nb">cd</span>: usage: <span class="nb">cd</span> <span class="o">[</span>-L|-P<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># or maybe make sure its a directory</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> -Tmp-/
+</span><span class='line'>-bash: <span class="nb">cd</span>: -T: invalid option
+</span><span class='line'><span class="nb">cd</span>: usage: <span class="nb">cd</span> <span class="o">[</span>-L|-P<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># try and escape the first -</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> <span class="se">\-</span>Tmp-
+</span><span class='line'>-bash: <span class="nb">cd</span>: -T: invalid option
+</span><span class='line'><span class="nb">cd</span>: usage: <span class="nb">cd</span> <span class="o">[</span>-L|-P<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># quote it</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> <span class="s1">&#39;-Tmp-&#39;</span>
+</span><span class='line'>-bash: <span class="nb">cd</span>: -T: invalid option
+</span><span class='line'><span class="nb">cd</span>: usage: <span class="nb">cd</span> <span class="o">[</span>-L|-P<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># double quote it</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> <span class="s2">&quot;-Tmp-&quot;</span>
+</span><span class='line'>-bash: <span class="nb">cd</span>: -T: invalid option
+</span><span class='line'><span class="nb">cd</span>: usage: <span class="nb">cd</span> <span class="o">[</span>-L|-P<span class="o">]</span> <span class="o">[</span>dir<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># escape it in the quotes</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> <span class="s1">&#39;\-Tmp-&#39;</span>
+</span><span class='line'>-bash: <span class="nb">cd</span>: <span class="se">\-</span>Tmp-: No such file or directory
+</span><span class='line'>
+</span><span class='line'><span class="c"># escape it in the double quotes</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> <span class="s2">&quot;\-Tmp-&quot;</span>
+</span><span class='line'>-bash: <span class="nb">cd</span>: <span class="se">\-</span>Tmp-: No such file or directory
+</span><span class='line'>
+</span><span class='line'><span class="c"># try a &quot;./&quot; hack</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> ./-Tmp-/
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;WHOOP&quot;</span>
+</span><span class='line'>WHOOP
+</span></code></pre></td></tr></table></div></figure>
 
-# or maybe make sure its a directory
-$ cd -Tmp-/
--bash: cd: -T: invalid option
-cd: usage: cd [-L|-P] [dir]
-
-# try and escape the first -
-$ cd \-Tmp-
--bash: cd: -T: invalid option
-cd: usage: cd [-L|-P] [dir]
-
-# quote it
-$ cd '-Tmp-'
--bash: cd: -T: invalid option
-cd: usage: cd [-L|-P] [dir]
-
-# double quote it
-$ cd "-Tmp-"
--bash: cd: -T: invalid option
-cd: usage: cd [-L|-P] [dir]
-
-# escape it in the quotes
-$ cd '\-Tmp-'
--bash: cd: \-Tmp-: No such file or directory
-
-# escape it in the double quotes
-$ cd "\-Tmp-"
--bash: cd: \-Tmp-: No such file or directory
-
-# try a "./" hack
-$ cd ./-Tmp-/
-
-$ echo "WHOOP"
-WHOOP</pre>
-</span></p>
 ]]></content>
   </entry>
   

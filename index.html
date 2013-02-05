@@ -133,33 +133,75 @@
 
 
   <div class="entry-content"><p>I follow the convention;</p>
-<ul><li><code>Procfile</code> defines <em>all</em> processes</li>
-<li><code>.foreman</code> set specific foreman variables</li>
-</ul><p>Development:</p>
-<ul><li><code>.env</code> sets environment variables for each developer</li>
-<li><code>.env.example</code> sets defaults for development</li>
-<li><code>foreman start</code> starts all processes</li>
-</ul><p>Production:</p>
-<ul><li><code>heroku config</code> sets environment variables</li>
+
+<ul>
+<li><code>Procfile</code> defines <em>all</em> processes</li>
+<li><code>.foreman</code> sets specific foreman variables</li>
+</ul>
+
+
+<p>Development:</p>
+
+<ul>
+<li><code>.env</code> sets environment variables for each developer</li>
+<li><code>.env.example</code> sets defaults for development</li>
+<li><code>foreman start</code> starts all processes</li>
+</ul>
+
+
+<p>Production:</p>
+
+<ul>
+<li><code>heroku config</code> sets environment variables</li>
 <li><code>heroku ps:scale</code> turns on or off whichever processes are needed for production</li>
-</ul><p>Here&#8217;s an example from a project.</p>
-<p>Procfile:</p>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">web</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> unicorn_rails </span><span class="pun">-</span><span class="pln">p $PORT </span><span class="pun">-</span><span class="pln">c </span><span class="pun">./</span><span class="pln">config</span><span class="pun">/</span><span class="pln">unicorn</span><span class="pun">.</span><span class="pln">rb</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">worker</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake jobs</span><span class="pun">:</span><span class="pln">work</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">search</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake sunspot</span><span class="pun">:</span><span class="pln">solr</span><span class="pun">:</span><span class="pln">run</span></code></pre>
-<p>.env.example:</p>
-<pre class="default prettyprint prettyprinted"><code><span class="com"># default S3 bucket</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">keykeykeykeykeykey</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">secretsecretsecret</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
-<p>.env</p>
-<pre class="default prettyprint prettyprinted"><code><span class="com"># developer's private S3 bucket</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">mememememememememe</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">mysecretmysecret</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
-<p>.foreman:</p>
-<pre class="default prettyprint prettyprinted"><code><span class="com"># development port is 3000</span></code></pre>
-<pre class="default prettyprint prettyprinted"><code><span class="pln">port</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3000</span></code></pre>
+</ul>
+
+
+<p>Here&#8217;s an example from a project.</p>
+
+<figure class='code'><figcaption><span>Procfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">web</span><span class="p">:</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">unicorn_rails</span> <span class="o">-</span><span class="nb">p</span> <span class="vg">$PORT</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span><span class="n">/config</span><span class="o">/</span><span class="n">unicorn</span><span class="o">.</span><span class="n">rb</span>
+</span><span class='line'><span class="ss">worker</span><span class="p">:</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">jobs</span><span class="p">:</span><span class="n">work</span>
+</span><span class='line'><span class="ss">search</span><span class="p">:</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">sunspot</span><span class="p">:</span><span class="ss">solr</span><span class="p">:</span><span class="n">run</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>.env.example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># default S3 bucket</span>
+</span><span class='line'><span class="no">S3_KEY</span><span class="o">=</span><span class="n">keykeykeykeykeykey</span>
+</span><span class='line'><span class="no">S3_SECRET</span><span class="o">=</span><span class="n">secretsecretsecret</span>
+</span><span class='line'><span class="no">S3_BUCKET</span><span class="o">=</span><span class="n">myapp</span><span class="o">-</span><span class="n">development</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>.env</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># developer&#39;s private S3 bucket</span>
+</span><span class='line'><span class="no">S3_KEY</span><span class="o">=</span><span class="n">mememememememememe</span>
+</span><span class='line'><span class="no">S3_SECRET</span><span class="o">=</span><span class="n">mysecretmysecret</span>
+</span><span class='line'><span class="no">S3_BUCKET</span><span class="o">=</span><span class="n">myapp</span><span class="o">-</span><span class="n">development</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>.foreman</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># development port is 3000</span>
+</span><span class='line'><span class="ss">port</span><span class="p">:</span> <span class="mi">3000</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   

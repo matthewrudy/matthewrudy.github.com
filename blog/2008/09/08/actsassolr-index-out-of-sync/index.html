@@ -9,9 +9,14 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="Faced with a shocking
-&gt;&gt; Phrase.find_by_solr ‘book’RuntimeError: Out of sync!The id 296452 is in the Solr index butmissing in the database!
-Fix &hellip;">
+  <meta name="description" content="Faced with a shocking 1
+2
+3
+4
+5
+&gt;&gt; Phrase.find_by_solr ‘book’
+RuntimeError: Out of sync! The id 296452 is in the Solr index but
+missing in the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,11 +96,29 @@ Fix &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Faced with a shocking</p>
-<pre><code class="ruby">&gt;&gt; Phrase.find_by_solr ‘book’<br/>RuntimeError: Out of sync!<br/><br/><br/><br/>The id 296452 is in the Solr index but<br/>missing in the database!</code></pre>
-<p><br/>Fix it</p>
-<pre><code class="ruby">&gt;&gt; Phrase.solr_delete(“Phrase:296452”)<br/>&gt;&gt; Phrase.solr_commit()</code></pre>
-<p>BOOM!!!</p>
+<div class="entry-content">Faced with a shocking
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;&gt;</span> <span class="no">Phrase</span><span class="o">.</span><span class="n">find_by_solr</span> <span class="err">‘</span><span class="n">book</span><span class="err">’</span>
+</span><span class='line'><span class="ss">RuntimeError</span><span class="p">:</span> <span class="no">Out</span> <span class="n">of</span> <span class="n">sync!</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">The</span> <span class="nb">id</span> <span class="mi">296452</span> <span class="n">is</span> <span class="k">in</span> <span class="n">the</span> <span class="no">Solr</span> <span class="n">index</span> <span class="n">but</span>
+</span><span class='line'><span class="n">missing</span> <span class="k">in</span> <span class="n">the</span> <span class="n">database!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+Fix it
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;&gt;</span> <span class="no">Phrase</span><span class="o">.</span><span class="n">solr_delete</span><span class="p">(</span><span class="err">“</span><span class="ss">Phrase</span><span class="p">:</span><span class="mi">296452</span><span class="err">”</span><span class="p">)</span>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="no">Phrase</span><span class="o">.</span><span class="n">solr_commit</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+BOOM!!!
 </div>
 
 

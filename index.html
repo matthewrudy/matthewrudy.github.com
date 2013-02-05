@@ -9,11 +9,8 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="I follow the convention;
-Procfile defines all processes
-.foreman set specific foreman variables
-Development:
-.env sets environment variables for each &hellip;">
+  <meta name="description" content="Something Something else
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +65,44 @@ Development:
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/05/test-post-about-something/">Test Post About Something</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-05T00:03:00+00:00" pubdate data-updated="true">Feb 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Something</p>
+
+<p>Something else</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -616,89 +651,6 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/">Javascript parseInt() May Not Do What You Expect!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-03T00:00:00+00:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I was shocked today to find I&#8217;d introduced a bug.</p>
-<p>It manifested itself like this;</p>
-<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
-<p>This might seem ok.</p>
-<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
-<blockquote>
-<p>the number of days interest</p>
-<p>less the number of days before repayment begins</p>
-</blockquote>
-<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
-<p>But the difference is -6.</p>
-<p>Something is wrong.</p>
-<p>And the answer is here;</p>
-<blockquote>
-<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
-</blockquote>
-<p>I take a date field</p>
-<blockquote>
-<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
-</blockquote>
-<p>I grab the value</p>
-<blockquote>
-<p>&#8220;2010-12-08&#8221;</p>
-</blockquote>
-<p>I split it into year, month, and day</p>
-<blockquote>
-<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
-</blockquote>
-<p>I turn them into integers</p>
-<blockquote>
-<p>[2010, 12, 0]</p>
-</blockquote>
-<p>Then I make them into a date</p>
-<blockquote>
-<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
-</blockquote>
-<p>No problem!</p>
-<p>Except&#8230;</p>
-<blockquote>
-<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
-</blockquote>
-<p>The problem is</p>
-<blockquote>
-<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
-<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
-</blockquote>
-<p>&#8220;08&#8221; is 0 in octal</p>
-<p><strong>Always use parseInt(something, 10)<br/></strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -714,6 +666,10 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/02/05/test-post-about-something/">Test Post about something</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
       </li>
     
@@ -727,10 +683,6 @@ launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>
     
       <li class="post">
         <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

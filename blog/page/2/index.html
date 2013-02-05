@@ -9,8 +9,9 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="Bundler is still a work in progress, so you can expect things to change.
-One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 &hellip;">
+  <meta name="description" content="I was shocked today to find I&#8217;d introduced a bug.
+It manifested itself like this; This might seem ok.
+Except the &#8220;Number of repayments&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +66,89 @@ One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 &he
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/03/javascript-parseint-may-not-do-what-you-expect/">Javascript parseInt() May Not Do What You Expect!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-03T00:00:00+00:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was shocked today to find I&#8217;d introduced a bug.</p>
+<p>It manifested itself like this;</p>
+<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
+<p>This might seem ok.</p>
+<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
+<blockquote>
+<p>the number of days interest</p>
+<p>less the number of days before repayment begins</p>
+</blockquote>
+<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
+<p>But the difference is -6.</p>
+<p>Something is wrong.</p>
+<p>And the answer is here;</p>
+<blockquote>
+<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
+</blockquote>
+<p>I take a date field</p>
+<blockquote>
+<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
+</blockquote>
+<p>I grab the value</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;</p>
+</blockquote>
+<p>I split it into year, month, and day</p>
+<blockquote>
+<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
+</blockquote>
+<p>I turn them into integers</p>
+<blockquote>
+<p>[2010, 12, 0]</p>
+</blockquote>
+<p>Then I make them into a date</p>
+<blockquote>
+<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>No problem!</p>
+<p>Except&#8230;</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>The problem is</p>
+<blockquote>
+<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
+<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
+</blockquote>
+<p>&#8220;08&#8221; is 0 in octal</p>
+<p><strong>Always use parseInt(something, 10)<br/></strong></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -606,62 +690,6 @@ From myServer:myRepo<br/> * branch            master     -&gt; F
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/">Rails 3 Doesn&#8217;t Allow &#8220;Open&#8221; as a Named Scope</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-01T00:00:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
-<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
-<p>But this one kind of annoys me.</p>
-<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
-<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
-<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
-<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
-<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
-<p>So here&#8217;s a quick hack I put in an initializer</p>
-<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
-require 'active_record'
-class ActiveRecord::Base
-  class &lt;&lt; self
-    alias :_open :open
-    undef_method :open
-  end
-end</code></pre>
-<p>And we&#8217;re done&#8230;</p>
-<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
-<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
-<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -679,6 +707,10 @@ end</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/02/05/test-post-about-something/">Test Post about something</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
       </li>
     
@@ -692,10 +724,6 @@ end</code></pre>
     
       <li class="post">
         <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

@@ -1,0 +1,27 @@
+---
+layout: post
+title: Ruby in Chinese
+tags:
+- ruby
+- chinese
+- code
+- utf8
+---
+<p>in Ruby 1.8, if you try and assign a variable</p>
+<blockquote>
+<p>你=&#8221;ni3&#8221;</p>
+</blockquote>
+<p>you&#8217;ll get an error</p>
+<blockquote>
+<p>Invalid char `\344&#8217; in expression<br/>Invalid char `\275&#8217; in expression<br/>Invalid char `\240&#8217; in expression<br/>syntax error, unexpected &#8216;=&#8217;<br/>你= &#8220;ni3&#8221;</p>
+</blockquote>
+<p>But in Ruby 1.9 it actually works.</p>
+<p>You just need to add a magic &#8220;coding: uft-8&#8221; header to your ruby file.</p>
+<blockquote>
+<p># coding: utf-8<br/>你= &#8220;ni3&#8221;<br/>好= &#8220;hao3&#8221;<br/>puts(你+好)</p>
+</blockquote>
+<p>Wham!</p>
+<blockquote>
+<p>matthew@RuPro:~$ ruby chinese.rb <br/>ni3hao3</p>
+</blockquote>
+<p>(if you can&#8217;t write chinese, steal my gist <a href="http://gist.github.com/613670">http://gist.github.com/613670</a>)</p>

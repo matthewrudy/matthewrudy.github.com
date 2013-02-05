@@ -1,0 +1,31 @@
+---
+layout: post
+title: Upgrading Postgres 8.4 to 9.0 with Homebrew
+tags: 
+---
+<p>I hoped it&#8217;d be as simple as a `brew install postgresql`</p>
+<p>And it almost was.</p>
+<p>But&#8230;</p>
+<pre>RudiMac:merlot matthew$ tail -f /usr/local/var/postgres/server.log
+FATAL:  database files are incompatible with server
+DETAIL:  The data directory was initialized by PostgreSQL version 8.4, which is not compatible with this version 9.0.3.</pre>
+<p>How do I fix the data files?</p>
+<p>Turns out there is a `pg_update` method to do this for you.</p>
+<p>But it requires a bit of manual work.</p>
+<pre># First of all stop the server
+launchctl unload -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
+
+# backup the old data directory
+mv /usr/local/var/postgres /usr/local/var/postgres.old
+
+# now create a fresh postgres 9 data directory
+initdb /usr/local/var/postgres</pre>
+<p>Now we&#8217;re ready to do the upgrade.</p>
+<pre>pg_upgrade -d /usr/local/var/postgres.844/ -D /usr/local/var/postgres -b /usr/local/Cellar/postgresql/8.4.4/bin -B /usr/local/Cellar/postgresql/9.0.3/bin
+...
+Upgrade complete
+----------------</pre>
+<p>Boom Ting</p>
+<p>Now just add the launch control back in and we&#8217;re off.</p>
+<pre>cp /usr/local/Cellar/postgresql/9.0.3/org.postgresql.postgres.plist ~/Library/LaunchAgents
+launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist</pre>

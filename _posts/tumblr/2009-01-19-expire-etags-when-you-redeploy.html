@@ -1,0 +1,26 @@
+---
+layout: post
+title: Expire eTAGs when you redeploy
+tags:
+- '304'
+- caching
+- etag
+- git
+- rails
+- ruby
+- capistrano
+---
+<p>Rails 2.2&#8217;s eTAG functionality is great.</p>
+<pre><code class="ruby">def show<br/>  @article = Article.find(params[:id])<br/>  if stale_record(@article)<br/>    # do something expensive<br/>  end<br/>end<br/><br/>protected<br/><br/>  def stale_record?(record)<br/>    fresh_when(:etag =&gt; [current_user, record], :last_modified =&gt; record.updated_at.utc)<br/>    !request.fresh?(response)<br/>  end</code></pre>
+<p>&#8220;304 NOT MODIFIED&#8221; all around!</p>
+<p>But this determines freshness based on just the record.<br/> If I deploy a new version of the &#8220;show&#8221; template eTAG-compliant browsers won&#8217;t refresh.</p>
+<p>I could build my own way of handling this inside &#8220;stale_record?&#8221;<br/> But Rails already has a method for dealing with this.</p>
+<p>All cache keys are generated through the following code.</p>
+<pre><code class="ruby">if ENV["RAILS_CACHE_ID"] || ENV["RAILS_APP_VERSION"]<br/>  expanded_cache_key &lt;&lt; "#{ENV["RAILS_CACHE_ID"] || ENV["RAILS_APP_VERSION"]}/"<br/>end</code></pre>
+<p>So what does it mean to be the RAILS_APP_VERSION?<br/> Well, I&#8217;m going to mis-use it, and say &#8220;it&#8217;s the current version of our app&#8221;</p>
+<p>And Capistrano already gives this to us&#8230; it gives us /current/REVISION!!!</p>
+<p>Perfect!</p>
+<p>A quick &#8220;/config/initializers/capified_etags.rb&#8221; later</p>
+<pre><code class="ruby">app_version_path = File.join(Rails.root, "REVISION")<br/>if File.exist?(app_version_path)<br/>  ENV["RAILS_APP_VERSION"] = File.open(app_version_path).read.strip<br/>end</code></pre>
+<p>Nice.</p>
+<p><i>Let me know if there are any other approaches out there.</i></p>

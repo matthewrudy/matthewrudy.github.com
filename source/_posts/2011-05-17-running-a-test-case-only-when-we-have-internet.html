@@ -1,0 +1,51 @@
+---
+layout: post
+title: Running a Test Case only when we have internet
+tags:
+- testing
+- internet_connection
+---
+<p>So I have some tests for geocoding, that I want to be run live.</p>
+<pre>test "geocoding" do
+  record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+  assert_equal 51.59011, record.latitude
+  assert_equal -2.995398, record.longitude
+end
+</pre>
+<p>Of course, these will fail when there&#8217;s no internet.</p>
+<p>My choices;</p>
+<ul><li>mock the geocoding API</li>
+<li>let them fail</li>
+<li>only run this test when there&#8217;s internet</li>
+</ul><p>I chose the latter.</p>
+<p>How do I know I have internet connection?</p>
+<p>Can I ping google?</p>
+<pre>system "ping -q -c 1 -t 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+<p>Complication!</p>
+<blockquote>
+<p>the above works on OSX (where -t1 sets a timeout of 1 second)</p>
+<p>but on Linux -t has a different meaning, and -w1 sets the timeout</p>
+<p>Compromise: ignore timeouts for the moment</p>
+</blockquote>
+<pre>system "ping -q -c 1 google.com 1&gt; /dev/null" #=&gt; true / false</pre>
+
+<p>Stick this in a method</p>
+<pre>def requires_internet!
+  if can_ping_google?
+    yield
+  else
+    flunk "this test needs to be run when there is internet"
+  end
+end
+</pre>
+<p>Now incorporate this into our test.</p>
+<pre>test "geocoding" do
+  requires_internet! do
+    record = Address.create!(:address =&gt; "Pretty Cottage, Winding Road, Beautiful Country")
+    assert_equal 50.0, record.latitude
+    assert_equal -0.3, record.longitude
+  end
+end
+</pre>
+<p>Done.</p>
+<p>Here&#8217;s <a title="get the gist?" href="https://gist.github.com/976285">the gist</a>. Fork it and make it better!</p>

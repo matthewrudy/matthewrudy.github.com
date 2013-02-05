@@ -1,0 +1,54 @@
+---
+layout: post
+title: has_one_accessor
+tags: 
+---
+<p><a href="http://github.com/matthewrudy/has_one_accessor">HasOneAccessor</a> is a plugin for ActiveRecord that solves the problem of having associations that act like a attribute.</p>
+<p>Perhaps only a few users have an openid, so it doesn&#8217;t make sense to add an :open_id_url column to your :users table.</p>
+<p>Instead you create a new model OpenId</p>
+<pre><code class="ruby">class OpenId &lt; ActiveRecord::Base
+  belong_to :user
+end
+
+class User &lt; ActiveRecord::Base
+  has_one :open_id
+
+  def open_id_url
+    self.open_id &amp;&amp; self.open_id.url
+  end
+
+  def open_id_url=(value)
+    if value.blank?
+      self.open_id &amp;&amp; self.open_id = nil
+    else
+      self.open_id || self.build_open_id
+      self.open_id.url = value
+    end
+  end
+end</code></pre>
+<p>Now, that&#8217;s not too bad. But maybe you didn&#8217;t have time to clean it up.</p>
+<p>Maybe you deal with it in your controller.</p>
+<pre><code class="ruby">def update
+  if params[:open_id_url] &amp;&amp; params[:open_id_url].present?
+    @user.open_id || @user.build_open_id
+    @user.open_id.url = params[:open_id_url]
+  end
+  ...
+end</code></pre>
+<p>Now, that&#8217;s all fine.</p>
+<p>But we all want to make these things easier.</p>
+<p>We all want to cast as much code aside.</p>
+<p>ConventionOverConfiguration and all that.</p>
+<p>Enter <a href="http://github.com/matthewrudy/has_one_accessor">has_one_accessor</a></p>
+<pre><code class="ruby">class OpenId &lt; ActiveRecord::Base
+  belong_to :user
+end
+
+class User &lt; ActiveRecord::Base
+  has_one :open_id
+  has_one_accessor :open_id, :url, :allow_blank =&gt; false
+end</code></pre>
+<p>This takes away all the code,</p>
+<p>This takes care of building a record if there wasn&#8217;t one, of only saving it when you save the User.</p>
+<p>It even kills the association if the value is :blank? (if you pass in :allow_blank =&gt; false).</p>
+<p>B00m, h34dsh0t?</p>

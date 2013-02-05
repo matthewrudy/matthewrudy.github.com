@@ -1,0 +1,33 @@
+---
+layout: post
+title: Installing Ruby 1.9.1 on Ubuntu 9.04
+tags:
+- ruby
+- ubuntu
+- 1.9.1
+- source
+- install
+---
+<p>Now, I&#8217;m upset that Jaunty Jackalope doesn&#8217;t ship with ruby 1.9.1 as default,<br/> and the packaged version is only 1.9.0.</p>
+<p>So we&#8217;re going to have to build it from source.</p>
+<p>And because we&#8217;re all progressive people, we&#8217;re not even going to worry about suffixing the executables with `1.9` <i>I can&#8217;t be bothered to type `<code>gem1.9`</code></i></p>
+<p>The dependencies are simple;</p>
+<pre><code class="bash">sudo apt-get install build-essential libssl-dev libreadline5 libreadline5-dev zlib1g zlib1g-dev</code></pre>
+<p>Then the usual process&#8230;</p>
+<pre><code class="bash">mkdir ~/src &amp;&amp; cd ~/src
+wget <a href="ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.gz">ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.gz</a>
+tar -xvf ruby-1.9.1-p0.tar.gz
+cd ruby-1.9.1-p0
+./configure
+make
+make test
+sudo make install</code></pre>
+<p>And to get rails working properly</p>
+<pre><code class="bash">sudo gem update --system
+sudo gem install rails
+
+# and to get sqlite3 working properly
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo gem install sqlite3-ruby</code></pre>
+<p>Done.</p>
+<p><i>I&#8217;ll add to this if I notice any problems</i></p>

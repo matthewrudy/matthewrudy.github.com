@@ -1,0 +1,66 @@
+---
+layout: post
+title: Even more Ruby in Chinese
+tags:
+- ruby
+- chinese
+- utf8
+---
+<p>I realised I can write even more Ruby in Chinese.</p>
+<p>The only gotchas are;</p>
+<ul><li>don&#8217;t attempt to use Chinese punctuation （”‘＝＋－，。）</li>
+<li>it doesn&#8217;t recognise Chinese as uppercase, so you can&#8217;t start a class or Constant name with a chinese character</li>
+</ul><p>So here is my code.</p>
+<pre><code class="ruby"># encoding: utf-8
+
+class C动物
+
+  def initialize(名字)
+    @名字 = 名字
+  end
+  attr_reader :名字
+
+  def 朋友?(别的)
+    true
+  end
+
+  def 吃了?
+    false
+  end
+
+end
+
+class C狗 &lt; C动物
+  
+  def 朋友?(别的)
+    !别的.is_a?(C马泰)
+  end
+
+end
+
+class C人 &lt; C动物
+end
+
+class C马泰 &lt; C人
+  
+  def 吃了?(别的)
+    别的.is_a?(C狗)
+  end
+
+end
+
+我=C马泰.new("马泰")
+puts "我的名字是#{我.名字}"
+她=C人.new("张学敏")
+puts "她的名字是#{她.名字}"
+
+狗=C狗.new("阿财")
+puts "狗的名字是#{狗.名字}"
+
+puts "狗是我的朋友吗？#{我.朋友?(狗)}"
+puts "我是狗的朋友吗？#{狗.朋友?(我)}"
+
+puts "狗吃了我吗？#{狗.吃了?(我)}"
+puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
+<p>See the full gist at <a href="https://gist.github.com/711563"><a href="https://gist.github.com/711563">https://gist.github.com/711563</a></a></p>
+<p>Maybe I should write a plugin for rails.</p>

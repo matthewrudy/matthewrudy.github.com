@@ -1,0 +1,48 @@
+---
+layout: post
+title: How to delete a file from Git History
+tags:
+- git
+- tips
+- delete
+---
+<p>I always think about this problem;</p>
+<blockquote>
+<p>What happens if I accidentally commit my password into a git repository?</p>
+<p>Surely it&#8217;ll be there forever?</p>
+</blockquote>
+<p>Or</p>
+<blockquote>
+<p>Oh man&#8230; I just committed a 700mb video file into the repository</p>
+<p>It&#8217;s going to take forever to deploy&#8230;</p>
+</blockquote>
+<p>I&#8217;ve always known &#8220;get rebase&#8221; will probably be the answer</p>
+<p>Luckily <a title='The "Pro Git" book' href="http://progit.org/book/ch6-4.html">ProGit</a> knows exactly what to do. </p>
+<blockquote>
+<p>git filter-branch &#8212;tree-filter &#8216;some-bash-command&#8217; HEAD</p>
+</blockquote>
+<p>So here&#8217;s my example of how to use it.</p>
+<p>I’ve accidentally added a picture of my bum to this rep.</p>
+<blockquote>
+<p>$ git show 84c344<br/>commit 84c344c1874736a6d063ed45abe21e20815525b9<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800<br/><br/>  add my bum<br/><br/>diff &#8212;git a/mybum.jpg b/mybum.jpg<br/>new file mode 100644<br/>index 0000000..018be38<br/>&#8212;- /dev/null<br/>+++ b/mybum.jpg<br/>@@ -0,0 +1 @@<br/>+a picture of my bum</p>
+</blockquote>
+<p>so let&#8217;s try and wipe it from history.</p>
+<blockquote>
+<p>$ git filter-branch &#8212;tree-filter &#8216;rm -f mybum.jpg&#8217; HEAD<br/>Rewrite 76a50a3b1b3263d84517c8e6241ec0bf2bf36fdc (4/4)<br/>Ref &#8216;refs/heads/master&#8217; was rewritten</p>
+</blockquote>
+<p>now commit 84c344 is still there, but it is not in our branch.<br/>Looking at git log, I can see it&#8217;s been rewritten to f59366</p>
+<blockquote>
+<p>$ git show f59366<br/>commit f59366420a8b753de5a0d2812e0abbfb95fccfdf<br/>Author: Matthew Rudy Jacobs &lt;MatthewRudyJacobs@gmail.com&gt;<br/>Date:   Wed Sep 15&#160;18:25:35&#160;2010 +0800</p>
+<p>    add my bum</p>
+</blockquote>
+<p>so my bum is no longer there. In the working tree, or in history.</p>
+<p>Right now <strong>DON&#8217;T git pull</strong> it will merge your commits with the original commits.</p>
+<p>You&#8217;ll have achieved nothing (except doubling the number of commits)</p>
+<p>I don&#8217;t have an elegant solution&#8230; but this seems the only way.</p>
+<blockquote>
+<p>delete all remote repositories</p>
+<p>and push to them again</p>
+</blockquote>
+<p>I&#8217;m sure there&#8217;s a better way&#8230; but I haven&#8217;t found it.</p>
+<p>Here&#8217;s my example repo <a href="http://github.com/matthewrudy/git-rebase-test"><a href="http://github.com/matthewrudy/git-rebase-test">http://github.com/matthewrudy/git-rebase-test</a></a></p>
+<p>go play!</p>

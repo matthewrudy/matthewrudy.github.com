@@ -1,0 +1,33 @@
+---
+layout: post
+title: Configuring foreman for Production and Development
+tags: 
+---
+<p>I follow the convention;</p>
+<ul><li><code>Procfile</code> defines <em>all</em> processes</li>
+<li><code>.foreman</code> set specific foreman variables</li>
+</ul><p>Development:</p>
+<ul><li><code>.env</code> sets environment variables for each developer</li>
+<li><code>.env.example</code> sets defaults for development</li>
+<li><code>foreman start</code> starts all processes</li>
+</ul><p>Production:</p>
+<ul><li><code>heroku config</code> sets environment variables</li>
+<li><code>heroku ps:scale</code> turns on or off whichever processes are needed for production</li>
+</ul><p>Here&#8217;s an example from a project.</p>
+<p>Procfile:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">web</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> unicorn_rails </span><span class="pun">-</span><span class="pln">p $PORT </span><span class="pun">-</span><span class="pln">c </span><span class="pun">./</span><span class="pln">config</span><span class="pun">/</span><span class="pln">unicorn</span><span class="pun">.</span><span class="pln">rb</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">worker</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake jobs</span><span class="pun">:</span><span class="pln">work</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">search</span><span class="pun">:</span><span class="pln"> bundle </span><span class="kwd">exec</span><span class="pln"> rake sunspot</span><span class="pun">:</span><span class="pln">solr</span><span class="pun">:</span><span class="pln">run</span></code></pre>
+<p>.env.example:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># default S3 bucket</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">keykeykeykeykeykey</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">secretsecretsecret</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
+<p>.env</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># developer's private S3 bucket</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_KEY</span><span class="pun">=</span><span class="pln">mememememememememe</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_SECRET</span><span class="pun">=</span><span class="pln">mysecretmysecret</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">S3_BUCKET</span><span class="pun">=</span><span class="pln">myapp</span><span class="pun">-</span><span class="pln">development</span></code></pre>
+<p>.foreman:</p>
+<pre class="default prettyprint prettyprinted"><code><span class="com"># development port is 3000</span></code></pre>
+<pre class="default prettyprint prettyprinted"><code><span class="pln">port</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3000</span></code></pre>

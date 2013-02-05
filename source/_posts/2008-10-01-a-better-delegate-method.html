@@ -1,0 +1,34 @@
+---
+layout: post
+title: a better :delegate method?
+tags:
+- code
+- delegate
+- rails
+- core
+- patch
+---
+<p>So we have;</p>
+<pre><code class="ruby">class Bum
+  attr_accessor :pants
+  delegate :smelly?, :to =&gt; :pants
+end
+</code></pre>
+<p>We want to ask;</p>
+<pre><code class="ruby">bum.smelly?
+</code></pre>
+<p>clearly if the bum has pants, then it&#8217;s only smelly if the pants are smelly<br/> that&#8217;s cool,<br/> but what if the bum has no pants?</p>
+<pre><code class="ruby">&gt;&gt; bum.pants
+=&gt; nil
+
+&gt;&gt; bum.smelly?
+   NoMethodError: You have a nil object when you didn't expect it!
+   The error occurred while evaluating nil.smelly?
+     from (__DELEGATION__):2:in `__send__'
+     from (__DELEGATION__):2:in `smelly?'
+     from (irb):7
+</code></pre>
+<p>this needs to be fixed,<br/> but how?<br/> by default we&#8217;d expect it to be nil,<br/> but perhaps we want to assume that actually they&#8217;re smelly by default<br/> but what syntax?</p>
+<pre><code class="ruby">delegate :smelly, :to =&gt; :pants, :default =&gt; true
+</code></pre>
+<p>perhaps?</p>

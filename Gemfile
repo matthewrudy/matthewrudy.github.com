@@ -1,6 +1,8 @@
 source "http://rubygems.org"
 
 group :development do
+  gem 'nokogiri'
+  gem 'json'
   gem 'rake', '~> 0.9'
   gem 'rack', '~> 1.4.1'
   gem 'jekyll', '~> 0.12'

@@ -1,0 +1,12 @@
+---
+layout: post
+title: How big is my MySQL database?
+tags:
+- mysql
+---
+<pre><code class="mysql">mysql&gt; SELECT table_schema,<br/>  sum(data_length) / 1024 / 1024 "data",<br/>  sum(index_length) / 1024 / 1024 "index",<br/>  sum( data_length + index_length ) / 1024 / 1024 "total"<br/>FROM information_schema.TABLES<br/>GROUP BY table_schema \G;<br/><br/>*************************** 1. row ***************************<br/>table_schema: aardvarks_development<br/>        data: 5297.32812500<br/>       index: 4407.93750000<br/>       total: 9705.26562500<br/>*************************** 2. row ***************************<br/>table_schema: aardvarks_test<br/>        data: 0.09375000<br/>       index: 0.25000000<br/>       total: 0.34375000<br/>*************************** 3. row ***************************<br/>table_schema: badgers_development<br/>        data: 13.59375000<br/>       index: 16.60937500<br/>       total: 30.2031250</code></pre>
+<p>as you can see, aardvarks_developpment is almost taking up 10gig</p>
+<p>if we only care about &#8220;test&#8221; databases, we can add a condition on &#8220;table_schema&#8221;</p>
+<pre><code class="mysql">mysql&gt; SELECT table_schema,<br/>  sum(data_length) / 1024 / 1024 "data",<br/>  sum(index_length) / 1024 / 1024 "index",<br/>  sum( data_length + index_length ) / 1024 / 1024 "total"<br/>FROM information_schema.TABLES<br/>WHERE table_schema like "%_test"<br/>GROUP BY table_schema \G;<br/><br/>*************************** 1. row ***************************<br/>table_schema: aardvarks_test<br/>        data: 0.09375000<br/>       index: 0.25000000<br/>       total: 0.3437500</code></pre>
+<p>Boom!</p>
+<p>(credit to <a title="Paul Butcher" href="http://www.paulbutcher.com">Paul Butcher</a> for the query)</p>

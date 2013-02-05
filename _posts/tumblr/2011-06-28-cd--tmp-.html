@@ -1,0 +1,52 @@
+---
+layout: post
+title: cd -Tmp-
+tags:
+- bash
+- cd
+---
+<p>How do I cd to a directory starting with a hypen (-)?</p>
+<p><span>
+<pre># /var/folders/*whatever*/ has a folder named '-Tmp-'
+$ ls
+-Caches-/ -Tmp-/ 
+
+# lets try and CD there
+$ cd -Tmp-
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# or maybe make sure its a directory
+$ cd -Tmp-/
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# try and escape the first -
+$ cd \-Tmp-
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# quote it
+$ cd '-Tmp-'
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# double quote it
+$ cd "-Tmp-"
+-bash: cd: -T: invalid option
+cd: usage: cd [-L|-P] [dir]
+
+# escape it in the quotes
+$ cd '\-Tmp-'
+-bash: cd: \-Tmp-: No such file or directory
+
+# escape it in the double quotes
+$ cd "\-Tmp-"
+-bash: cd: \-Tmp-: No such file or directory
+
+# try a "./" hack
+$ cd ./-Tmp-/
+
+$ echo "WHOOP"
+WHOOP</pre>
+</span></p>

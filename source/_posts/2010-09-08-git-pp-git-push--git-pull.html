@@ -1,0 +1,28 @@
+---
+layout: post
+title: git pp (git push && git pull)
+tags:
+- git
+- alias
+- config
+---
+<p>I am addicted to committing (not commitment).</p>
+<p>I make small, distinct commits all the time.</p>
+<p>But the consequence of this is</p>
+<blockquote>
+<p>$ git push origin master</p>
+<p>To git@myServer:myRepo.git<br/> &#160;! [rejected]        master -&gt; master (non-fast-forward)<br/>  error: failed to push some refs to &#8216;git@myServer:myRepo.git&#8217;</p>
+<p>To prevent you from losing history, non-fast-forward updates were rejected</p>
+<p>Merge the remote changes (e.g. &#8216;git pull&#8217;) before pushing again.  See the<br/>&#8216;Note about fast-forwards&#8217; section of &#8216;git push &#8212;help&#8217; for details.</p>
+</blockquote>
+<p>I hate getting push failures.</p>
+<p>But I don&#8217;t trust myself to do a pull beforehand.</p>
+<p>Enter a git alias!</p>
+<blockquote>
+<p>$ cat ~/.gitconfig <br/>[alias]<br/>    pp =&#160;!sh -c &#8216;git pull $0 $1 &amp;&amp; git push $0 $1&#8217;</p>
+</blockquote>
+<p>Now I am free to &#8220;git pp origin master&#8221; as much as I want.</p>
+<blockquote>
+<p>$ git pp origin master</p>
+From myServer:myRepo<br/> * branch            master     -&gt; FETCH_HEAD<br/>Already up-to-date.<br/>Everything up-to-date<br/></blockquote>
+<p>SAFE!</p>

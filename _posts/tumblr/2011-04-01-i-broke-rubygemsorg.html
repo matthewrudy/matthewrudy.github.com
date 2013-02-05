@@ -1,0 +1,21 @@
+---
+layout: post
+title: I broke RubyGems.org
+tags:
+- unicode
+- ruby
+- gems
+---
+<p>Yes that&#8217;s right.</p>
+<p>I broke RubyGems.org.</p>
+<p>No April Fools Joke! (although this did happen after midnight HKT)</p>
+<p>&#8230; I&#8217;ve hidden the cause so they have a chance to fix it&#8230;</p>
+<p>&#8230; but its a unicode thing &#8230;</p>
+<blockquote></blockquote>
+<p>I packaged it with <a title="gem-this makes you a simple `gem this` away from releasing a gem!" href="https://github.com/lazyatom/gem-this">gem-this</a>,  and did a `gem push` it turned out <a href="http://rubygems.org">http://rubygems.org</a> was down!</p>
+<p>I went to bed hoping it would go away, and woke up on April 1st morning to find an email;</p>
+<blockquote>
+<p><span>Hi Matthew! Looks like you just found a bug that made our homepage unhappy.<br/><br/>=&gt; #&lt;Rubygem id: 39928, name: &#8230;,<br/><br/>I straight up deleted that gem. Can you send or paste the gem/gemspec<br/>with that so we can make sure this doesn&#8217;t happen again?<br/><br/>-Nick</span></p>
+</blockquote>
+<p><span>So, there you go!</span></p>
+<p><span>Rubygems.org currently can&#8217;t support unicode gem names!</span></p>

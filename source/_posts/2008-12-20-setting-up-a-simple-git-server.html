@@ -1,0 +1,32 @@
+---
+layout: post
+title: setting up a simple git server
+tags:
+- git
+- server
+- sysadmin
+- tutorial
+---
+<p>On the internet you&#8217;ll see people talking about <a title="Gitosis is a heavyweight git server, apparently." href="http://twitter.com/craigwebster/statuses/1032437697">Gitosis</a>, or just giving over all of their git requirements to <a title="Yeah, I love my github." href="http://github.com/matthewrudy">github</a>.</p>
+<p>Github is great, but if you just want to do a small personal project, with an off-site repository, go set up your <a title="I use Tagadab for my virtual server. Just a 256meg, but it does very little work." href="http://tagadab.com/virtual-private-servers">VPS</a> as your main git server.</p>
+<p>Here&#8217;s how you do it.</p>
+<ol><li>
+<h3>create a &#8220;git&#8221; user</h3>
+<pre><code class="bash">sudo adduser git</code></pre>
+</li>
+<li>
+<h3>add your ssh keys to that user</h3>
+<pre><code class="bash">ssh-copy-id git@my.com</code></pre>
+</li>
+<li>
+<h3>create a &#8220;bare&#8221; repository on your server</h3>
+<pre><code class="bash">mkdir myRepo.git
+git --bare init</code></pre>
+</li>
+<li>
+<h3>add this as a remote source</h3>
+<pre><code class="bash">git remote add origin git@my.com:myRepo.git
+git push origin master</code></pre>
+</li>
+</ol><p>BOOM! that is literally all it takes!</p>
+<p><i>Thanks to <a title="commonthread.com is where I learnt this all." href="http://blog.commonthread.com/2008/4/14/setting-up-a-git-server">CommonThread</a> for his tutorial on doing this.</i></p>

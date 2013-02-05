@@ -1,0 +1,38 @@
+---
+layout: post
+title: I forgot to commit to a feature branch!
+tags:
+- git
+- undo
+---
+<p>So I just committed to master</p>
+<pre>commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a
+Author: Jeffrey Giraffe &lt;Jeffrey.T.Giraffe@gmail.com&gt;
+Date:   Wed May 18 18:22:22 2011 +0800
+  Started work on an exciting new feature.
+</pre>
+<p>But I shouldn&#8217;t have.</p>
+<p>All features should be in a &#8220;feature branch&#8221;</p>
+<p>How do I move my commit onto a different branch?</p>
+<p>Luckily I haven&#8217;t pushed yet.</p>
+<p>So just start my &#8220;feature branch&#8221; right now.</p>
+<pre>git checkout -b exciting-new-feature
+git push origin exciting-new-feature</pre>
+<p>Then go back to master, and undo the commit</p>
+<pre>git checkout master
+git reset --hard HEAD~1</pre>
+<p>Or if there are 3 commits</p>
+<pre>git reset --hard HEAD~3</pre>
+<p>Of course, if I&#8217;ve already pushed this would be a little more tricky.</p>
+<p>I suggest (for verbosity) you shouldn&#8217;t try to do anything fancy.</p>
+<p>Just revert it</p>
+<pre>git revert HEAD</pre>
+<p>and humbly explain why</p>
+<pre>Revert "Started work on an exciting new feature."
+
+This commit is not ready to be on master yet,
+and has been moved onto the branch "exciting-new-feature"
+
+This reverts commit b17a1fbe8f5d59c24a1f2bb50c9905f8345263f5a.
+</pre>
+<p>Boom!</p>

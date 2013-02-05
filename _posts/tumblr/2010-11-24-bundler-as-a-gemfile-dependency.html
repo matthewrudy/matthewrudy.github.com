@@ -1,0 +1,28 @@
+---
+layout: post
+title: Bundler as a Gemfile dependency
+tags:
+- ruby
+- bundler
+- gem
+---
+<p>Bundler is still a work in progress, so you can expect things to change.</p>
+<p>One of these things that has changed between Bundler 1.0.6 and Bundler 1.0.7 is that the &#8220;METADATA&#8221; field has been removed.</p>
+<p>So I&#8217;m running Bundler 1.0.7 (with no METADATA) and my colleagues are running 1.0.6 (with METADATA)</p>
+<p>I keep getting this diff.</p>
+<blockquote>$ git diff Gemfile.lock<br/>diff &#8212;git a/Gemfile.lock b/Gemfile.lock<br/>index ec585b3..ee6ba65&#160;100644<br/>&#8212;- a/Gemfile.lock<br/>+++ b/Gemfile.lock<br/>@@ -221,3 +221,7 @@ DEPENDENCIES<br/>   whitelist_mail_proxy<br/>   will_paginate!<br/>   zipruby<br/>-<br/>-<br/>-METADATA<br/>-  version: 1.0.6<br/></blockquote>
+<p>I want bundler to manage itself</p>
+<blockquote>
+<p># self-referential<br/>gem &#8220;bundler&#8221;, &#8220;&gt;=1.0.7&#8221;</p>
+</blockquote>
+<p>And it works</p>
+<p>but the message is a bit unpretty</p>
+<blockquote>
+<p>RudiMac:merlot matthew$ bundle install<br/><br/>Fetching source index for <a href="http://rubygems.org/">http://rubygems.org/</a><br/>Bundler could not find compatible versions for gem &#8220;bundler&#8221;:<br/>  In Gemfile:<br/>    bundler (&gt;= 1.0.7)<br/><br/>  Current Bundler version:<br/>    bundler (1.0.6)<br/><br/>Your version of Bundler is older than the one requested by the Gemfile.<br/>Perhaps you need to update Bundler by running `gem install bundler`.</p>
+</blockquote>
+<p>I need to use &#8220;gem install&#8221;?</p>
+<p>I wonder if we can patch bundler to install itself.</p>
+<p><em>I recommend you always have a &#8220;&gt;= x.x.x&#8221;&#8230; just for jokes try setting</em></p>
+<blockquote>
+<p>gem &#8220;bundler&#8221;, &#8220;1.0.6&#8221;</p>
+</blockquote>

@@ -1,0 +1,18 @@
+---
+layout: post
+title: Updating RubyGems on Ubuntu 9.04
+tags:
+- ruby
+- gems
+- rubygems
+- ubuntu
+- install
+- update
+---
+<p>I don&#8217;t know how many times I&#8217;ve had to do this.</p>
+<p>But every time I install Ubuntu again, I get this;</p>
+<pre><code class="bash">matthew@Rudyness:~$ sudo gem update --system<br/>ERROR: While executing gem ... (RuntimeError)<br/>gem update --system is disabled on Debian. RubyGems can be updated using the official Debian repositories by aptitude or apt-get.<br/></code></pre>
+<p>The simple fix;</p>
+<pre><code class="bash">matthew@Rudyness:~$ sudo gem install rubygems-update<br/>Successfully installed rubygems-update-1.3.5<br/>1 gem installed<br/>Installing ri documentation for rubygems-update-1.3.5...<br/>Installing RDoc documentation for rubygems-update-1.3.5...<br/>matthew@Rudyness:~$ sudo /var/lib/gems/1.8/bin/update_rubygems <br/>Installing RubyGems 1.3.5<br/>RubyGems 1.3.5 installed<br/><br/>RubyGems installed the following executables:<br/>	/usr/bin/gem1.8<br/><br/>matthew@Rudyness:~$ gem --version<br/>1.3.5<br/></code></pre>
+<p>From now on you can &#8220;sudo gem update &#8212;system&#8221; as much as you want.</p>
+<p>Sweetness.</p>

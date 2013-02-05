@@ -1,0 +1,41 @@
+---
+layout: post
+title: Ruby Enterprise Edition still faster than Ruby 1.9.2?
+tags:
+- ruby
+- '1.9'
+- enterprise
+- testing
+- benchmarks
+---
+<p>With Ruby 1.9.2 due to ship on July 31st, I thought I&#8217;d take Ruby 1.9.2 preview 3 for a spin.</p>
+<p>A quick&#8230;</p>
+<blockquote>
+<p>rvm install ruby-1.9.2-preview3</p>
+<p>gem install rails prawn erubis</p>
+</blockquote>
+<p>&#8230; and we&#8217;re done.</p>
+<p>But is it any faster than REE?</p>
+<p><strong>What does it mean to be faster?</strong></p>
+<p>Perhaps all I care about is how fast my tests run</p>
+<blockquote>
+<p>rvm use ruby-1.9.2-preview3</p>
+<p>time rake</p>
+<p>rvm use ree</p>
+<p>time rake</p>
+<p># repeat..</p>
+</blockquote>
+<p><strong>My app:</strong></p>
+<ul><li> Rails 2.3.6</li>
+<li>rails_xss</li>
+<li>postgres</li>
+<li>~25 models</li>
+<li>~25 controllers</li>
+</ul><p><strong>My test suite:</strong></p>
+<ul><li>~1700 assertions</li>
+<li>~95% <a title="rcov_rails for rails coverage" href="http://github.com/matthewrudy/rcov_rails">code coverage</a></li>
+</ul><p><strong>Results;</strong></p>
+<script src="http://gist.github.com/421949.js?file=ruby-1.9.2-vs-ree-test-suite"></script><p>So REE is consistently 10% faster at running my test suite than Ruby 1.9.2-preview3</p>
+<p><strong>Does this matter?</strong></p>
+<p>Probably not&#8230; but maybe I can use those extra 5 seconds.</p>
+<p><em>(can&#8217;t wait to see if the <a href="http://www.youtube.com/watch?v=ghLCtCwAKqQ">Phusion.nl</a> guys can make Ruby 1.9.2 faster&#8230; )</em></p>

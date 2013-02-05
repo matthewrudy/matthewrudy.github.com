@@ -1,0 +1,29 @@
+---
+layout: post
+title: ssh -D is your friend!
+tags:
+- ssh
+- proxy
+- vps
+- socks
+- firewall
+---
+<blockquote>
+<p>Are you stuck behind a firewall?</p>
+<p>Does your work block access to facebook?</p>
+<p>Do you want to watch English Telly from abroad?</p>
+</blockquote>
+<p><strong>SSH -D is your friend.</strong></p>
+<p><br/>All you need to bypass the firewall;</p>
+<ul><li>ssh access to a VPS</li>
+<li>ssh -D8080 me@myserver.com // keep this open</li>
+<li>go to your browser</li>
+<li>set &#8220;connect via SOCKS proxy&#8221; on port 8080</li>
+<li>keep the ssh connection open</li>
+<li>voila!</li>
+</ul><p>Your internet access is now piped via your VPS.</p>
+<p>This means;</p>
+<ul><li>if it is in the UK you can access iPlayer</li>
+<li>if it is in the US you can access Hulu</li>
+<li>if you were in China you can access&#8230; everything</li>
+</ul><p>Boom ting!</p>

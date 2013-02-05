@@ -1,0 +1,18 @@
+---
+layout: post
+title: The daily `bundle update`
+tags: 
+---
+<p>A typical process for me is like this.</p>
+<p>I start off with</p>
+<ul><li>a dependency on Rails 3.1.10</li>
+<li>a dependency on <em>any version</em> of koala</li>
+</ul><p>So my Gemfile says exactly this</p>
+<pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"koala"</span></code></pre>
+<p>Every day I do a <code>bundle update</code>. Sometimes there are new versions of gems, sometimes there aren&#8217;t.</p>
+<p>One day there is a new version of <code>koala</code> released <code>koala (1.6.0)</code></p>
+<p>When I do my daily <code>bundle update</code> everything breaks. It turns out that <code>koala (1.6.0)</code> relies upon<code>faraday (0.8)</code>.</p>
+<p>For some reason this breaks my app.</p>
+<p>So I realise I have a new dependency, and I add it to my Gemfile.</p>
+<pre class="lang-rb prettyprint prettyprinted"><code><span class="pln">gem </span><span class="str">"rails"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3.1.10"</span><span class="pln"> gem </span><span class="str">"faraday"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"0.7"</span><span class="pln"> </span><span class="com"># 0.8 breaks for some reason</span></code></pre>
+<p>Dealing with these problems in small doses, on a daily basis, makes it easier to deal with.</p>

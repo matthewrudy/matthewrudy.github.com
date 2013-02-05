@@ -1,0 +1,46 @@
+---
+layout: post
+title: Rails + Rack Middleware
+tags:
+- ruby
+- rails
+- rack
+- metal
+---
+<p>Rails just released <a title="Josh Peek's commit on Github" href="http://github.com/rails/rails/commit/8c3a54366435eebc2c8aa63b63e1349ce74a7b38">Metal</a>!</p>
+<p>Giving us a great framework to build custom Rack processors alongside our application.</p>
+<p>Check out <a title="Metal as a Rails micro framework" href="http://soylentfoo.jnewland.com/articles/2008/12/16/rails-metal-a-micro-framework-with-the-power-of-rails-m">this great article</a> over at Soylent Foo.</p>
+<p>Recently we had a problem where Microsoft Office was somehow issuing OPTIONS request to our site.</p>
+<p>This was blowing up our RESTful controllers that weren&#8217;t invited to the OPTIONS party.</p>
+<p>We played with Apache rewrites based on REQUEST_METHOD,</p>
+<p>but ultimately, we wasted a lot of time fighting against Rails and routing exceptions, blahblahblah.</p>
+<p>But now Rails is running off Rack we can deal with it the correct way.</p>
+<pre><code class="ruby">class OptionsCatcher &lt; Rails::Rack::Metal
+  def call(env)
+    if env["REQUEST_METHOD"] =~ /OPTIONS/i
+      [403, {"Content-Type" =&gt; "text/html"}, "OPTIONS requests are forbidden"]
+    else
+      super
+    end
+  end
+end</code></pre>
+<p>B00M!</p>
+<p>Now this is technically just middleware, and should be declared with a</p>
+<pre><code class="ruby">config.middleware.use OptionsCatcher</code></pre>
+<p>and in lib/options_catcher.rb</p>
+<pre><code class="ruby">class OptionsMiddleware
+  def initialize(app)
+    @app = app
+  end
+  
+  def call(env)
+    if env["REQUEST_METHOD"] =~ /OPTIONS/i
+      [403, {"Content-Type" =&gt; "text/html"}, "OPTIONS requests are forbidden"]
+    else
+      @app.call(env)
+    end
+  end
+end</code></pre>
+<p>but doing it as a Metal makes sense, and is easier than remembering the structure of middleware each time</p>
+<p>But there seems to be a problem at the moment with this.</p>
+<p>Will try and get a proper Metal working shortly.</p>

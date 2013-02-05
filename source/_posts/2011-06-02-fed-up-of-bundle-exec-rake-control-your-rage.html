@@ -1,0 +1,39 @@
+---
+layout: post
+title: Fed up of `bundle exec rake`? Control your `rage`!
+tags:
+- gist
+- rake
+- bash
+---
+<p>For the past year we&#8217;ve all been happy.</p>
+<p>rake was stable at 0.8.7</p>
+<p>You could run</p>
+<pre>rake</pre>
+<p>In any project and it&#8217;d just work.</p>
+<p>But now, with the release of rake 0.9.0, sometimes we get this</p>
+<pre>RudiMac:3rdhome matthew$ rake
+rake aborted!
+You have already activated rake 0.9.0,
+but your Gemfile requires rake 0.8.7.
+Consider using bundle exec.
+
+(See full trace by running task with --trace)
+</pre>
+<p>And there&#8217;s a simple solution.</p>
+<h2><a href="https://gist.github.com/1003927">RAGE!</a></h2>
+<pre>#!/usr/bin/env bash
+if [ -f Gemfile ]; then
+  bundle exec rake $@
+else
+  rake $@
+fi</pre>
+<p>Either copy and paste <a href="https://gist.github.com/1003927">the gist</a> into an executable (~/bin/rage maybe)</p>
+<p>Or follow these instructions;</p>
+<pre>git clone git://gist.github.com/1003927.git ~/rage-gist
+mkdir ~/bin
+cp ~/rage-gist/rage ~/bin/
+chmod a+x ~/bin/rage</pre>
+<p>As long as ~/bin is in your path you should be set.</p>
+<pre>rage db:migrate test --trace</pre>
+<p>BOOM!</p>

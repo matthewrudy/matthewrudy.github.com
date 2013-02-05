@@ -1,0 +1,53 @@
+---
+layout: post
+title: Javascript parseInt() may not do what you expect!
+tags: 
+---
+<p>I was shocked today to find I&#8217;d introduced a bug.</p>
+<p>It manifested itself like this;</p>
+<p><img src="http://media.tumblr.com/tumblr_lcudp52ibv1qzqesv.png"/></p>
+<p>This might seem ok.</p>
+<p>Except the &#8220;Number of repayments&#8221; is set by javascript as;</p>
+<blockquote>
+<p>the number of days interest</p>
+<p>less the number of days before repayment begins</p>
+</blockquote>
+<p>Looking at the dates, the &#8220;number of days before repayment begins&#8221; should be 2.</p>
+<p>But the difference is -6.</p>
+<p>Something is wrong.</p>
+<p>And the answer is here;</p>
+<blockquote>
+<p>var date_from_field = function(field_id) {<br/>  var field = $(&#8220;#&#8221;+field_id);<br/>  var year, month, day;<br/><br/>  var date_bits = field.val().split(&#8220;-&#8220;);<br/>  var year  = parseInt(date_bits[0]);<br/>  var month = parseInt(date_bits[1]);<br/>  var day = parseInt(date_bits[2]);<br/>  <br/>  return new Date(year,month-1,day);<br/>};</p>
+</blockquote>
+<p>I take a date field</p>
+<blockquote>
+<p>&lt;input type=&#8221;date&#8221; value=&#8221;2010-12-08&#8221; /&gt;</p>
+</blockquote>
+<p>I grab the value</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;</p>
+</blockquote>
+<p>I split it into year, month, and day</p>
+<blockquote>
+<p>[&#8220;2010&#8221;, &#8220;12&#8221;, &#8220;08&#8221;]</p>
+</blockquote>
+<p>I turn them into integers</p>
+<blockquote>
+<p>[2010, 12, 0]</p>
+</blockquote>
+<p>Then I make them into a date</p>
+<blockquote>
+<p>new Date(2010,11,0); // Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>No problem!</p>
+<p>Except&#8230;</p>
+<blockquote>
+<p>&#8220;2010-12-08&#8221;&#160;!= Tue Nov 30&#160;2010</p>
+</blockquote>
+<p>The problem is</p>
+<blockquote>
+<p><strong>parseInt(&#8220;08&#8221;) == 0</strong></p>
+<p><strong>parseInt(&#8220;08&#8221;, 10) == 8<br/></strong></p>
+</blockquote>
+<p>&#8220;08&#8221; is 0 in octal</p>
+<p><strong>Always use parseInt(something, 10)<br/></strong></p>

@@ -1,0 +1,37 @@
+---
+layout: post
+title: Securing CruiseControl.rb on Nginx
+tags:
+- nginx cruisecontrol
+---
+<p>CruiseControl is great</p>
+<p>Quick and easy to setup</p>
+<p>But takes a few minutes to work out how to secure it.</p>
+
+<p>we start cruise;</p>
+<pre><code class="bash">cruise@MerlotBuild:~/cruisecontrol.rb$ ./cruise start -d
+=&gt; Booting Mongrel
+=&gt; Rails 2.3.2 application starting on <a href="http://0.0.0.0:3333">http://0.0.0.0:3333</a>
+</code></pre>
+<p>Going directly by IP <a href="http://94.102.144.37:3333">http://94.102.144.37:3333</a> we get our cruise install.</p>
+<p>But that&#8217;s not good enough, we need to secure it from the outside world</p>
+<p>In Nginx we do this;</p>
+<pre><code class="bash">server {
+  listen 80;
+  server_name cruise.matthewrudy.com;
+  
+  auth_basic "Access";
+  auth_basic_user_file /opt/nginx/conf/htpasswd;
+
+  location / {
+    proxy_pass http://localhost:3333;
+  }
+}
+</code></pre>
+<p>And we&#8217;re almost done</p>
+<p>Except <a href="http://94.102.144.37:3333">http://94.102.144.37:3333</a> still works, as mongrel allows requests from any host name</p>
+<pre><code class="bash">cruise@MerlotBuild:~/cruisecontrol.rb$ ./cruise start -d -b 127.0.0.1
+=&gt; Booting Mongrel
+=&gt; Rails 2.3.2 application starting on <a href="http://127.0.0.1:3333">http://127.0.0.1:3333</a>
+</code></pre>
+<p>Does the job&#8230; home&#8230; secure&#8230; safe?</p>

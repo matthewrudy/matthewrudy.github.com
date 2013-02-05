@@ -4,7 +4,7 @@
   <title><![CDATA[RudyGems]]></title>
   <link href="http://matthewrudy.github.com/atom.xml" rel="self"/>
   <link href="http://matthewrudy.github.com/"/>
-  <updated>2013-02-05T01:01:25+00:00</updated>
+  <updated>2013-02-05T01:04:36+00:00</updated>
   <id>http://matthewrudy.github.com/</id>
   <author>
     <name><![CDATA[Matthew Rudy]]></name>
@@ -12,17 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Test Post about something]]></title>
-    <link href="http://matthewrudy.github.com/blog/2013/02/05/test-post-about-something/"/>
-    <updated>2013-02-05T00:03:00+00:00</updated>
-    <id>http://matthewrudy.github.com/blog/2013/02/05/test-post-about-something</id>
-    <content type="html"><![CDATA[<p>Something</p>
-
-<p>Something else</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Configuring foreman for Production and Development]]></title>
@@ -888,6 +877,35 @@ puts "我吃了狗吗？#{我.吃了?(狗)}"</code></pre>
 <li>if it is in the US you can access Hulu</li>
 <li>if you were in China you can access&#8230; everything</li>
 </ul><p>Boom ting!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 3 doesn't allow "open" as a Named Scope]]></title>
+    <link href="http://matthewrudy.github.com/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/"/>
+    <updated>2010-03-01T00:00:00+00:00</updated>
+    <id>http://matthewrudy.github.com/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope</id>
+    <content type="html"><![CDATA[<p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
+<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
+<p>But this one kind of annoys me.</p>
+<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
+<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
+<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
+<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
+<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
+<p>So here&#8217;s a quick hack I put in an initializer</p>
+<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
+require 'active_record'
+class ActiveRecord::Base
+  class &lt;&lt; self
+    alias :_open :open
+    undef_method :open
+  end
+end</code></pre>
+<p>And we&#8217;re done&#8230;</p>
+<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
+<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
+<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
 ]]></content>
   </entry>
   

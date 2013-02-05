@@ -9,9 +9,10 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="Rails 3 has involved rewriting pretty much the whole codebase,
-Rails 3 gives off the fragrance of a coherent, cohesive framework.
-But this one kind &hellip;">
+  <meta name="description" content="CruiseControl is great
+Quick and easy to setup
+But takes a few minutes to work out how to secure it. we start cruise;
+cruise@MerlotBuild:~/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,62 +66,6 @@ But this one kind &hellip;">
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/01/rails-3-doesnt-allow-open-as-a-named-scope/">Rails 3 Doesn&#8217;t Allow &#8220;Open&#8221; as a Named Scope</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-01T00:00:00+00:00" pubdate data-updated="true">Mar 1<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails 3 has involved rewriting pretty much the whole codebase,</p>
-<p>Rails 3 gives off the fragrance of a coherent, cohesive framework.</p>
-<p>But this one kind of annoys me.</p>
-<blockquote>/Users/matthew/.bundle/ruby/1.8/bundler/gems/rails-16a5e918a06649ffac24fd5873b875daf66212ad-master/activerecord/lib/active_record/named_scope.rb:104:in `scope&#8217;: Cannot define scope :open because AbcDef.open method already exists. (ArgumentError)</blockquote>
-<p>So, in Rails 3, when defining a named scope, we can&#8217;t override an existing method.</p>
-<p>This all makes sense, we don&#8217;t want to inadvertently break anything (although I&#8217;d hope your test would catch such a thing)</p>
-<p>But unfortunately, every object in Ruby has an &#8220;open&#8221; method&#8230; so &#8220;open&#8221; suddenly is off the market for named scopes&#8230; bummer</p>
-<p>I spent most of day trying to sort this out&#8230; writing a patch&#8230; trying to convince people to apply it&#8230; but the rails core guys wouldn&#8217;t budge.</p>
-<p>So here&#8217;s a quick hack I put in an initializer</p>
-<pre><code class="ruby"># config/initializers/allow_open_as_a_named_scope.rb
-require 'active_record'
-class ActiveRecord::Base
-  class &lt;&lt; self
-    alias :_open :open
-    undef_method :open
-  end
-end</code></pre>
-<p>And we&#8217;re done&#8230;</p>
-<p>Kind of annoying though. I use &#8220;open&#8221; all the time, because it makes sense</p>
-<p>I&#8217;d prefer it if active record just made a logger.warn, and let me make my own decisions</p>
-<p><a href="http://github.com/matthewrudy/rude-rails/tree/make_named_scopes_warn_rather_than_raise">My Fork of rails</a>, <a href="http://github.com/matthewrudy/rails3-doesnt-allow-open-as-a-named-scope">My Example of the bug</a>, <a href="http://gist.github.com/306330">My Undef_Method hack</a></p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -638,6 +583,50 @@ end</code></pre>
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/17/solrquery---build-your-solr-queries-dynamically-in-ruby/">SolrQuery - Build Your Solr Queries Dynamically in Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-17T00:00:00+00:00" pubdate data-updated="true">Nov 17<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been using ActsAsSolr for about 6 months.</p>
+<p>And at work I developed some code to make SOLR queries work a bit like the conditions in ActiveRecord.</p>
+<p>Check out my library at Github. <a href="http://github.com/matthewrudy/solr_query">http://github.com/matthewrudy/solr_query</a></p>
+<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "Feather duster"
+=&gt; "feather duster"</code></pre>
+<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "clean",
+                :organisation =&gt; [organisation1, organisation2])<br/>=&gt; "clean AND organisation:(275 OR 6534)"</code></pre>
+<p>Wicked!</p>
+<p>Check out the readme for more examples.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -655,10 +644,6 @@ end</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/02/05/test-post-about-something/">Test Post about something</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2013/01/13/configuring-foreman-for-production-and-development/">Configuring foreman for Production and Development</a>
       </li>
     
@@ -672,6 +657,10 @@ end</code></pre>
     
       <li class="post">
         <a href="/blog/2011/06/02/fed-up-of-bundle-exec-rake-control-your-rage/">Fed up of `bundle exec rake`? Control your `rage`!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/05/18/i-forgot-to-commit-to-a-feature-branch/">I forgot to commit to a feature branch!</a>
       </li>
     
   </ul>

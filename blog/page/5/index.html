@@ -9,10 +9,13 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="So we have;
+  <meta name="description" content="So we have; 1
+2
+3
+4
 class Bum attr_accessor :pants delegate :smelly?, :to =&gt; :pants
-end We want to ask;
-bum.smelly? clearly if the bum has pants, then it &hellip;">
+end We want to ask; 1
+bum.smelly? clearly if the bum has pants &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,28 +99,61 @@ bum.smelly? clearly if the bum has pants, then it &hellip;">
 
 
   <div class="entry-content"><p>So we have;</p>
-<pre><code class="ruby">class Bum
-  attr_accessor :pants
-  delegate :smelly?, :to =&gt; :pants
-end
-</code></pre>
-<p>We want to ask;</p>
-<pre><code class="ruby">bum.smelly?
-</code></pre>
-<p>clearly if the bum has pants, then it&#8217;s only smelly if the pants are smelly<br/> that&#8217;s cool,<br/> but what if the bum has no pants?</p>
-<pre><code class="ruby">&gt;&gt; bum.pants
-=&gt; nil
 
-&gt;&gt; bum.smelly?
-   NoMethodError: You have a nil object when you didn't expect it!
-   The error occurred while evaluating nil.smelly?
-     from (__DELEGATION__):2:in `__send__'
-     from (__DELEGATION__):2:in `smelly?'
-     from (irb):7
-</code></pre>
-<p>this needs to be fixed,<br/> but how?<br/> by default we&#8217;d expect it to be nil,<br/> but perhaps we want to assume that actually they&#8217;re smelly by default<br/> but what syntax?</p>
-<pre><code class="ruby">delegate :smelly, :to =&gt; :pants, :default =&gt; true
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Bum</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:pants</span>
+</span><span class='line'>  <span class="n">delegate</span> <span class="ss">:smelly?</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:pants</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We want to ask;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bum</span><span class="o">.</span><span class="n">smelly?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>clearly if the bum has pants, then it&#8217;s only smelly if the pants are smelly
+that&#8217;s cool,
+but what if the bum has no pants?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;&gt;</span> <span class="n">bum</span><span class="o">.</span><span class="n">pants</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="kp">nil</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&gt;&gt;</span> <span class="n">bum</span><span class="o">.</span><span class="n">smelly?</span>
+</span><span class='line'>   <span class="ss">NoMethodError</span><span class="p">:</span> <span class="no">You</span> <span class="n">have</span> <span class="n">a</span> <span class="kp">nil</span> <span class="n">object</span> <span class="k">when</span> <span class="n">you</span> <span class="n">didn</span><span class="s1">&#39;t expect it!</span>
+</span><span class='line'><span class="s1">   The error occurred while evaluating nil.smelly?</span>
+</span><span class='line'><span class="s1">     from (__DELEGATION__):2:in `__send__&#39;</span>
+</span><span class='line'>     <span class="n">from</span> <span class="p">(</span><span class="n">__DELEGATION__</span><span class="p">):</span><span class="mi">2</span><span class="ss">:in</span> <span class="sb">`smelly?&#39;</span>
+</span><span class='line'><span class="sb">     from (irb):7</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>this needs to be fixed,
+but how?
+by default we&#8217;d expect it to be nil,
+but perhaps we want to assume that actually they&#8217;re smelly by default
+but what syntax?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">delegate</span> <span class="ss">:smelly</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:pants</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>perhaps?</p>
 </div>
   

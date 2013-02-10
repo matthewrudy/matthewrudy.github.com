@@ -214,13 +214,22 @@ deploy@jgp-web01:/var/www/oursite$ &hellip;">
 
 
   <div class="entry-content"><p>A <a href="http://googleappengine.blogspot.com/2008/10/google-app-engine-roadmap-now-published.html">recent post</a> on the Google App Engine blog refers to;</p>
-<blockquote>&#8220;Support for a new runtime language&#8221;</blockquote>
-<p>That&#8217;s got to be ruby&#8230;</p>
-<p>Imagine a bespoke <a href="http://deadprogrammersociety.blogspot.com/2007/10/sinatra-ruby-web-framework-and-why-it.html">Sinatra</a>-style minimal framework, with <a href="http://datamapper.org/doku.php">DataMapper</a> bindings to the <a href="http://sites.google.com/site/io/under-the-covers-of-the-google-app-engine-datastore">Google DataStore</a>.</p>
-<p>No doubt it&#8217;ll be pretty quick to make it work with Merb as well.</p>
+
+<blockquote><p>“Support for a new runtime language”</p></blockquote>
+
+<p>That’s got to be ruby…</p>
+
+<p>Imagine a bespoke <a href="http://deadprogrammersociety.blogspot.com/2007/10/sinatra-ruby-web-framework-and-why-it.html">Sinatra</a>-style minimal framework, with
+<a href="http://datamapper.org/doku.php">DataMapper</a> bindings to the <a href="http://sites.google.com/site/io/under-the-covers-of-the-google-app-engine-datastore">Google DataStore</a>.</p>
+
+<p>No doubt it’ll be pretty quick to make it work with Merb as well.</p>
+
 <p>AWESOME.</p>
+
 <p>Why did google never reply to my job application asking to work on it?</p>
-<p><i>(if you haven&#8217;t seen the videos from last years Google IO, then they&#8217;re well worth watching - <a href="http://sites.google.com/site/io/">here</a>)</i></p>
+
+<p><em>(if you haven’t seen the videos from last years Google IO, then they’re
+well worth watching - <a href="http://sites.google.com/site/io/">here</a>)</em></p>
 </div>
   
   
@@ -299,30 +308,66 @@ before they have a chance.</p></blockquote>&#8212;me, talking to <a href="http:/
 
 
   <div class="entry-content"><p>At work we have the following concept.</p>
-<ol><li>a &#8220;site&#8221; has a subset of our content</li>
+
+<ol>
+<li>a &#8220;site&#8221; has a subset of our content</li>
 <li>a &#8220;site&#8221; has a url - eg. &#8220;oursite.com/stickers&#8221; or &#8220;stickersNOTvicars.com&#8221;</li>
 <li>a &#8220;site&#8221; can have its own customised layout, or fall back to the default one</li>
-</ol><p>How does this work in code?</p>
-<ol><li>site.articles (pretty simple)</li>
+</ol>
+
+
+<p>How does this work in code?</p>
+
+<ol>
+<li>site.articles (pretty simple)</li>
 <li>a whole load of &#8220;route filters&#8221; that match the incoming host</li>
-<li>the code I&#8217;m writing about</li>
-</ol><p>So, historically we did</p>
-<pre><code class="ruby">class ApplicationController
-  layout :determine_layout
-  def determine_layout
-    if File.exists?("#{Rails.root}/public/sites/#{@site.id}/application.rhtml")
-      "../../public/sites/#{@site.id}/application"
-    else
-      "site_default"
-    end
-  end
-end</code></pre>
+<li>the code I’m writing about</li>
+</ol>
+
+
+<p>So, historically we did</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ApplicationController</span>
+</span><span class='line'>  <span class="n">layout</span> <span class="ss">:determine_layout</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">determine_layout</span>
+</span><span class='line'>    <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/sites/</span><span class="si">#{</span><span class="vi">@site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/application.rhtml&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="s2">&quot;../../public/sites/</span><span class="si">#{</span><span class="vi">@site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/application&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="s2">&quot;site_default&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>This was a hack, and it breaks with Rails 2.1.1, so after a day or so playing with the internals of ActionView I discovered this;</p>
-<pre><code class="ruby">append_view_path("#{Rails.root}/public/sites")</code></pre>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">append_view_path</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/sites&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>And it works!</p>
+
 <p>We just need to set;</p>
-<pre><code class="ruby">"#{@site.id}/application"</code></pre>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;</span><span class="si">#{</span><span class="vi">@site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/application&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>as our layout, and we&#8217;re away.</p>
+
 <p>Site-specific layouts that live in /public!</p>
 </div>
   
@@ -359,7 +404,7 @@ end</code></pre>
   </header>
 
 
-  <div class="entry-content"><blockquote>I didn&#8217;t get drunk enough to try the Goggles. Next time!</blockquote>&#8212;
+  <div class="entry-content"><p>I didn’t get drunk enough to try the Goggles. Next time!</p>
 </div>
   
   

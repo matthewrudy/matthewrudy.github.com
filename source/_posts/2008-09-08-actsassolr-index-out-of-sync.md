@@ -8,8 +8,8 @@ tags:
 - fulltext
 - search
 - jgp
+alias: [/post/54205889,/post/54205889/actsassolr-index-out-of-sync]
 ---
-
 Faced with a shocking
 
 ``` ruby

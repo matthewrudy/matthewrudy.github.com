@@ -8,9 +8,12 @@ tags:
 - gem
 - mysql
 - jgp
+alias: [/post/54206126,/post/54206126/need-to-install-mysql-gem-for-osx]
 ---
-<p>&#8230; but getting errors?</p>
-<pre>matthew@iRudy:~/code/rails211again $ sudo gem install mysql
+... but getting errors?
+
+```
+matthew@iRudy:~/code/rails211again $ sudo gem install mysql
 Password:
 Building native extensions.  This could take a while...
 ERROR:  Error installing mysql:
@@ -32,6 +35,10 @@ checking for mysql_query() in -lmysqlclient... no
 Gem files will remain installed in /Library/Ruby/Gems/1.8/gems/mysql-2.7 for inspection.
 
 Results logged to /Library/Ruby/Gems/1.8/gems/mysql-2.7/gem_make.out
-</pre>
-<p>Found the <a href="http://sos.blog-city.com/sudo_gem_install_mysql_on_os_x_with_proper_parameters.htm">fix</a></p>
-<pre><code class="ruby">sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</code></pre>
+```
+
+Found the [fix](http://sos.blog-city.com/sudo_gem_install_mysql_on_os_x_with_proper_parameters.htm)
+
+``` ruby
+sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+```

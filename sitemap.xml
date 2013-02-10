@@ -48,31 +48,27 @@
         <loc>
             http://matthewrudy.github.com/blog/2008/10/24/google-app-engine-to-support-ruby/
         </loc>
-        <lastmod>2013-02-10T22:18:42+00:00</lastmod>
+        <lastmod>2013-02-10T22:20:10+00:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://matthewrudy.github.com/blog/2008/11/01/welcome-home-dhhafter-a-long-time-it-seems-dhh-is-back-actively-commiting-to-railsgetting-ready-for-22-to-be-released-hes-committed-20-times-in-the-past-weekits-nice-to-see/
-        </loc>
-        <lastmod>2013-02-05T00:36:56+00:00</lastmod>
+        <loc>http://matthewrudy.github.com/blog/2008/11/01/welcome-home-dhh/</loc>
+        <lastmod>2013-02-10T22:21:42+00:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://matthewrudy.github.com/blog/2008/11/12/svn-switch-relocate-svnoldserver-svnsshnewserver/
-        </loc>
-        <lastmod>2013-02-05T00:36:56+00:00</lastmod>
+        <loc>http://matthewrudy.github.com/blog/2008/11/12/svn-switch-relocate/</loc>
+        <lastmod>2013-02-10T22:23:44+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://matthewrudy.github.com/blog/2008/11/15/uid-problems-across-a-shared-mount/
         </loc>
-        <lastmod>2013-02-05T00:36:56+00:00</lastmod>
+        <lastmod>2013-02-10T22:27:33+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://matthewrudy.github.com/blog/2008/11/17/solrquery---build-your-solr-queries-dynamically-in-ruby/
         </loc>
-        <lastmod>2013-02-05T00:36:56+00:00</lastmod>
+        <lastmod>2013-02-10T22:28:55+00:00</lastmod>
     </url>
     <url>
         <loc>http://matthewrudy.github.com/blog/2008/11/30/has_one_accessor/</loc>
@@ -218,15 +214,15 @@
     </url>
     <url>
         <loc>http://matthewrudy.github.com/archives/</loc>
-        <lastmod>2013-02-10T22:18:42+00:00</lastmod>
+        <lastmod>2013-02-10T22:28:55+00:00</lastmod>
     </url>
     <url>
         <loc>http://matthewrudy.github.com/blog/archives/</loc>
-        <lastmod>2013-02-10T22:18:42+00:00</lastmod>
+        <lastmod>2013-02-10T22:28:55+00:00</lastmod>
     </url>
     <url>
         <loc>http://matthewrudy.github.com/</loc>
-        <lastmod>2013-02-10T22:18:42+00:00</lastmod>
+        <lastmod>2013-02-10T22:28:55+00:00</lastmod>
     </url>
     <url>
         <loc>http://matthewrudy.github.com/robots.txt</loc>

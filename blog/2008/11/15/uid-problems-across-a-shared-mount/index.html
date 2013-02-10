@@ -9,9 +9,9 @@
   <meta name="author" content="Matthew Rudy">
 
   
-  <meta name="description" content="We just moved to new Ubuntu servers.
-We use file-column (with some modifications) to deal with our file uploads.
-deploy@jgp-web01:/var/www/oursite$ &hellip;">
+  <meta name="description" content="We just moved to new Ubuntu servers. We use file-column (with some modifications) to deal with our file
+uploads. 1
+deploy@jgp-web01:/var/www/oursite &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,17 +92,38 @@ deploy@jgp-web01:/var/www/oursite$ &hellip;">
 
 
 <div class="entry-content"><p>We just moved to new Ubuntu servers.</p>
-<p>We use file-column (with some modifications) to deal with our file uploads.</p>
-<pre><code>deploy@jgp-web01:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 gerhard www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/><br/></code><code>deploy@jgp-web02:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ <br/>total 4<br/>-rw-r--r-- 1 deploy www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt<br/></code><br/></pre>
-<p>If you look carefully, you&#8217;ll see one is owned by &#8220;deploy&#8221; and the other by &#8220;gerhard&#8221;.</p>
+
+<p>We use file-column (with some modifications) to deal with our file
+uploads.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>deploy@jgp-web01:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ total 4-rw-r--r-- 1 gerhard www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txtdeploy@jgp-web02:/var/www/oursite$ ls -l public/uploaded_file/file_name/000/000/051/585/ total 4-rw-r--r-- 1 deploy www-data 2670 2008-11-15 05:09 MatthewJacobsCV.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you look carefully, you’ll see one is owned by <code>deploy</code> and the other
+by <code>gerhard</code>.</p>
+
 <p>These are mounted by NFS, shared across the two computers.</p>
-<p>So these are actually the same file, but with different permissions on each.</p>
-<p>A quick use of the &#8220;id&#8221; command confirmed this;</p>
-<pre><code>deploy@jgp-web01:~$ id deploy<br/>uid=1004(deploy) gid=33(www-data) groups=33(www-data),1005(aspire)<br/><br/>deploy@jgp-web02:~$ id deploy<br/>uid=1002(deploy) gid=33(www-data) groups=33(www-data),1003(aspire)</code></pre>
+
+<p>So these are actually the same file, but with different permissions on
+each.</p>
+
+<p>A quick use of the <code>id</code> command confirmed this;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>deploy@jgp-web01:~$ id deployuid=1004(deploy) gid=33(www-data) groups=33(www-data),1005(aspire)deploy@jgp-web02:~$ id deployuid=1002(deploy) gid=33(www-data) groups=33(www-data),1003(aspire)</span></code></pre></td></tr></table></div></figure>
+
+
 <p>The answer is;</p>
-<pre><code>root@jgp-web01:~# usermod -u 10000 deploy<br/><br/>root@jgp-web02:~# usermod -u 10000 deploy</code></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@jgp-web01:~# usermod -u 10000 deployroot@jgp-web02:~# usermod -u 10000 deploy</span></code></pre></td></tr></table></div></figure>
+
+
 <p>boom!</p>
-<p>Now this is resolved, but you&#8217;ll have to chown all the existing files, back to `deploy`, else they&#8217;ll still be attached to the old uid.</p>
+
+<p>Now this is resolved, but you’ll have to chown all the existing files,
+back to <code>deploy</code>, else they’ll still be attached to the old uid.</p>
 </div>
 
 
@@ -142,7 +163,7 @@ deploy@jgp-web01:/var/www/oursite$ &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2008/11/12/svn-switch-relocate-svnoldserver-svnsshnewserver/" title="Previous Post: svn switch —relocate svn://oldserver svn+ssh://newserver">&laquo; svn switch —relocate svn://oldserver svn+ssh://newserver</a>
+        <a class="basic-alignment left" href="/blog/2008/11/12/svn-switch-relocate/" title="Previous Post: svn switch —relocate svn://oldserver svn+ssh://newserver">&laquo; svn switch —relocate svn://oldserver svn+ssh://newserver</a>
       
       
         <a class="basic-alignment right" href="/blog/2008/11/17/solrquery---build-your-solr-queries-dynamically-in-ruby/" title="Next Post: SolrQuery - build your solr queries dynamically in Ruby">SolrQuery - build your solr queries dynamically in Ruby &raquo;</a>

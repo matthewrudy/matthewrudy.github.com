@@ -611,14 +611,29 @@ end</code></pre>
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve been using ActsAsSolr for about 6 months.</p>
-<p>And at work I developed some code to make SOLR queries work a bit like the conditions in ActiveRecord.</p>
-<p>Check out my library at Github. <a href="http://github.com/matthewrudy/solr_query">http://github.com/matthewrudy/solr_query</a></p>
-<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "Feather duster"
-=&gt; "feather duster"</code></pre>
-<pre><code class="ruby">SolrQuery.build(:keyword =&gt; "clean",
-                :organisation =&gt; [organisation1, organisation2])<br/>=&gt; "clean AND organisation:(275 OR 6534)"</code></pre>
+  <div class="entry-content"><p>I’ve been using ActsAsSolr for about 6 months.</p>
+
+<p>And at work I developed some code to make SOLR queries work a bit like
+the conditions in ActiveRecord.</p>
+
+<p>Check out my library at Github.
+<a href="http://github.com/matthewrudy/solr_query">http://github.com/matthewrudy/solr_query</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">SolrQuery</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="ss">:keyword</span> <span class="o">=&gt;</span> <span class="s2">&quot;Feather duster&quot;</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s2">&quot;feather duster&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">SolrQuery</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="ss">:keyword</span> <span class="o">=&gt;</span> <span class="s2">&quot;clean&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="ss">:organisation</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="n">organisation1</span><span class="p">,</span> <span class="n">organisation2</span><span class="o">]</span><span class="p">)</span><span class="o">=&gt;</span> <span class="s2">&quot;clean AND organisation:(275 OR 6534)&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>Wicked!</p>
+
 <p>Check out the readme for more examples.</p>
 </div>
   
